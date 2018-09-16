@@ -1,0 +1,40 @@
+# ignore compiled files  or sources 
+
+target/
+bin/
+test/resources/Files
+node_modules/
+dist/
+
+# ignore Tool settings data 
+
+.settings 
+.classpath 
+.project
+.DS_Store
+.metadata
+.recommmenders
+.springBeans 
+.bowerrc
+
+
+# ignore experimental code 
+
+typescript/
+typescriptOriginal/
+documentation/
+production
+
+# ignore modules 
+
+# ignore Assets 
+
+ScheduleFiles/
+
+
+# ignore files
+
+package-info.java
+changelog.md
+LICENSE.txt
+README.md

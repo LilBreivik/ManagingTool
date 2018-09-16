@@ -1,0 +1,52 @@
+<html lang="en"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title> Managing-Tool  </title>
+
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="../vendors/animate.css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+  </head>
+
+  <body class="default_page">
+    <div>
+      <div class="default_page_wrapper">
+        <div class="animate form default_page_form">
+          <section class="default_page_content">
+            <form method="POST" id="login_pageForm" action="/perform_login">
+              <h1> Managing-Tool </h1>
+              <div>
+                <input type="text" class="form-control" placeholder="Login-Name" name="loginname" required="">
+              </div>
+              <div>
+                <input type="password" class="form-control" placeholder="Passwort" name="password" required="">
+              </div>
+              <div>
+                 <button type="submit" form="login_pageForm" class="btn btn-success">&nbsp;login&nbsp;</button>
+                    <a class="reset_pass" href="#">&nbsp;Passwort vergessen&nbsp;</a>
+              </div>
+              <div class="clearfix"></div>
+              <div class="separator">
+                <div class="clearfix"></div>
+                <br>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+   
+   </body>
+</html>

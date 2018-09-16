@@ -1,0 +1,5 @@
+DatabaseURL=192.168.2.105:3306/filesStorage
+DatabaseUser=ManagingTool
+DatabasePassword=Ax!Hmq6+XR
+DatabaseDriver=com.mysql.jdbc.Driver
+DatabaseDialect=org.hibernate.dialect.MySQL5Dialect

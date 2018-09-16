@@ -1,0 +1,42 @@
+<div id="scheduleManager">
+
+        <div *ngIf="coursesSchedule">
+
+           <label>&nbsp;Studienfach: </label>
+           <select id="selectedCourseName" class="form-control" (change)="removeCurrentSchedule()" [(ngModel)]="selectedCourseNameValue" >
+                  <option *ngFor="let course of coursesSchedule | coursenames"  > {{ course  }} </option>      
+            </select>
+ 
+            <label>&nbsp;Abschluss: </label>
+            <select id="selectedCourseDegree" class="form-control" (change)="removeCurrentSchedule()" [(ngModel)]="selectedCourseDegreeValue">
+                    <option *ngFor="let course of coursesSchedule | coursedegrees" > {{ course  }} </option>      
+            </select>
+
+            <label>&nbsp;Startsemester: </label>
+            <select id="selectedCourseTerm" class="form-control" (change)="removeCurrentSchedule()" [(ngModel)]="selectedCourseTermValue">
+                    <option *ngFor="let course of coursesSchedule | courseterms" > {{ course  }} </option>      
+            </select>
+        
+            <button type="button" class="btn btn-success" (click)="buildSchedule()"> Erstelle Stundenplan </button>
+ 
+            <button *ngIf="scheduleManager.lecturesList" class="btn btn-danger"  type="button" (click)="checkSchedule()"> Auf Überschneidungen prüfen </button>
+
+            <div *ngIf="scheduleManager.lecturesList">
+
+                <label> Parallelen Studiengang einblenden : </label>
+                <select  id="parallelCourseSelectedSelectbox" class="form-control" (change)="buildParallelSchedule($event.target.selectedIndex)"  [(ngModel)]="scheduleData.selectedParallelCourseChoice"  >
+                        <option *ngFor="let choice of scheduleData.choices" [ngValue]="choice"> {{ choice }} </option>      
+                </select>
+            </div> 
+            
+        </div>     
+</div> 
+
+
+
+   
+
+
+
+
+

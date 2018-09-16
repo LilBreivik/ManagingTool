@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This is a tutorial, about "how to use this template"
+
+course, root node, do not modify
+
+courseName, name of a course "Angewandte Informatik "f.E"
+courseTerm, term of a course "Sommersemster,  "f. E"
+courseDegree, degree of a course "Bachelor of Science , "f.E"
+semesterNr, number of the semester , needs to be one of {"1. Fachsemester", "2. Fachsemester", "3. Fachsemester", "4. Fachsemester"}
+lectures, node to indicate an Enumeration of the lectures, do not modify 
+
+lecture, lecture root node, do not modify 
+
+name, name of the lecture 
+shortcut, shortcut of the lecture "DBMS f.E"
+practice, indicates if this lecture got some practice "Ja || Nein" as possible values 
+
+How to put the different lectures after each other 
+
+<lectures>
+  <lecture>
+	<name>DatenbankmanagementSysteme</name>
+	<shortcut>DBMS</shortcut>
+	<practice>Ja</practice>
+  </lecture> 
+   <lecture>
+	<name>Diskrete Simulation</name>
+	<shortcut>DisSim</shortcut>
+	<practice>Nein</practice>
+  </lecture> 
+</lectures>
+
+-->
+
+<course>
+<courseName>Wirtschaftsinformatik</courseName>
+<courseTerm>Sommersemester</courseTerm>
+<courseDegree>Bachelor Of Science</courseDegree>
+<lectures>
+    <lecturesScheduleInSemester>
+				<semesterNr>1. Fachsemester</semesterNr>
+				<lecture>
+					<name>Induktive Statistik</name>
+					<shortcut>Induktive Statistik</shortcut>
+					<practice>Ja</practice>
+				</lecture> 
+				<lecture>
+					<name>Programmierung</name>
+					<shortcut>Prog</shortcut>
+					<practice>Ja</practice>
+				</lecture> 
+				<lecture>
+					<name>Software Engineering</name>
+					<shortcut>SE</shortcut>
+					<practice>Ja</practice>
+				</lecture> 
+				<lecture>
+					<name>Analysis für Informatiker und Wirtschaftsinformatiker</name>
+					<shortcut>Ana</shortcut>
+					<practice>Ja</practice>
+				</lecture> 
+	</lecturesScheduleInSemester>
+	<lecturesScheduleInSemester> 
+				<semesterNr>2. Fachsemester</semesterNr>
+				<lecture>
+					<name>Modelle der Informatik</name>
+					<shortcut>MDI</shortcut>
+					<practice>Ja</practice>
+				</lecture> 
+				<lecture>
+					<name>Einführung in die Wirtschaftsinformatik</name>
+					<shortcut>EWiInf</shortcut>
+					<practice>Nein</practice>
+				</lecture> 
+				<lecture>
+					<name>Lineare Algebra für Informatiker und Wirtschaftsinformatiker</name>
+					<shortcut>Lina</shortcut>
+					<practice>Ja</practice>
+				</lecture> 
+				<lecture>
+					<name>Einführung in die BWL</name>
+					<shortcut>EBWL</shortcut>
+					<practice>Ja</practice>
+				</lecture>  
+	</lecturesScheduleInSemester> 
+  <lecturesScheduleInSemester> 
+				<semesterNr>3. Fachsemester</semesterNr>
+				<lecture>
+					<name>Datenbankmanagementsysteme</name>
+					<shortcut>DBMS</shortcut>
+					<practice>Ja</practice>
+				</lecture>
+	</lecturesScheduleInSemester> 
+	<lecturesScheduleInSemester> 
+				<semesterNr>4. Fachsemester</semesterNr>
+				<lecture>
+					<name>Unternehemensmodellierung</name>
+					<shortcut>UModellierung</shortcut>
+					<practice>Ja</practice>
+				</lecture> 
+				<lecture>
+					<name>Software Entwicklung und Programmierung (SEP)</name>
+					<shortcut>(SEP)</shortcut>
+					<practice>Ja</practice>
+				</lecture>
+				<lecture>
+					<name>Einführung in die VWL</name>
+					<shortcut>EBWL</shortcut>
+					<practice>Ja</practice>
+				</lecture> 
+				<lecture>
+					<name>Investition und Finanzierung</name>
+					<shortcut>Invest Finanz</shortcut>
+					<practice>Ja</practice>
+				</lecture>
+	</lecturesScheduleInSemester> 		 
+</lectures>
+</course>
+
+
+	 
+   

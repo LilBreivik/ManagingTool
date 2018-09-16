@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This is a tutorial, about "how to use this template"
+
+courses,  course root nodes, do not modify
+
+courseName, name of a course "Angewandte Informatik f.E"
+courseTerm, term of a course "Sommersemester,  f. E"
+courseDegree, degree of a course "Bachelor of Science , f.E"
+ 
+
+How to put the different lectures after each other 
+
+<courses>
+    <course>
+        <courseName>Angewandte Informatik</courseName>
+        <courseTerm>Sommersemester</courseTerm>
+        <courseDegree>Bachelor Of Science</courseDegree>
+    </course>
+    <course>
+        <courseName>Wirtschaftsinformatik</courseName>
+        <courseTerm>Wintersemester</courseTerm>
+        <courseDegree>Master Of Science</courseDegree>
+    </course>
+</courses>
+
+-->
+
+<courses>
+    <course>
+        <courseName>Angewandte Informatik</courseName>
+        <courseTerm>Wintersemester</courseTerm>
+        <courseDegree>Bachelor Of Science</courseDegree>
+    </course>
+    <course>
+        <courseName>Angewandte Informatik</courseName>
+        <courseTerm>Sommersemester</courseTerm>
+        <courseDegree>Bachelor Of Science</courseDegree>
+    </course>
+    <course>
+        <courseName>Angewandte Informatik</courseName>
+        <courseTerm>Wintersemester</courseTerm>
+        <courseDegree>Master Of Science</courseDegree>
+    </course>
+    <course>
+        <courseName>Angewandte Informatik</courseName>
+        <courseTerm>Sommersemester</courseTerm>
+        <courseDegree>Master Of Science</courseDegree>
+    </course>
+    <course>
+        <courseName>Wirtschaftsinformatik</courseName>
+        <courseTerm>Wintersemester</courseTerm>
+        <courseDegree>Bachelor Of Science</courseDegree>
+    </course>
+    <course>
+        <courseName>Wirtschaftsinformatik</courseName>
+        <courseTerm>Sommersemester</courseTerm>
+        <courseDegree>Bachelor Of Science</courseDegree>
+    </course>
+    <course>
+        <courseName>Wirtschaftsinformatik</courseName>
+        <courseTerm>Wintersemester</courseTerm>
+        <courseDegree>Master Of Science</courseDegree>
+    </course>
+    <course>
+        <courseName>Wirtschaftsinformatik</courseName>
+        <courseTerm>Sommersemester</courseTerm>
+        <courseDegree>Master Of Science</courseDegree>
+    </course>
+</courses>
+

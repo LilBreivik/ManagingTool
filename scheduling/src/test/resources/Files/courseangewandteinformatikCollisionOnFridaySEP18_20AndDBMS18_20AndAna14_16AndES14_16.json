@@ -1,0 +1,643 @@
+{
+    "courseName": "Angewandte Informatik",
+    "courseDegree": "Bachelor Of Science",
+    "courseTerm": "Sommersemester",
+    "semesters": [
+        {
+            "semesterNr": "1. Fachsemester",
+            "lecturesInSemester": [
+                {
+                    "lectureName": "Datenbankmanagementsysteme",
+                    "lectureNameShortcut": "DBMS",
+                    "timingsForALecture": [
+                        {
+                            "day": "Freitag",
+                            "vTimings": [
+                                {
+                                    "startTime": "18:00",
+                                    "endTime": "20:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Freitag",
+                            "vTimings": [
+                                {
+                                    "startTime": "18:00",
+                                    "endTime": "20:00"
+                                }
+                            ]
+                        }
+                    ],
+                    "practice": true
+                },
+                {
+                    "lectureName": "Datenbankmanagementsysteme (Übung)",
+                    "lectureNameShortcut": "DBMS  (Übung)",
+                    "timingsForALecture": [
+                        {
+                            "day": "Freitag",
+                            "vTimings": [
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                },
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Montag",
+                            "vTimings": [
+                                {
+                                    "startTime": "18:00",
+                                    "endTime": "20:00"
+                                },
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                },
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Mittwoch",
+                            "vTimings": [
+                                {
+                                    "startTime": "12:00",
+                                    "endTime": "14:00"
+                                },
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                },
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                },
+                                {
+                                    "startTime": "16:00",
+                                    "endTime": "18:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Donnerstag",
+                            "vTimings": [
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                },
+                                {
+                                    "startTime": "12:00",
+                                    "endTime": "14:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Dienstag",
+                            "vTimings": [
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                },
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                }
+                            ]
+                        }
+                    ],
+                    "practice": true
+                },
+                {
+                    "lectureName": "Software Entwicklung und Programmierung (SEP)",
+                    "lectureNameShortcut": "Prog Software Entwicklung und  (SEP)",
+                    "timingsForALecture": [
+                        {
+                            "day": "Freitag",
+                            "vTimings": [
+                                {
+                                    "startTime": "18:00",
+                                    "endTime": "20:00"
+                                }
+                            ]
+                        }
+                    ],
+                    "practice": true
+                },
+                {
+                    "lectureName": "Programmierung",
+                    "lectureNameShortcut": "Prog",
+                    "timingsForALecture": [
+                        {
+                            "day": "Freitag",
+                            "vTimings": [
+                                {
+                                    "startTime": "08:00",
+                                    "endTime": "10:00"
+                                },
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                }
+                            ]
+                        }
+                    ],
+                    "practice": true
+                },
+                {
+                    "lectureName": "Programmierung (Übung)",
+                    "lectureNameShortcut": "Prog  (Übung)",
+                    "timingsForALecture": [
+                        {
+                            "day": "Freitag",
+                            "vTimings": [
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Mittwoch",
+                            "vTimings": [
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Donnerstag",
+                            "vTimings": [
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Dienstag",
+                            "vTimings": [
+                                {
+                                    "startTime": "08:00",
+                                    "endTime": "10:00"
+                                }
+                            ]
+                        }
+                    ],
+                    "practice": true
+                },
+                {
+                    "lectureName": "Programmierung A (Übung)",
+                    "lectureNameShortcut": "Prog  A (Übung)",
+                    "timingsForALecture": [
+                        {
+                            "day": "Freitag",
+                            "vTimings": [
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Mittwoch",
+                            "vTimings": [
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Donnerstag",
+                            "vTimings": [
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Dienstag",
+                            "vTimings": [
+                                {
+                                    "startTime": "08:00",
+                                    "endTime": "10:00"
+                                }
+                            ]
+                        }
+                    ],
+                    "practice": true
+                },
+                {
+                    "lectureName": "Programmierung B (Übung)",
+                    "lectureNameShortcut": "Prog  B (Übung)",
+                    "timingsForALecture": [
+                        {
+                            "day": "Freitag",
+                            "vTimings": [
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Mittwoch",
+                            "vTimings": [
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Donnerstag",
+                            "vTimings": [
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Dienstag",
+                            "vTimings": [
+                                {
+                                    "startTime": "08:00",
+                                    "endTime": "10:00"
+                                }
+                            ]
+                        }
+                    ],
+                    "practice": true
+                },
+                {
+                    "lectureName": "Enterprise Systems",
+                    "lectureNameShortcut": "ES",
+                    "timingsForALecture": [
+                        {
+                            "day": "Freitag",
+                            "vTimings": [
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                }
+                            ]
+                        }
+                    ],
+                    "practice": true
+                },
+                {
+                    "lectureName": "Analysis für Informatiker und Wirtschaftsinformatiker",
+                    "lectureNameShortcut": "Ana",
+                    "timingsForALecture": [
+                        {
+                            "day": "Freitag",
+                            "vTimings": [
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Donnerstag",
+                            "vTimings": [
+                                {
+                                    "startTime": "12:00",
+                                    "endTime": "14:00"
+                                }
+                            ]
+                        }
+                    ],
+                    "practice": true
+                },
+                {
+                    "lectureName": "Analysis für Informatiker und Wirtschaftsinformatiker (Übung)",
+                    "lectureNameShortcut": "Ana  (Übung)",
+                    "timingsForALecture": [
+                        {
+                            "day": "Freitag",
+                            "vTimings": [
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "17:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Montag",
+                            "vTimings": [
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                },
+                                {
+                                    "startTime": "16:00",
+                                    "endTime": "18:00"
+                                },
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                },
+                                {
+                                    "startTime": "16:00",
+                                    "endTime": "18:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Mittwoch",
+                            "vTimings": [
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                },
+                                {
+                                    "startTime": "16:00",
+                                    "endTime": "18:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Donnerstag",
+                            "vTimings": [
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                },
+                                {
+                                    "startTime": "16:00",
+                                    "endTime": "18:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Dienstag",
+                            "vTimings": [
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                },
+                                {
+                                    "startTime": "16:00",
+                                    "endTime": "18:00"
+                                }
+                            ]
+                        }
+                    ],
+                    "practice": true
+                }
+            ]
+        },
+        {
+            "semesterNr": "2. Fachsemester",
+            "lecturesInSemester": null
+        },
+        {
+            "semesterNr": "3. Fachsemester",
+            "lecturesInSemester": [
+                {
+                    "lectureName": "Network and Information Security 1",
+                    "lectureNameShortcut": "NIS",
+                    "timingsForALecture": [
+                        {
+                            "day": "Montag",
+                            "vTimings": [
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                },
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                },
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                },
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                },
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                },
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                },
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                },
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                },
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                },
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Dienstag",
+                            "vTimings": [
+                                {
+                                    "startTime": "12:00",
+                                    "endTime": "14:00"
+                                }
+                            ]
+                        }
+                    ],
+                    "practice": true
+                },
+                {
+                    "lectureName": "Concurrency",
+                    "lectureNameShortcut": "Con",
+                    "timingsForALecture": [
+                        {
+                            "day": "Montag",
+                            "vTimings": [
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                }
+                            ]
+                        }
+                    ],
+                    "practice": true
+                },
+                {
+                    "lectureName": "Concurrency (Übung)",
+                    "lectureNameShortcut": "Con  (Übung)",
+                    "timingsForALecture": [
+                        {
+                            "day": "Montag",
+                            "vTimings": [
+                                {
+                                    "startTime": "16:00",
+                                    "endTime": "18:00"
+                                },
+                                {
+                                    "startTime": "16:00",
+                                    "endTime": "18:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Mittwoch",
+                            "vTimings": [
+                                {
+                                    "startTime": "16:00",
+                                    "endTime": "18:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Dienstag",
+                            "vTimings": [
+                                {
+                                    "startTime": "16:00",
+                                    "endTime": "18:00"
+                                }
+                            ]
+                        }
+                    ],
+                    "practice": true
+                },
+                {
+                    "lectureName": "Software Engineering",
+                    "lectureNameShortcut": "SE",
+                    "timingsForALecture": [
+                        {
+                            "day": "Mittwoch",
+                            "vTimings": [
+                                {
+                                    "startTime": "18:00",
+                                    "endTime": "20:00"
+                                }
+                            ]
+                        }
+                    ],
+                    "practice": true
+                },
+                {
+                    "lectureName": "Software Engineering (Übung)",
+                    "lectureNameShortcut": "SE  (Übung)",
+                    "timingsForALecture": [
+                        {
+                            "day": "Freitag",
+                            "vTimings": [
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                },
+                                {
+                                    "startTime": "12:00",
+                                    "endTime": "14:00"
+                                },
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Montag",
+                            "vTimings": [
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                },
+                                {
+                                    "startTime": "12:00",
+                                    "endTime": "14:00"
+                                },
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Mittwoch",
+                            "vTimings": [
+                                {
+                                    "startTime": "08:00",
+                                    "endTime": "10:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Donnerstag",
+                            "vTimings": [
+                                {
+                                    "startTime": "08:00",
+                                    "endTime": "10:00"
+                                },
+                                {
+                                    "startTime": "14:00",
+                                    "endTime": "16:00"
+                                },
+                                {
+                                    "startTime": "16:00",
+                                    "endTime": "18:00"
+                                }
+                            ]
+                        },
+                        {
+                            "day": "Dienstag",
+                            "vTimings": [
+                                {
+                                    "startTime": "10:00",
+                                    "endTime": "12:00"
+                                },
+                                {
+                                    "startTime": "12:00",
+                                    "endTime": "14:00"
+                                }
+                            ]
+                        }
+                    ],
+                    "practice": true
+                },
+                {
+                    "lectureName": "Software Entwicklung und Programmierung (SEP)",
+                    "lectureNameShortcut": "(SEP) ",
+                    "timingsForALecture": [
+                        {
+                            "day": "Mittwoch",
+                            "vTimings": [
+                                {
+                                    "startTime": "18:00",
+                                    "endTime": "20:00"
+                                }
+                            ]
+                        }
+                    ],
+                    "practice": true
+                }
+            ]
+        },
+        {
+            "semesterNr": "4. Fachsemester",
+            "lecturesInSemester": null
+        }
+    ]
+}

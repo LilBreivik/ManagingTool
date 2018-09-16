@@ -1,0 +1,15 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "copyThemeAssets": "cp -rp node_modules/gentelella/  ../core/src/main/resources/static/"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gentelella": "^1.4.0"
+  }
+}

@@ -1,0 +1,58 @@
+<script type="text/javascript" href="../../js/adjuster.js"></script>
+
+
+<div class="col-md-6 col-sm-6 col-xs-6">
+        <label>&nbsp;Fachsemester einblenden: </label>
+
+        <select *ngIf="scheduleData" id="semsesterSelectbox" class="form-control"  [(ngModel)]="scheduleData.selectedSemesterValue">
+                <option *ngFor="let semester of scheduleData.semesterNr" > {{semester}} </option>      
+        </select>
+</div>
+
+
+<div class="col-md-6 col-sm-6 col-xs-6">
+        <label>&nbsp;Übungen einblenden: </label>
+        
+        <select *ngIf="scheduleData" id="practiceSelectedSelectbox" class="form-control"  [(ngModel)]="scheduleData.selectedPracticeChoice">
+                <option *ngFor="let choice of scheduleData.choices" > {{choice}} </option>      
+        </select>         
+</div>
+
+
+<div id="schedule">
+    <table  *ngIf="scheduleData"> 
+      <tbody >  
+          <tr id="headline">
+              <th *ngFor="let head of scheduleData.heads">
+                {{head}}
+              </th> 
+          </tr>
+          <tr *ngFor="let time of scheduleData.times">
+            
+            <td>{{ time }}</td> 
+            <td class="table_cell" *ngFor="let day of scheduleData.days">
+                <lecture-component [day]="day" 
+                                        [time]="time" 
+                                           [semester]="scheduleData.selectedSemesterValue"
+                                              [parallelSemester]="scheduleData.getParallelSemester()"
+                                                  [course]="scheduleData.selectedCourseNameValue"
+                                                      [parallelCourse]="scheduleData.selectedParallelCourseNameValue"  
+                                                         [practiceChoice]="scheduleData.choisesDict.getValue(scheduleData.selectedPracticeChoice)" 
+                                                            [lectureProperties]="scheduleData.lecturesList" 
+                                                               [attr.id]="day + '' + time"  >
+                </lecture-component> 
+            </td> 
+          </tr>
+      </tbody>
+    </table>
+</div> 
+  
+ 
+<style> 
+
+ .table_cell{ 
+    width: 20%;
+}
+</style>
+
+ 
