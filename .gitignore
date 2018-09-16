@@ -4,7 +4,21 @@ target/
 bin/
 test/resources/Files
 node_modules/
-dist/
+
+scheduleassets/dist/
+scheduleassetsmanager/dist/
+schedulemanager/dist/ 
+lecturescheduleassetsmanager/dist/
+coursescheduleassetsmanager/dist/
+frontendutilities/dist/
+frontend/dist/
+
+# excecpt for css / js files from the template 
+! */vendors/bootstrap/dist/*
+! */vendors/jqvmap/dist/*
+! */vendors/jquery/dist/*
+! */vendors/Chart.js/dist/*
+! */vendors/gauge.js/dist/*
 
 # ignore Tool settings data 
 
