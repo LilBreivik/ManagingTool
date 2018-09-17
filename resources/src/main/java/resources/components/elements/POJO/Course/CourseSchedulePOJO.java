@@ -1,5 +1,11 @@
 package resources.components.elements.POJO.Course;
 
+import java.util.Collection;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import resources.components.elements.XML.XMLCourseElement;
 
 /**
@@ -30,6 +36,8 @@ public class CourseSchedulePOJO {
 		CourseSchedulePOJO courseSchedulePOJO = new CourseSchedulePOJO();
 		
 		// @FixMe change with applicationContext -> get current user... 
+		// @Fix eliminate person who did the change ....
+		 
 		
 		courseSchedulePOJO.setChangedBy("Rainer Winkler");
 		

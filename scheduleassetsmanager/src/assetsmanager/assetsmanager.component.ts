@@ -17,6 +17,7 @@ declare function uploadAsset2(input : HTMLInputElement);
 export class AssetsManager implements OnInit  {
 
     private assetsThere: boolean = false;
+    private uploaderName: string; 
 
     private selectedCourseNameValue: string; 
     private selectedCourseDegreeValue: string; 
@@ -30,7 +31,8 @@ export class AssetsManager implements OnInit  {
                             private m_coursescheduleService : CoursesScheduleService,
                                private m_uploadFileService: UploadFileService,
                                   private m_requestParameter: CourseRequestParameter , 
-                                    private m_uploadFileRequestParameter : UploadAssetsFileRequestParameter){ }
+                                    private m_uploadFileRequestParameter : UploadAssetsFileRequestParameter,
+                                        private m_filending : string){ }
 
     ngOnInit(): void {
      
@@ -62,8 +64,9 @@ export class AssetsManager implements OnInit  {
         this. m_requestParameter.courseTerm =  this.selectedCourseTermValue
 
         this.m_assetsStockService.requestFileAssetsStock( this. m_requestParameter).subscribe(assetsStock => {
-           
-             
+            
+
+             this.uploaderName = assetsStock.uploaderName
              this.assetsThere = assetsStock.presentFlag
         })
     }
@@ -88,10 +91,17 @@ export class AssetsManager implements OnInit  {
         this. m_requestParameter.courseDegree = this.selectedCourseDegreeValue
         this. m_requestParameter.courseTerm =  this.selectedCourseTermValue
 
+        
         // handle delete answer 
         this.m_downloadFileService.downloadFile(this.m_requestParameter).subscribe((response: Blob) => {
-     
-            let filename = 'report.xml';
+      
+            let filename : string = ""
+  
+            filename = this.selectedCourseNameValue + " " + 
+                                this.selectedCourseDegreeValue +" "+
+                                     this.selectedCourseTermValue + "" +this.m_filending;
+
+
             FileSaver.saveAs(response, filename);
  
             this.readAssetsInformation()
@@ -112,11 +122,9 @@ export class AssetsManager implements OnInit  {
  
         this.m_uploadFileRequestParameter.scheduleFile = reader.result.toString();
 
-        alert("---> " + JSON.stringify(this.m_uploadFileRequestParameter));
-
+       
         this. m_uploadFileService.uploadFile(this.m_uploadFileRequestParameter).subscribe((response: HttpEvent<any>) => {
-
-            alert(response)
+ 
             this.readAssetsInformation()
         });
       }

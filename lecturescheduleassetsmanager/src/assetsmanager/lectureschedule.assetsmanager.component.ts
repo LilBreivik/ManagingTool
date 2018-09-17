@@ -38,7 +38,8 @@ export class LectureScheduleAssetsManager
                           coursesScheduleService,
                              courseUploadScheduleFileService ,
                                 courseAssetsFileRequestParameter, 
-                                  courseAssetsFileUploadRequestParameter);
+                                  courseAssetsFileUploadRequestParameter, 
+                                  ".xls");
                         
               
         }

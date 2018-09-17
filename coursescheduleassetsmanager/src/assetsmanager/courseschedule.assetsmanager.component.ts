@@ -1,12 +1,14 @@
 import { Component  } from '@angular/core';  
 import {AssetsManager} from '@scheduleassets/src/assetsmanager/assetsmanager.component';
-import { CourseScheduleAssetsStockService } from "@scheduleassets/src/services/files/assets/courseschedule.assets.stock.files.service"; 
+import { CourseScheduleAssetsStockService } from "../service/files/assets/courseschedule.assets.stock.files.service"; 
 import {CourseAssetsFileRequestParameter} from "@scheduleassets/src/entities/parameter/assets/request/stock/assets.course.stock.request.parameter"; 
 import {CoursesScheduleService} from "@frontendutilities/src/services/REST/coursesschedule.service";
-import {DeleteCourseScheduleFileService } from "@scheduleassets/src/services/files/delete/courseschedule.delete.files.service"; 
-import { DownloadCourseScheduleFileService } from "@scheduleassets/src/services/files/download/courseschedule.download.files.service"; 
+import {DeleteCourseScheduleFileService } from "../service/files/delete/courseschedule.delete.files.service"; 
+import { DownloadCourseScheduleFileService } from "../service/files/download/courseschedule.download.files.service"; 
 import {UploadAssetsFileRequestParameter} from "@scheduleassets/src/entities/parameter/assets/request/upload/assets.upload.request.parameter";
-import {UploadCourseScheduleFileService }  from "@scheduleassets/src/services/files/upload/courseschedule.upload.files.service";
+import {UploadCourseScheduleFileService }  from "../service/files/upload/courseschedule.upload.files.service";
+
+//"@scheduleassets/src/services/files/upload/courseschedule.upload.files.service";
 
 
 @Component({
@@ -38,7 +40,8 @@ export class CourseScheduleAssetsManager
                           coursesScheduleService,
                              courseUploadScheduleFileService ,
                                 courseAssetsFileRequestParameter, 
-                                     courseAssetsFileUploadRequestParameter);
+                                     courseAssetsFileUploadRequestParameter, 
+                                        ".xml");
                         
               
         }
