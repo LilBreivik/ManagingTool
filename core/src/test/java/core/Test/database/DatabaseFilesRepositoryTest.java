@@ -15,7 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner; 
 import core.TestContext.DatabaseTestApplicationContext;
-import core.controller.parameter.schedule.ScheduleParam;
+import core.controller.parameter.ScheduleParam;
 import core.utils.names.UploadFileNameResolver;
 import resources.components.elements.POJO.Persistence.Course.PersistenceCourseSchedulePOJO;
 import resources.components.filehandler.XML.CourseScheduleXMLFileHandler;

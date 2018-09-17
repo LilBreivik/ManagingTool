@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.http.HttpStatus;
-import core.controller.parameter.schedule.synthesized.SynthesizedCourseScheduleFileParam;
+
+import core.controller.parameter.synthesized.SynthesizedCourseScheduleFileParam;
 import core.controller.response.result.successfully.successes.CourseScheduleSynthesizingResponse; 
 import resources.components.elements.POJO.Schedule.Lectures.CoursePOJO;
 import resources.components.filehandler.filesynthesizer.LectureScheduleSynthesizer;

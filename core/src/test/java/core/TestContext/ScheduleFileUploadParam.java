@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import javax.xml.bind.DatatypeConverter;
 
-import core.controller.parameter.schedule.ScheduleParam; 
+import core.controller.parameter.ScheduleParam; 
 
 /**
  * This class defines 

@@ -1,19 +1,19 @@
 {
   "name": "lecturescheduleassetsmanager",
-  "version": "0.0.0", 
+  "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
     "copyUploaderJS": "cp -rp js/uploader.js ../core/src/main/resources/static/js",
     "removeAngularCLIAssets": "rm dist/lecturescheduleassetsmanager/3rdpartylicenses.txt && rm dist/lecturescheduleassetsmanager/favicon.ico",
-    "copyLectureScheduleAssetsHTMLApplication": "mv dist/lecturescheduleassetsmanager/index.html ../core/src/main/resources/static/templates/fragments/lecturescheduleassetsmanager.html",
-    "copyLectureScheduleAssetsJSApplicaton": "cp -rp dist/lecturescheduleassetsmanager ../core/src/main/resources/static/js",
-    "loadLectureScheduleAssetsManagerApplication": "ng build --configuration=production --aot --build-optimizer=false  && npm run removeAngularCLIAssets && npm run copyLectureScheduleAssetsHTMLApplication && npm run copyLectureScheduleAssetsJSApplicaton && npm run copyUploaderJS",
+    "copylectureScheduleAssetsHTMLApplication": "mv dist/lecturescheduleassetsmanager/index.html ../core/src/main/resources/static/templates/fragments/lecturescheduleassetsmanager.html",
+    "copylectureScheduleAssetsJSApplicaton": "cp -rp dist/lecturescheduleassetsmanager ../core/src/main/resources/static/js",
+    "loadlectureScheduleAssetsManagerApplication": "ng build --configuration=production --aot --build-optimizer=false  && npm run removeAngularCLIAssets && npm run copylectureScheduleAssetsHTMLApplication && npm run copylectureScheduleAssetsJSApplicaton && npm run copyUploaderJS",
     "build": "ng build --configuration=production --source-map",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
-  },  
+  }, 
   "private": true,
   "dependencies": {
     "@angular/animations": "^6.1.0",
@@ -31,7 +31,7 @@
     "core-js": "^2.5.4",
     "file-saver": "^1.3.8",
     "jquery": "^3.3.1",
-    "rxjs": "^6.0.0",
+    "rxjs": "^6.2.2",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

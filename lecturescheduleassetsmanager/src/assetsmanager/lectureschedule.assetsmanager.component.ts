@@ -1,12 +1,12 @@
 import { Component  } from '@angular/core';  
 import {AssetsManager} from '@scheduleassets/src/assetsmanager/assetsmanager.component';
-import { LectureScheduleAssetsStockService } from "@scheduleassets/src/services/files/assets/lectureschedule.assets.stock.files.service"; 
+import { LectureScheduleAssetsStockService } from "../services/files/assets/lectureschedule.assets.stock.files.service"; 
 import {CourseAssetsFileRequestParameter} from "@scheduleassets/src/entities/parameter/assets/request/stock/assets.course.stock.request.parameter"; 
 import {CoursesScheduleService} from "@frontendutilities/src/services/REST/coursesschedule.service";
-import {DeleteLectureScheduleFileService } from "@scheduleassets/src/services/files/delete/lectureschedule.delete.files.service"; 
-import { DownloadLectureScheduleFileService } from "@scheduleassets/src/services/files/download/lectureschedule.download.files.service"; 
+import {DeleteLectureScheduleFileService } from "../services/files/delete/lectureschedule.delete.files.service"; 
+import { DownloadLectureScheduleFileService } from "../services/files/download/lectureschedule.download.files.service"; 
 import {UploadAssetsFileRequestParameter} from "@scheduleassets/src/entities/parameter/assets/request/upload/assets.upload.request.parameter";
-import {UploadLectureScheduleFileService }  from "@scheduleassets/src/services/files/upload/lectureschedule.upload.files.service";
+import {UploadLectureScheduleFileService }  from "../services/files/upload/lectureschedule.upload.files.service";
 
  
 @Component({
@@ -38,7 +38,8 @@ export class LectureScheduleAssetsManager
                           coursesScheduleService,
                              courseUploadScheduleFileService ,
                                 courseAssetsFileRequestParameter, 
-                                  courseAssetsFileUploadRequestParameter);
+                                  courseAssetsFileUploadRequestParameter, 
+                                  ".xls");
                         
               
         }

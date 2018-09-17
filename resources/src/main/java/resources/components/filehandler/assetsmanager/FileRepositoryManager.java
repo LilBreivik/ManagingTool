@@ -6,7 +6,9 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.UUID;
 
-import org.apache.commons.io.FilenameUtils; 
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import resources.database.entities.File.Files;
 import resources.database.repository.FilesRepository; 
@@ -83,11 +85,17 @@ public class FileRepositoryManager  extends FileAssetsManager {
 		fileToUpdate.setFileName(expectedFileName); // we store the information to the row with the expected name
 		fileToUpdate.setFileUploaded(true);
 		fileToUpdate.setFileUploadedAt(new Date(System.currentTimeMillis()));
+		
+	//	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+	//	final String uploaderName = authentication.getName();
+		
 		fileToUpdate.setFileUploader("Rainer Winkler"); 
+//		fileToUpdate.setFileUploader(uploaderName); 
 		fileToUpdate.setFilePath( pathManagerToCurrentWorkDirectory.getPathToOperateOn().relativize(pathToExistingFile  ).toString()); // we have to store the physical location of this file 
 		
 		
- 		m_FileRepository.update(fileToUpdate);
+ 		m_FileRepository.addNewFile(fileToUpdate);
 		
 	}
 	

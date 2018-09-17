@@ -2,12 +2,12 @@
   "compileOnSave": false,
   "include": [
     "src/**/*" 
-  ],
+  ], 
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
       "@frontendutilities/*": [ "../../frontendutilities/*" ] , 
-      "@scheduleassets/*": [ "../../scheduleassets/*" ] , 
+      "@scheduleassets/*": [ "../../scheduleassetsmanager/*" ] , 
       "@angular/*": ["../node_modules/@angular/*"] 
     },
     "outDir": "./dist/out-tsc",

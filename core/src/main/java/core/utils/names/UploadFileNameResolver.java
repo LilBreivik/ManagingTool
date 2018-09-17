@@ -2,7 +2,7 @@ package core.utils.names;
   
  
 
-import core.controller.parameter.schedule.ScheduleParam;
+import core.controller.parameter.ScheduleParam;
 import resources.utils.names.INameResolver;
 import resources.utils.names.NameResolver; 
 

@@ -1,50 +1,55 @@
  
 <style>
-    .my-drop-zone { border: dotted 3px lightgray; }
-    /* Default class applied to drop zones on over */
-    .invalid-drag { border: dotted 3px red; }
-    .valid-drag { border: dotted 3px green; }
-    html, body { height: 100%; }
-    .previewIcon{
-      width:100px;height:100px;
-      background-size:cover;
-      background-repeat:no-repeat;
-    }
-   
-    .inline-block{
-      display:inline-block;
-      margin:.2em;
-    }
-  </style>
+  .my-drop-zone { border: dotted 3px lightgray; }
+  /* Default class applied to drop zones on over */
+  .invalid-drag { border: dotted 3px red; }
+  .valid-drag { border: dotted 3px green; }
+  html, body { height: 100%; }
+  .previewIcon{
+    width:100px;height:100px;
+    background-size:cover;
+    background-repeat:no-repeat;
+  }
+ 
+  .inline-block{
+    display:inline-block;
+    margin:.2em;
+  }
+</style>
 
 <div id="scheduleManager"> 
- 
-        <div *ngIf="coursesSchedule">
 
-           <label>&nbsp;Studienfach: </label>
-           <select  id="selectedCourseName" class="form-control" (change)="readAssetsInformation()" [(ngModel)]="selectedCourseNameValue" >
-                  <option *ngFor="let course of coursesSchedule | coursenames"  > {{ course  }} </option>      
-            </select>
+      <div *ngIf="coursesSchedule">
 
-            <label>&nbsp;Abschluss: </label>
-            <select id="selectedCourseDegree"  class="form-control" (change)="readAssetsInformation()" [(ngModel)]="selectedCourseDegreeValue">
-                    <option *ngFor="let course of coursesSchedule | coursedegrees" > {{ course  }} </option>      
-            </select>
+         <label>&nbsp;Studienfach: </label>
+         <select  id="selectedCourseName" class="form-control" (change)="readAssetsInformation()" [(ngModel)]="selectedCourseNameValue" >
+                <option *ngFor="let course of coursesSchedule | coursenames"  > {{ course  }} </option>      
+          </select>
 
-            <label>&nbsp;Startsemester: </label>
-            <select id="selectedCourseTerm" class="form-control" (change)="readAssetsInformation()" [(ngModel)]="selectedCourseTermValue">
-                    <option *ngFor="let course of coursesSchedule | courseterms" > {{ course  }} </option>      
-            </select>
-           
-            <div *ngIf="assetsThere">
-                <button type="button" class="btn btn-danger" (click)="deleteAsset()"> {{selectedCourseNameValue + ' ' + selectedCourseDegreeValue + ' ' + selectedCourseTermValue}} löschen </button>
-                <button type="button" class="btn btn-info" (click)="downloadAsset()"> {{selectedCourseNameValue + ' ' + selectedCourseDegreeValue + ' ' + selectedCourseTermValue}} herunterladen </button>    
-            </div>
-            <div *ngIf="!assetsThere">
-              <input type="file" (change)="uploadAsset($event)" placeholder="Upload file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/xml">
-            </div>
-       
-        </div>
+          <label>&nbsp;Abschluss: </label>
+          <select id="selectedCourseDegree"  class="form-control" (change)="readAssetsInformation()" [(ngModel)]="selectedCourseDegreeValue">
+                  <option *ngFor="let course of coursesSchedule | coursedegrees" > {{ course  }} </option>      
+          </select>
+
+          <label>&nbsp;Startsemester: </label>
+          <select id="selectedCourseTerm" class="form-control" (change)="readAssetsInformation()" [(ngModel)]="selectedCourseTermValue">
+                  <option *ngFor="let course of coursesSchedule | courseterms" > {{ course  }} </option>      
+          </select>
+         
+          <div *ngIf="assetsThere">
+              <div id="buttonWrapper">
+                  <div id="eraseButton"><button type="button" class="btn btn-danger" (click)="deleteAsset()"> {{selectedCourseNameValue + ' ' + selectedCourseDegreeValue + ' ' + selectedCourseTermValue}} löschen </button></div>
+                  <div id="downloadButton">
+                        <button type="button" class="btn btn-info" (click)="downloadAsset()"> {{selectedCourseNameValue + ' ' + selectedCourseDegreeValue + ' ' + selectedCourseTermValue}} herunterladen </button>
+                        <p style="display: inline-block; float: right">&nbsp;Zuletzt hochgeladen von: {{uploaderName}}&nbsp;</p>
+                      </div>
+              </div>
+          </div>
+          <div *ngIf="!assetsThere">
+            <input type="file" (change)="uploadAsset($event)" placeholder="Upload file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/xml">
+          </div>
+      
+      </div>
 </div>
 
 
