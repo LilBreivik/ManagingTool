@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.http.HttpStatus; 
-import core.controller.parameter.schedule.collisioncheck.CourseScheduleCollisionCheckParam;
+import org.springframework.http.HttpStatus;
+
+import core.controller.parameter.collisioncheck.CourseScheduleCollisionCheckParam;
 import core.controller.response.result.successfully.successes.CollisionCheckResponse;
 import scheduling.SchedulingCollisionManager; 
 import scheduling.elements.POJO.ScheduledLecturesPOJO; 

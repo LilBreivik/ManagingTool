@@ -87,7 +87,7 @@ public class FileRepositoryManager  extends FileAssetsManager {
 		fileToUpdate.setFilePath( pathManagerToCurrentWorkDirectory.getPathToOperateOn().relativize(pathToExistingFile  ).toString()); // we have to store the physical location of this file 
 		
 		
- 		m_FileRepository.update(fileToUpdate);
+ 		m_FileRepository.addNewFile(fileToUpdate);
 		
 	}
 	

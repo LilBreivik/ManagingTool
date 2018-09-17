@@ -2,7 +2,7 @@ package core.controller.handler.delete;
 
 import java.nio.file.Path;
 
-import core.controller.parameter.schedule.GenericScheduleFileParam; 
+import core.controller.parameter.GenericScheduleFileParam; 
 
 @FunctionalInterface
 public interface DeleteFileAssetsHandler {

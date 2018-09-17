@@ -15,4 +15,11 @@ public class FilesRepository  extends MasterRepository<FilesDao, Files>{
 		super( dao);
 	}
 
+	public void addNewFile(Files fileToUpdate) {
+		
+		
+		m_dao.saveOrUpdate(fileToUpdate);
+		
+	}
+
 }

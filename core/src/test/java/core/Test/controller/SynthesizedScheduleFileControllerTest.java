@@ -34,7 +34,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import core.TestContext.ControllerTestApplicationContext;
-import core.controller.parameter.schedule.ScheduleParam;
+import core.controller.parameter.ScheduleParam;
 import core.controller.upload.schedule.CourseScheduleFileUploadController;
 import resources.components.elements.POJO.Schedule.Lectures.CoursePOJO;
 import resources.components.filehandler.PathManager;
