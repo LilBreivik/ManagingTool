@@ -8,14 +8,14 @@
     "copyScheduleAssetsHTMLApplication": "mv dist/scheduleassets/index.html ../core/src/main/resources/static/templates/fragments/scheduleassets.html",
     "copyScheduleAssetsJSApplicaton": "cp -rp dist/scheduleassets ../core/src/main/resources/static/js",
     "copyUploaderJS": "cp -rp js/uploader.js ../core/src/main/resources/static/js",
-    "createSymbolicLinkForScheduleManagerComponentToCourseScheduleManager" : "cp -rp src/assetsmanager/schedulemanager.component.html ../coursescheduleassetsmanager/src/assetsmanager/courseschedulemanager.component.html",
-    "createSymbolicLinkForScheduleManagerComponentToLectureScheduleManager" : "cp -rp src/assetsmanager/schedulemanager.component.html ../lecturescheduleassetsmanager/src/assetsmanager/lectureschedulemanager.component.html",
+    "createSymbolicLinkForScheduleManagerComponentToCourseScheduleManager": "cp -rp src/assetsmanager/schedulemanager.component.html ../coursescheduleassetsmanager/src/assetsmanager/courseschedulemanager.component.html",
+    "createSymbolicLinkForScheduleManagerComponentToLectureScheduleManager": "cp -rp src/assetsmanager/schedulemanager.component.html ../lecturescheduleassetsmanager/src/assetsmanager/lectureschedulemanager.component.html",
     "loadScheduleAssetsManagerApplication": "ng build --configuration=production --aot --build-optimizer=false  && npm run removeAngularCLIAssets && npm run copyScheduleAssetsHTMLApplication && npm run copyScheduleAssetsJSApplicaton && npm run copyUploaderJS",
     "build": "ng build --configuration=production --source-map",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
-  }, 
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^6.1.0",

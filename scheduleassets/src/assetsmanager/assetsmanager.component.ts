@@ -64,8 +64,8 @@ export class AssetsManager implements OnInit  {
 
         this.m_assetsStockService.requestFileAssetsStock( this. m_requestParameter).subscribe(assetsStock => {
            
-             
-             this.assetsThere = assetsStock.presentFlag
+             alert(JSON.stringify(assetsStock))
+           // this.assetsThere = assetsStock.presentFlag; 
         })
     }
 
