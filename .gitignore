@@ -52,3 +52,10 @@ package-info.java
 changelog.md
 LICENSE.txt
 README.md
+core/src/main/resources/application.properties
+core/src/main/resources/static/js/lecturescheduleassetsmanager/main.ad2459c0cb6d62cb0964.js
+core/src/main/resources/static/js/lecturescheduleassetsmanager/main.edb3e917e742e59eed36.js
+core/src/test/resources/Files/AISEXLSFileAsset.xls
+core/src/test/resources/Files/LectureScheduleAISEBa.xml
+core/src/test/resources/Files/LectureScheduleWiInfBA.xml
+core/src/test/resources/Files/WiInfXLSFileAsset.xls

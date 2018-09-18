@@ -43,7 +43,7 @@ export class RESTService<T> {
      );
   } 
 
-
+ 
   /**
    * Handle Http operation that failed.
    * Let the app continue.

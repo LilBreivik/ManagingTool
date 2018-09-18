@@ -7,6 +7,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import {CoursesRequestParameter} from '../../services/entities/Parameter/coursesrequestparameter';
 import { CoursesSchedulePOJO } from "../../services/entities/REST/scheduling/coursesschedulepojo"; 
 import {environment} from '../../environments/environment'; 
+import { NoticeRequestParameter } from '../entities/Parameter/noticerequestparameter';
  
  
 /**
@@ -16,16 +17,16 @@ import {environment} from '../../environments/environment';
 
  
 @Injectable()
-export class CoursesScheduleService
-                            extends RESTService<  CoursesSchedulePOJO  >{
+export class NoticeService
+                            extends RESTService<  Object  >{
 
         constructor(){
-            super( environment.API_URL +  "/Synthesize/GeneralCourseSchedule")
+            super( environment.API_URL +  "/Notice/Add")
         }
 
-        /** GET hero by id. Will 404 if id not found */
-        getCourseSchedule(): Observable<CoursesSchedulePOJO >  {
+       
+        addNotice(noticeRequestParameter: NoticeRequestParameter): Observable< Object >  {
             
-            return this.getRESTObject(); 
+            return this.postRESTObject(noticeRequestParameter);
         }
 }
