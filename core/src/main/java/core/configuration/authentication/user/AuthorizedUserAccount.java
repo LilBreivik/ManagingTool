@@ -7,6 +7,11 @@ import org.springframework.security.core.userdetails.User;
 
 public class AuthorizedUserAccount extends User{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String loginName; 
 	
 	private int loggedInAccountId; 

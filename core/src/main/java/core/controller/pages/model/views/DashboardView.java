@@ -9,7 +9,7 @@ import core.controller.pages.model.configuration.IPageView;
 public class DashboardView  
 						extends ContentView
 									implements IPageView{
-
+ 
 	
 	public  DashboardView() {
 		

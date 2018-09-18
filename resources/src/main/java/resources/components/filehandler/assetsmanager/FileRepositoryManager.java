@@ -3,8 +3,7 @@ package resources.components.filehandler.assetsmanager;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Date;
-import java.util.UUID;
+import java.util.Date; 
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.security.core.Authentication;
@@ -13,9 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import resources.database.entities.File.Files;
 import resources.database.repository.FilesRepository; 
 import resources.components.filehandler.PathManager;
-import resources.components.filehandler.filereader.FileNameTranslator;
-import resources.components.filehandler.filereader.FileReadingPlan;
-import resources.error.InternalError;
+import resources.components.filehandler.filereader.FileNameTranslator; 
 
 /**
  * Class that handles
@@ -86,12 +83,14 @@ public class FileRepositoryManager  extends FileAssetsManager {
 		fileToUpdate.setFileUploaded(true);
 		fileToUpdate.setFileUploadedAt(new Date(System.currentTimeMillis()));
 		
-	//	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
-	//	final String uploaderName = authentication.getName();
+		 
 		
-		fileToUpdate.setFileUploader("Rainer Winkler"); 
-//		fileToUpdate.setFileUploader(uploaderName); 
+		
+		final String uploaderName = authentication.getName();
+		
+		fileToUpdate.setFileUploader(uploaderName); 
 		fileToUpdate.setFilePath( pathManagerToCurrentWorkDirectory.getPathToOperateOn().relativize(pathToExistingFile  ).toString()); // we have to store the physical location of this file 
 		
 		

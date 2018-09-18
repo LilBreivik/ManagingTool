@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import core.controller.pages.model.ModelFactory; 
+import core.controller.pages.model.ModelFactory;
 import core.controller.pages.model.views.DashboardView;
 import core.controller.pages.model.views.ScheduleManagerView;
 

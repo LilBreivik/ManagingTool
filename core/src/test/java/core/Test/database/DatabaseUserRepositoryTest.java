@@ -19,7 +19,8 @@ import resources.database.entities.Accounts.Accounts.AccountTypes;
 import resources.database.entities.User.Users;
 import resources.database.entities.factory.UserAccountsManager;
 import resources.database.entities.factory.account.AdminAccount;
-import resources.database.entities.factory.account.ContributorAccount; 
+import resources.database.entities.factory.account.ContributorAccount;
+import resources.database.entities.factory.account.CoordinatorAccount; 
 
 @ContextConfiguration( classes={   DatabaseTestApplicationContext .class  })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -32,6 +33,8 @@ public class  DatabaseUserRepositoryTest {
 		
 	  private static Users admin; 
 	
+	  private static Users kathrin; 
+	  
 	  private static String drachenLordPasswordAdmin = "admin"; 
 	 
 	  private static String drachenLordPasswordContributor = "contributor"; 
@@ -48,6 +51,8 @@ public class  DatabaseUserRepositoryTest {
 		  drachenlord = UserAccountsManager.createUser("drachenlord1510@gmail.com", "Rainer");
 		  
 		  admin =  UserAccountsManager.createUser("meddl@gmx.de", "Dustin");
+		  
+		  kathrin =  UserAccountsManager.createUser("kathrin.bittner@uni-due.de", "Kathrin");
 		  
 	  }
 	  
@@ -192,6 +197,53 @@ public class  DatabaseUserRepositoryTest {
 		  try {
 			
 			  userAccountManager.changeEmailUserAccount( "meddl@gmx.de" , "dustinbaer@gmx.de");    
+		  }
+		  
+		  catch(Exception databaseException) {
+			   
+			  if(databaseException instanceof DataIntegrityViolationException) {
+				  
+				  assertTrue(true);
+			  }
+			  
+			  else {
+				  
+				  assertTrue(false);
+			  }
+		  }
+		 		  
+	  }
+	  
+	  @Test
+	  public void TEST_I_checkIfWeCanAddKathrin() {
+		  	  
+		  try {
+			   
+			  userAccountManager.addUser(kathrin);
+		  }
+		  
+		  catch(Exception databaseException) {
+			   
+			  if(databaseException instanceof DataIntegrityViolationException) {
+				  
+				  assertTrue(true);
+			  }
+			  
+			  else {
+				  
+				  assertTrue(false);
+			  }
+		  }
+		 		  
+	  }
+	  
+	  
+	  @Test
+	  public void TEST_J_checkIfWeCanGivekathrinContributorAccount() {
+		  	  
+		  try {
+			  
+			  userAccountManager.createAccount(kathrin,  new CoordinatorAccount (kathrin ,  accountPassword));
 		  }
 		  
 		  catch(Exception databaseException) {

@@ -64,7 +64,7 @@ public class Users {
 		String userNameUpperCase = userName.toUpperCase();
 		
 	 
-		List<Character> english = Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+	/*	List<Character> english = Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
 		
 		List<Character> leet = Arrays.asList('4', '8', '(', ')', '3', '}', '6', '#', '!', ']', 'X', '|', 'M', 'N', '0', '9', 'Q', '2', 'Z', '7', 'M', 'V', 'W', 'X', 'J', 'Z');
 		
@@ -74,12 +74,12 @@ public class Users {
 			
 			result.append(leet.get(english.indexOf(letter)));		
 		}
-	
+	*/
 		// after this we will add a number to make it more random 
 		
 		Random rand = new Random();
 		
-		this.loginName = result.toString().concat(rand.nextInt(100) + "");
+		this.loginName = userNameUpperCase.toString().concat(rand.nextInt(100) + "");
 		
 	}
 	

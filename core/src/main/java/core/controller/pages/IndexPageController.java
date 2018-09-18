@@ -9,7 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;  
-import core.controller.pages.model.ModelFactory; 
+import core.controller.pages.model.ModelFactory;
 import core.controller.pages.model.views.DashboardView;
 
 @Controller
@@ -28,7 +28,7 @@ public class IndexPageController  extends AbstractPageController{
 	public String serveTemplate(Model template) {
 	 	
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
+	
 		Collection< GrantedAuthority> authorities =  (Collection<GrantedAuthority>) authentication.getAuthorities();
 		
 		authorities.stream().forEach(authoti -> System.out.println(authoti.getAuthority()));

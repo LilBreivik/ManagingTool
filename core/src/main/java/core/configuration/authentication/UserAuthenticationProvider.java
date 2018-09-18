@@ -49,7 +49,7 @@ public class UserAuthenticationProvider  implements AuthenticationProvider {
 		 	  m_userPassword = (String) authentication.getCredentials();
 			   
 			  AuthorizingUser authorizingUser =  (AuthorizingUser)  m_authorizationUserDetailsService.loadUserByUsername(m_userName);
-			  
+			    
 		      String delimeterdPasswordsForAccounts = authorizingUser.getPassword();
 		      
 		        
@@ -64,10 +64,8 @@ public class UserAuthenticationProvider  implements AuthenticationProvider {
 					  
 					  int authorizedAccountId = GeneralPurpose.CollectionToList(authorizingUser.getAccountIds()).get(m_accountPasswords.indexOf(accountPassword));
 				 	    
-					  AuthorizedUserAccount authorizedAccount = new AuthorizedUserAccount(m_userName, accountPassword, authorizingUser.getLoginName(), authorityOfAccount, authorizedAccountId);
-					  
-					  System.out.println("");
-					  
+					  AuthorizedUserAccount authorizedAccount = new AuthorizedUserAccount(authorizingUser.getUsername(), accountPassword, authorizingUser.getLoginName(), authorityOfAccount, authorizedAccountId);
+					   
 					  Sessions newSession = new Sessions(authorizedAccountId);
 						
 					  newSession.handleLogin();
