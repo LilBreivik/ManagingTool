@@ -23,6 +23,18 @@
 
             <div *ngIf="scheduleManager.lecturesList">
 
+                <div class="col-md-6 col-sm-6 col-xs-6">
+
+                    <label> Notizen abrufen: </label>
+                    <select  id="noticesSeletions" class="form-control"  ></select>
+
+                    <label> Notizen hinzufügen: </label>
+                    
+                    <input type="text" id="noticeHeadline" [(ngModel)]="noticeHeadline">
+                    <textarea class="form-control" rows="5" placeholder="Notizen hinzufügen" [(ngModel)]="scheduleNotices"></textarea>    
+                    <button type="button" class="btn btn-success" (click)="addNotice()">Notizen sichern</button> 
+                </div>
+
                 <label> Parallelen Studiengang einblenden : </label>
                 <select  id="parallelCourseSelectedSelectbox" class="form-control" (change)="buildParallelSchedule($event.target.selectedIndex)"  [(ngModel)]="scheduleData.selectedParallelCourseChoice"  >
                         <option *ngFor="let choice of scheduleData.choices" [ngValue]="choice"> {{ choice }} </option>      

@@ -1,25 +1,21 @@
 import { Component , 
-           Input, OnInit,  
-             Pipe,  ViewContainerRef} from '@angular/core'; 
-import { Observable} from 'rxjs';   
+           Input, OnInit ,ViewContainerRef} from '@angular/core';  
 import {CourseService} from "@frontendutilities/src/services/REST/course.service"; 
 import {CoursesRequestParameter} from "@frontendutilities/src/services/entities/Parameter/coursesrequestparameter";  
-import {CoursePOJO} from "@frontendutilities/src/services/entities/REST/scheduling/coursepojo";
-import { NgModule } from '@angular/core'; 
+import {CoursePOJO} from "@frontendutilities/src/services/entities/REST/scheduling/coursepojo"; 
 import {ScheduleManager} from "./courseschedule/schedulemanager.component";  
-import {ParallelCourseNameFilterPipe} from "@frontendutilities/src/pipes/ParallelCourseNameFilterPipe";
-import {UniqueCourseNameFilterPipe} from "@frontendutilities/src/pipes/coursenamepipe";
+import {ParallelCourseNameFilterPipe} from "@frontendutilities/src/pipes/ParallelCourseNameFilterPipe"; 
 import {ScheduleData} from "@frontendutilities/src/services/Data/schedule.data.services";
-import {LectureSchedulePOJOList} from "@frontendutilities/src/utils/lists/LectureSchedulePOJOList";
-import {LectureSchedulePOJO} from "@frontendutilities/src/services/entities/REST/scheduling/lectureschedulepojo"; 
-import {GenericList} from "@frontendutilities/src/utils/lists/GenericList";
+import {LectureSchedulePOJOList} from "@frontendutilities/src/utils/lists/LectureSchedulePOJOList"; 
 import {CollisionCheckRequestParameter} from "@frontendutilities/src/services/entities/Parameter/collisioncheckrequestparameter"; 
 import {CoursesScheduleService} from "@frontendutilities/src/services/REST/coursesschedule.service"; 
-import {CollisionCourseScheduleService} from "@frontendutilities/src/services/REST/collisioncourseschedule.service"; 
-import {CoursesSchedulePOJO} from "@frontendutilities/src/services/entities/REST/scheduling/coursesschedulepojo"; 
+import {CollisionCourseScheduleService} from "@frontendutilities/src/services/REST/collisioncourseschedule.service";  
 import { LinkedList } from "typescript-collections";
 import {CourseSchedulePOJO} from "@frontendutilities/src/services/entities/REST/scheduling/courseschedulepojo";
-import {ScheduledLecturePOJO} from "@frontendutilities/src/services/entities/REST/scheduling/scheduledlecturepojo"; 
+import {ScheduledLecturePOJO } from "@frontendutilities/src/services/entities/REST/scheduling/scheduledlecturepojo"; 
+import { NoticeRequestParameter } from "@frontendutilities/src/services/entities/Parameter/noticerequestparameter"; 
+import {CorrectionPOJO} from "@frontendutilities/src/services/entities/REST/scheduling/correctionpojo";
+import {NoticeService} from "@frontendutilities/src/services/REST/notice.service"; 
 
 
 @Component({
@@ -28,6 +24,7 @@ import {ScheduledLecturePOJO} from "@frontendutilities/src/services/entities/RES
     providers: [CoursesScheduleService, 
                     CollisionCourseScheduleService,
                           CourseService, 
+                             NoticeService,
                                 ScheduleData,
                                    ScheduleManager , 
                                        ParallelCourseNameFilterPipe ]
@@ -41,11 +38,12 @@ export class CourseScheduleManager implements OnInit  {
     @Input() coursesSchedule:  CourseSchedulePOJO[];
     @Input() courses: CoursePOJO ; 
 
-
     private selectedCourseNameValue: string; 
     private selectedCourseDegreeValue: string; 
     private selectedCourseTermValue: string;  
-    
+    private scheduleNotices : string = ""; 
+    private noticeHeadline : string = "";
+
     private lecturesToAppend : LectureSchedulePOJOList = new LectureSchedulePOJOList();
     private fetchedLectures : LectureSchedulePOJOList = new LectureSchedulePOJOList();
 
@@ -53,6 +51,7 @@ export class CourseScheduleManager implements OnInit  {
                     private scheduleManager: ScheduleManager,
                         private collisioncourseschedule: CollisionCourseScheduleService,
                             private coursescheduleService : CoursesScheduleService, 
+                                private noticeService : NoticeService,
                                 private courseservice: CourseService, 
                                     private parallelCourseNameFilter :ParallelCourseNameFilterPipe,
                                         public  scheduleData :ScheduleData ){ }
@@ -62,6 +61,7 @@ export class CourseScheduleManager implements OnInit  {
         this. coursescheduleService .getCourseSchedule().subscribe(courseSchedule => {
            
             this.coursesSchedule = []
+            this.noticeHeadline = "Notizen vom " + new Date().toLocaleString();
             courseSchedule.coursesSchedulePOJO.forEach(course =>{this.coursesSchedule.push(course)})
            
         })
@@ -82,20 +82,12 @@ export class CourseScheduleManager implements OnInit  {
         collisionCheckRequestParameter.courseTerm = this.selectedCourseTermValue;
   
         this.scheduleManager.lecturesList.forEach(item =>  {
-            console.log(JSON.stringify(item))
+            
             collisionCheckRequestParameter.lecturesList.push(item) 
         } )
 
         this.collisioncourseschedule.checkCollisions(collisionCheckRequestParameter ).subscribe( collisionSolutions=> {
- 
-            /**
-             * 
-             * {"scheduledLectures":[{"lectureId":"xVWBz","lectureName":"Datenbankmanagementsysteme","startTime":"10:45","endTime":"12:45"},
-             * {"lectureId":"uHdUa","lectureName":"Software Entwicklung und Programmierung (SEP)","startTime":"18:00","endTime":"20:00"},
-             * {"lectureId":"ci0vb","lectureName":"Datenbankmanagementsysteme","startTime":"14:00","endTime":"16:00"},
-             *  
-             */
-
+   
             let scheduledLectures : LinkedList<ScheduledLecturePOJO> = collisionSolutions.scheduledLectures
 
             this.scheduleManager.lecturesList.forEach(lecture => {
@@ -108,9 +100,44 @@ export class CourseScheduleManager implements OnInit  {
                         }
                 })
             }) 
+
+            this.updateNotices(collisionSolutions.correctionMessages);
+ 
         });  
 
     }
+
+    private updateNotices( correctionMessages : LinkedList<CorrectionPOJO>){
+ 
+
+        correctionMessages.forEach(message => {
+
+            this.scheduleNotices = this.scheduleNotices + "" + message.correctionMessage;
+        })
+    }
+
+
+    addNotice(){
+ 
+        let noticeRequestParameter = new  NoticeRequestParameter ();
+
+        noticeRequestParameter.noticeHeadline = this.noticeHeadline; 
+
+        noticeRequestParameter.notice = this.scheduleNotices;
+
+        this.scheduleManager.lecturesList.forEach(item =>  {
+            
+            noticeRequestParameter.scheduledLectures.push(item) 
+        })
+        
+        
+        this.noticeService.addNotice(noticeRequestParameter).subscribe(notices => {
+               
+        
+        });
+ 
+    }
+
 
     buildSchedule(){
   
