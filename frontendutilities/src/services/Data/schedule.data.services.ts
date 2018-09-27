@@ -1,12 +1,21 @@
-import { Injectable } from "@angular/core"; 
+import { Injectable, Component } from "@angular/core"; 
 import * as Collections from "typescript-collections";
 import {LectureSchedulePOJOList} from "../../utils/lists/LectureSchedulePOJOList"; 
+import {LectureListStack} from "../../utils/stacks/LectureListStack";
+
+
+@Component({
+
+    template: `<p> Meddl </p>`
+})
 
 @Injectable()
 export class ScheduleData{
  
     public lecturesList : LectureSchedulePOJOList = new LectureSchedulePOJOList();  
    
+    public lecturesListStack : LectureListStack = new LectureListStack(73);
+
     public days : string[] = [];
 
     public heads : string[] = []; 

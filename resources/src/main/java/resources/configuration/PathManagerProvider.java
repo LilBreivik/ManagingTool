@@ -14,6 +14,8 @@ import static resources.utils.general.Constants.Directory.core;
 import static resources.utils.general.Constants.Directory.main;
 import static resources.utils.general.Constants.Directory.resources;
 import static resources.utils.general.Constants.Directory.src;
+import static resources.utils.general.Constants.Directory.test;
+import static resources.utils.general.Constants.Directory.Files;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -109,6 +111,12 @@ public class PathManagerProvider {
 		return new PathManager(src, main, resources);
 	}
 	
+	@Bean
+	@Qualifier("Path to Test Resources")
+	public PathManager configurePathMangagerForTestResources(){
+		 
+		return new PathManager(src, test, resources, Files);
+	}
 	 
  
 }

@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import resources.components.filehandler.PathManager;
+import resources.error.FileIsMissingError;
  
 
 public class JSONFileReader {
@@ -51,7 +52,15 @@ public class JSONFileReader {
 			
 			if(cannotReadJSON instanceof FileNotFoundException) {
 				
-				throw new resources.error.InternalError("Cannot read expected JSON " + fileName + " maybe you need to Upload Lecture Files");
+				
+				FileIsMissingError missingFileError = new FileIsMissingError("Die Datei " + fileName + " ist nicht vorhanden");
+				
+				missingFileError.missingFileName =   fileName; 
+				
+				missingFileError.missingFileCause = "nicht abgerufen"; 
+				
+				throw missingFileError;
+			
 			}
 			else {
 

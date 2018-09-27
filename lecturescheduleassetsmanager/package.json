@@ -4,16 +4,17 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
+    "copyScheduleTemplate" : "cp ../scheduleassetsmanager/src/assetsmanager/scheduleassetsmanager.component.html src/assetsmanager/lectureschedule.component.html", 
     "copyUploaderJS": "cp -rp js/uploader.js ../core/src/main/resources/static/js",
     "removeAngularCLIAssets": "rm dist/lecturescheduleassetsmanager/3rdpartylicenses.txt && rm dist/lecturescheduleassetsmanager/favicon.ico",
     "copylectureScheduleAssetsHTMLApplication": "mv dist/lecturescheduleassetsmanager/index.html ../core/src/main/resources/static/templates/fragments/lecturescheduleassetsmanager.html",
     "copylectureScheduleAssetsJSApplicaton": "cp -rp dist/lecturescheduleassetsmanager ../core/src/main/resources/static/js",
-    "loadlectureScheduleAssetsManagerApplication": "ng build --configuration=production --aot --build-optimizer=false  && npm run removeAngularCLIAssets && npm run copylectureScheduleAssetsHTMLApplication && npm run copylectureScheduleAssetsJSApplicaton && npm run copyUploaderJS",
+    "loadlectureScheduleAssetsManagerApplication": "npm run copyScheduleTemplate && ng build --configuration=production --aot --build-optimizer=false  && npm run removeAngularCLIAssets && npm run copylectureScheduleAssetsHTMLApplication && npm run copylectureScheduleAssetsJSApplicaton && npm run copyUploaderJS",
     "build": "ng build --configuration=production --source-map",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
-  }, 
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^6.1.0",

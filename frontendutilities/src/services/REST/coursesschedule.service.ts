@@ -1,13 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {CoursePOJO} from "../../services/entities/REST/scheduling/coursepojo";
+import { Injectable , Inject} from '@angular/core';
 import {RESTService} from "./rest.service";
 import { Observable, of } from 'rxjs';  
-import { catchError, map, tap } from 'rxjs/operators';
-import {CoursesRequestParameter} from '../../services/entities/Parameter/coursesrequestparameter';
 import { CoursesSchedulePOJO } from "../../services/entities/REST/scheduling/coursesschedulepojo"; 
-import {environment} from '../../environments/environment'; 
- 
+import {environment} from '../../environments/environment';  
  
 /**
  * Service class for handling 
@@ -19,13 +14,15 @@ import {environment} from '../../environments/environment';
 export class CoursesScheduleService
                             extends RESTService<  CoursesSchedulePOJO  >{
 
-        constructor(){
-            super( environment.API_URL +  "/Synthesize/GeneralCourseSchedule")
+        constructor(  ){
+            super( environment.API_URL +  "/Synthesize/GeneralCourseSchedule" )
+
+        //    this.p_modal = modal; 
         }
 
         /** GET hero by id. Will 404 if id not found */
         getCourseSchedule(): Observable<CoursesSchedulePOJO >  {
-            
+             
             return this.getRESTObject(); 
         }
-}
+} 

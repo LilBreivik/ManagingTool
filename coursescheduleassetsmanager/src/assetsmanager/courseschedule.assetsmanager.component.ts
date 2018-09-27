@@ -40,7 +40,7 @@ export class CourseScheduleAssetsManager
                           coursesScheduleService,
                              courseUploadScheduleFileService ,
                                 courseAssetsFileRequestParameter, 
-                                     courseAssetsFileUploadRequestParameter, 
+                                     courseAssetsFileUploadRequestParameter,  
                                         ".xml");
                         
               

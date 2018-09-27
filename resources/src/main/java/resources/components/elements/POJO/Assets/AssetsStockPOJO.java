@@ -17,16 +17,23 @@ public class AssetsStockPOJO {
 		}
 		else {
 			
-			AssetsStockPOJO existingAssetsStockPOJO  = new AssetsStockPOJO();
+			if(files.isFiledeleted()) {
+				
+				return new AssetsStockDoesNotExist();
+			}
 			
-			existingAssetsStockPOJO.setPresentFlag(true);
-			
-			existingAssetsStockPOJO.setuploaderName(files.getFileUploader());
-			
-			return existingAssetsStockPOJO; 
-			
+			else {
+					
+			  AssetsStockPOJO existingAssetsStockPOJO  = new AssetsStockPOJO();
+					
+	  		  existingAssetsStockPOJO.setPresentFlag(true);
+					
+			  existingAssetsStockPOJO.setuploaderName(files.getFileUploader());
+				
+	  	 	  return existingAssetsStockPOJO; 	
+		   }
+	
 		}
-		
 	} 
 	
 	public void setuploaderName(String uploaderName) {

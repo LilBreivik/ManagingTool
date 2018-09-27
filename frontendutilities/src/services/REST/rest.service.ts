@@ -1,26 +1,29 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { map, tap , catchError} from 'rxjs/operators';
 import { Observable, of } from 'rxjs';   
 import { HttpClientModule } from '@angular/common/http'; 
-import { ReflectiveInjector } from '@angular/core';  
+import { ReflectiveInjector , Inject, ViewChild} from '@angular/core';  
+import {ErrorResponse} from "../../utils/error/error.response.component";
+
+declare function setUpErrorModal( response : ErrorResponse )
 
 export class RESTService<T> {
  
-  protected m_RESTClient: HttpClient;
+  protected p_RESTClient: HttpClient;
   private  Reflect: any;
-  
+    
   constructor(protected serviceURL : string ) 
   { 
       let injector = ReflectiveInjector.resolveAndCreate(this.getAnnotations(HttpClientModule)[0].providers);
-
-      this.m_RESTClient =  injector.get(HttpClient);
-  }
   
+      this.p_RESTClient =  injector.get(HttpClient);
+  }
+    
   /** REST Object from Server */
     
   protected getRESTObject (): Observable<T> { 
    
-    return this.m_RESTClient.get<T >(this.serviceURL).pipe(
+    return this.p_RESTClient.get<T >(this.serviceURL).pipe(
           // _ => this.log(`fetched hero id=1`)
         tap<T>(res => console.log(res)),
         catchError(this.handleError<T>(`getHero id=1`))
@@ -30,13 +33,13 @@ export class RESTService<T> {
  
   protected postRESTObjectNonParsed<U> (postParameter: U ){ 
          
-    return this.m_RESTClient.post(this.serviceURL, postParameter, {responseType : 'blob'});
+    return this.p_RESTClient.post(this.serviceURL, postParameter, {responseType : 'blob'});
   
   } 
 
   protected postRESTObject<U> (postParameter: U){ 
          
-    return this.m_RESTClient.post<T>(this.serviceURL, postParameter ).pipe(
+    return this.p_RESTClient.post<T>(this.serviceURL, postParameter ).pipe(
          
         tap(_ => this.log(`fetched hero id=1`)),
         catchError(this.handleError<T>(`getHero id=1`))
@@ -55,11 +58,13 @@ export class RESTService<T> {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure
-     
-      console.error(error); // log to console instead
+      
+      // we retrieve the error Response from the server 
+      let errorResponse = ErrorResponse.buildErrorResponse(error.error) as ErrorResponse
 
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
+  
+      setUpErrorModal(errorResponse)
+      // TODO: better job of transforming error for user consumption 
 
       // Let the app keep running by returning an empty result.
       return of(result as T);
@@ -70,6 +75,7 @@ export class RESTService<T> {
    protected log(message: string) {
     
     console.log("message " + message);
+    //setUpProgressModal(); 
   }
 
  getAnnotations(typeOrFunc: any): any[]|null {
