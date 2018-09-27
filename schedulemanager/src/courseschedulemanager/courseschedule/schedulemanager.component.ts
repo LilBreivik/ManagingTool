@@ -1,10 +1,8 @@
 import {ComponentFactoryResolver, Injectable, 
     Inject, ReflectiveInjector,OnInit, Component } from '@angular/core'
  
-import {Schedule} from "../schedule/schedule.component"; 
-import { Lecture } from "../lecture/lecture.component"; 
-import {LectureSchedulePOJO} from "@frontendutilities/src/services/entities/REST/scheduling/lectureschedulepojo"; 
-import {LectureTimingPOJO } from "@frontendutilities/src/services/entities/REST/timings/lecturetimingpojo";  
+import {Schedule} from "../schedule/schedule.component";  
+import {LectureSchedulePOJO} from "@frontendutilities/src/services/entities/REST/scheduling/lectureschedulepojo";   
 import {CoursePOJO} from "@frontendutilities/src/services/entities/REST/scheduling/coursepojo"; 
 import {LectureSchedulePOJOList} from "@frontendutilities/src/utils/lists/LectureSchedulePOJOList"; 
 
@@ -110,7 +108,7 @@ export class ScheduleManager  {
                                         pojo.day = timing.day; 
                                         pojo.degree = this.degree;
                                   
-                                        console.log(pojo.degree)
+                                
                                         this.lecturesList.addUniquely(pojo);
                                       
                                     }) 

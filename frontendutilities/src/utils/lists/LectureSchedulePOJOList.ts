@@ -5,7 +5,7 @@ import {LectureSchedulePOJO} from "../../services/entities/REST/scheduling/lectu
 export class LectureSchedulePOJOList
                                         extends GenericList<LectureSchedulePOJO>{
 
-
+ 
     public removeElement(item :  LectureSchedulePOJO){
 
         let  lastLectureCtr = null; 
@@ -28,8 +28,7 @@ export class LectureSchedulePOJOList
         }
          
     }
-
-
+ 
     public addUniquely(item : LectureSchedulePOJO){
  
         if(this.size() == 0){
@@ -108,5 +107,20 @@ export class LectureSchedulePOJOList
     public getElementByIndex(index : number){
 
        return  this.elementAtIndex(index);
+    }
+
+
+    public ifListsEqual(list : LectureSchedulePOJOList){
+
+
+        for(var i = 0; i < list.size(); i+= 1){
+
+            if(!(list.getElementByIndex(i).isEqual(this.getElementByIndex(i)))){
+
+                return false;
+            }
+        }
+
+        return true;
     }
 }

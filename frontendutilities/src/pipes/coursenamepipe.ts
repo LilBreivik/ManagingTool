@@ -8,7 +8,7 @@ export class UniqueCourseNameFilterPipe
 
     constructor(){
          super(); 
-         console.log("XXXXXXXXXXXX")
+       
          this.itemAttribute = (item) => {
 
             

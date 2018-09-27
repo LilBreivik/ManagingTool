@@ -7,4 +7,4 @@ export class CourseScheduleAssetsStockService
         constructor(){
             super(environment.API_URL + "/Assets/CourseSchedule");
         } 
-}
+} 

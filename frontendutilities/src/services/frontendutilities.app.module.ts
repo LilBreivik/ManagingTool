@@ -13,14 +13,14 @@ import {ParallelCourseNameFilterPipe} from "../pipes/parallelcoursenamefilterpip
     HttpClientModule
   ],
 
-declarations: [ 
+declarations: [  
     UniqueCourseNameFilterPipe, 
     UniqueCourseDegreeFilterPipe,
     UniqueCourseTermFilterPipe, 
     ParallelCourseNameFilterPipe
   ],
 
-exports: [ 
+exports: [  
     UniqueCourseNameFilterPipe, 
     UniqueCourseDegreeFilterPipe,
     UniqueCourseTermFilterPipe, 

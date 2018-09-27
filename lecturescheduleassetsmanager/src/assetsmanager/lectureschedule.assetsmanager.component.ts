@@ -11,7 +11,7 @@ import {UploadLectureScheduleFileService }  from "../services/files/upload/lectu
  
 @Component({
     selector: 'lectureschedulemanager-root',
-    templateUrl: './lectureschedulemanager.component.html',
+    templateUrl: './lectureschedule.component.html',
     providers :[ LectureScheduleAssetsStockService , 
                     CoursesScheduleService, 
                         CourseAssetsFileRequestParameter, 
@@ -20,7 +20,7 @@ import {UploadLectureScheduleFileService }  from "../services/files/upload/lectu
                                     UploadLectureScheduleFileService,
                                         UploadAssetsFileRequestParameter]
 }) 
-
+ 
 export class LectureScheduleAssetsManager 
                                         extends AssetsManager {
     

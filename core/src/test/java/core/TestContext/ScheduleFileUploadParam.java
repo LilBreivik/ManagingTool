@@ -7,22 +7,19 @@ import java.nio.file.Paths;
 
 import javax.xml.bind.DatatypeConverter;
 
-import core.controller.parameter.ScheduleParam; 
+import scheduling.utils.IScheduleParam; 
 
-/**
- * This class defines 
- * 
- * the parameter needed to upload
- * a schedule File ....
- * 
- * Actually it extends the common parameter 
- * with a file asset
- * 
- * */
- 
-public class ScheduleFileUploadParam 	
-										extends ScheduleParam {
-
+public class ScheduleFileUploadParam 	implements IScheduleParam {
+	
+	// requested CourseName 
+	private String courseName; 
+		
+	// requested CourseDegree 
+	private String courseDegree; 
+		
+	// requested CourseTerm 
+	private String courseTerm; 
+	
 	protected String scheduleFile; 
 	
 	public String getScheduleFile() {
@@ -53,4 +50,42 @@ public class ScheduleFileUploadParam
 		
 		
 	}
+
+
+	@Override
+	public String getCourseName() {
+	
+		return courseName;
+	}
+
+	@Override
+	public void setCourseName(String courseName) {
+		
+		this.courseName = courseName; 
+	}
+
+	@Override
+	public String getCourseDegree() {
+
+		return courseDegree; 
+	}
+
+	@Override
+	public void setCourseDegree(String courseDegree) {
+	
+		this.courseDegree = courseDegree; 
+	}
+
+	@Override
+	public String getCourseTerm() {
+		// TODO Auto-generated method stub
+		return courseTerm; 
+	}
+
+	@Override
+	public void setCourseTerm(String courseTerm) {
+		
+		this.courseTerm = courseTerm; 
+	}
+
 }

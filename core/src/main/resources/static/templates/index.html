@@ -27,6 +27,10 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+
+
+    <link href="../build/css/gear.animation.css" rel="stylesheet">
+
   </head>
 
   <body class="nav-md">
@@ -153,6 +157,137 @@
             </div>
         </div>
         <!-- /page content -->
+ 
+
+        <div  id="progressModal" class="modal fade bs-example-modal-sm " tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">      
+                 <h4 class="modal-title"> ... Ihre Anfrage wird bearbeitet </h4>
+              </div>
+              <div class="modal-body progressmodal-body"  >
+                  <div class="container"> 
+                      <div class="gear" id="gear"></div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <div class="modal-body" ></div> 
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+         
+        <div  id="errorModal" class="modal fade bs-example-modal-lg " tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header"> 
+                  <h4 class="modal-title" id="errorModalLabel"></h4>
+                </div>
+                <div class="modal-body" id="errorModalContent"></div>
+                <div class="modal-footer">
+                    <div class="modal-body" id="errorModalFooter"></div>
+                  <button type="button" class="btn modalbtn btn-default" data-dismiss="modal">Schließen</button> 
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+
+
+    <!--    <div id="errorModal" class="modal fade bs-example-modal-sm " tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-header">
+                  
+                  <h4 class="modal-title" >ttt</h4>
+                </div>
+                
+                  <div class="modal-body" >
+
+                  <div class="container"> 
+                      <div class="gear" id="gear7"></div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-body"   style="float: left;"></div>
+                   
+                </div>
+
+              </div>
+            </div>
+          </div> -->
+    <!--    <div class="modal-dialog modal-sm"> 
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                  </div>
+                  <div class="container"> 
+                      <div class="gear" id="gear7"></div>
+                  </div>
+                  <div class="modal-body" id="myModalContent"></div>
+                  <div class="modal-footer">
+                      <div class="modal-body" id="myModalFooter"></div>
+                    <button type="button" class="btn modalbtn btn-default" data-dismiss="modal">Schließen</button> 
+                  </div>
+  
+                </div> 
+          </div>
+
+
+
+        <div  id="errorModal" class="modal fade bs-example-modal-lg " tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                  </button>
+                  <h4 class="modal-title" id="myModalLabel"></h4>
+                </div>
+                <div class="container"> 
+                    <div class="gear" id="gear7"></div>
+                </div>
+                <div class="modal-body" id="myModalContent"></div>
+                <div class="modal-footer">
+                    <div class="modal-body" id="myModalFooter"></div>
+                  <button type="button" class="btn modalbtn btn-default" data-dismiss="modal">Schließen</button> 
+                </div>
+
+              </div>
+            </div>
+          </div>
+        -->
+
+
+        <!-- modal 
+   
+
+
+            <div  id="errorModal" class="modal fade bs-example-modal-lg " tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                      </button>
+                      <h4 class="modal-title" id="myModalLabel"></h4>
+                    </div>
+                    <div class="modal-body" id="myModalContent"></div>
+                    <div class="modal-footer">
+                        <div class="modal-body" id="myModalFooter"></div>
+                      <button type="button" class="btn modalbtn btn-default" data-dismiss="modal">Schließen</button> 
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+
+        /modal-->
 
         <!-- footer content -->
         <footer>

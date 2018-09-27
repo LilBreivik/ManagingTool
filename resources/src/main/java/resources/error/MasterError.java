@@ -32,17 +32,6 @@ public class MasterError extends RuntimeException {
 	public String toString() {
 		
 		return m_errorMessage;
-		
-		/*StringBuilder errorMessageProlog = new StringBuilder();
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-		
-		errorMessageProlog.append(sdf.format(new Date(System.currentTimeMillis())));
-
-		errorMessageProlog.append(" : ");
-		
-		errorMessageProlog.append(m_errorMessage);
-		
-		return errorMessageProlog.toString();*/
+		 
 	}
 }

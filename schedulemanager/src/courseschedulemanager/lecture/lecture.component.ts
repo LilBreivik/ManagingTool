@@ -7,13 +7,15 @@ import * as moment from 'moment';
 import 'moment-duration-format';
 import {DateRange} from 'moment-range';
 import { ChangeDetectorRef } from '@angular/core';
+import {ScheduleData} from "@frontendutilities/src/services/Data/schedule.data.services"; 
+import { ScheduleManager } from '../courseschedule/schedulemanager.component';
 
 declare function adjustDimensions();
-  
+ 
 @Component({
   selector: 'lecture-component',
  
-  template: `<div  droppable (onDrop)="onItemDrop($event)"    class="ex4   list-group-item" >
+  template: `<div  droppable (onDrop)="onLectureDrop($event)"    class="ex4 list-group-item" >
                 <div *ngIf="lectureProperties"> 
                       <div *ngFor="let lecture of selectLecturesObject().toArray()">
                            <div *ngIf="setLecture(lecture)">   </div>
@@ -69,7 +71,9 @@ export class Lecture implements  AfterViewChecked ,AfterContentChecked {
   public height12 : number;
   public lecturePOJO : LectureSchedulePOJO;
 
-  constructor(private cdRef:ChangeDetectorRef ){
+  constructor(private cdRef:ChangeDetectorRef , 
+                  private scheduleData : ScheduleData, 
+                      private scheduleManager: ScheduleManager){
 
     this.droppedItems = new LectureSchedulePOJOList();
     this.draggedItems = new LectureSchedulePOJOList();
@@ -99,12 +103,12 @@ export class Lecture implements  AfterViewChecked ,AfterContentChecked {
     
         let diff = end.subtract(start );
       
-        let minutes = moment.duration(moment.duration(diff)).format("mm");
+        let minutes  = moment.duration(moment.duration(diff)).format("mm");
   
         this.opacity = 1
- 
+        
         var dim = adjustDimensions();
-
+        
         this.height = ( ((parseInt(minutes, 10) / 15) ) *  (  parseInt(dim.height)) ); 
   
         this.width = dim.width * 0.9
@@ -129,7 +133,7 @@ export class Lecture implements  AfterViewChecked ,AfterContentChecked {
         });
         
       } 
-      else{
+      else{ 
 
         this.opacity = 0
         this.color = "";
@@ -186,7 +190,8 @@ export class Lecture implements  AfterViewChecked ,AfterContentChecked {
  
               this.updateLectureInformation(lecture);
               this.selectedLectures.add(lecture); 
-            } 
+            }
+             
           }
     });
 
@@ -200,16 +205,17 @@ export class Lecture implements  AfterViewChecked ,AfterContentChecked {
       pojo.lectureName = "not defined"; 
       this.selectedLectures.add(pojo);
     } ;
-  
-
-    return this.selectedLectures;
-  
+   
+    
+    return this.selectedLectures; 
 }
 
-  public onItemDrop(e: any) {
+  public onLectureDrop(e: any) {
     // Get the dropped data here 
-  
- 
+    
+
+    this.scheduleData.lecturesListStack.pushList(this.scheduleData.lecturesList)
+
     let obj = JSON.parse( JSON.stringify(e ) ).dragData;
    
     let start = moment.duration(obj.startTime); 
@@ -243,8 +249,10 @@ export class Lecture implements  AfterViewChecked ,AfterContentChecked {
     obj.day = this.day
  
     this.lectureProperties.removeElement(obj) 
+  
   }
- 
+  
+
   updateLectureInformation(lectureInformationSource){
     
     this.lecturePOJO = lectureInformationSource
