@@ -24,13 +24,14 @@
             "assets": [
               "src/favicon.ico",
               "src/assets"
-            ],
+            ], 
             "styles": [
               "src/styles.css"
             ],
             "scripts": [
+              "../frontendutilities/src/services/REST/js/modalsetter.js",      
               "js/uploader.js"
-            ]
+            ] 
           },
           "configurations": {
             "production": {
@@ -69,6 +70,7 @@
               "src/styles.css"
             ],
             "scripts": [
+              "../frontendutilities/src/services/REST/js/modalsetter.js",      
               "js/uploader.js"
             ]
           },
@@ -120,11 +122,14 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "../frontendutilities/src/services/REST/js/modalsetter.js",      
+              "js/uploader.js"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
-            ]
+            ] 
           }
         },
         "lint": {

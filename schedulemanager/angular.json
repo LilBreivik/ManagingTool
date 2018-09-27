@@ -27,8 +27,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [
-
+            "scripts": [ 
+              "js/undosetter.js",
+              "../frontendutilities/src/services/REST/js/modalsetter.js",      
               "js/adjuster.js"
             ]
           },
@@ -69,7 +70,8 @@
               "src/styles.css"
             ],
             "scripts": [
-
+              "js/undosetter.js",
+              "../frontendutilities/src/services/REST/js/modalsetter.js",      
               "js/adjuster.js"
             ]
           },
@@ -120,7 +122,11 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [ 
+              "js/undosetter.js",
+              "../frontendutilities/src/services/REST/js/modalsetter.js",      
+              "js/adjuster.js"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"

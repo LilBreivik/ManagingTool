@@ -1,6 +1,3 @@
-<script type="text/javascript" href="../../js/adjuster.js"></script>
-
-
 <div class="col-md-6 col-sm-6 col-xs-6">
         <label>&nbsp;Fachsemester einblenden: </label>
 
@@ -19,9 +16,7 @@
 </div>
 
 
- 
-
-<div id="schedule">
+<div   id="schedule">
     <table  *ngIf="scheduleData"> 
       <tbody >  
           <tr id="headline">
@@ -48,7 +43,12 @@
       </tbody>
     </table>
 </div> 
-  
+
+
+<div  class="col-md-6 col-sm-6 col-xs-6">
+    <button type="button" id="screenshotButton" class="btn btn-warning"(click)="createScreenshot()">Screenshot anfertigen</button>
+</div>
+ 
  
 <style> 
 

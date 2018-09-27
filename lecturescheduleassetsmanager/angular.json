@@ -29,6 +29,7 @@
               "src/styles.css"
             ],
             "scripts": [
+              "../frontendutilities/src/services/REST/js/modalsetter.js",      
               "js/uploader.js"
             ]
           },
@@ -69,6 +70,7 @@
               "src/styles.css"
             ],
             "scripts": [
+              "../frontendutilities/src/services/REST/js/modalsetter.js",      
               "js/uploader.js"
             ]
           },
@@ -120,7 +122,10 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "../frontendutilities/src/services/REST/js/modalsetter.js",      
+              "js/uploader.js"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"

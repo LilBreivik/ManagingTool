@@ -18,7 +18,7 @@ public class Constants {
 		
 		ScheduleFiles, Properties, Greetings, Network,
 		JSONFiles, CoursesAssets, LecturesAssets, Database, Hibernate,
-		src, main, resources, core
+		src, main, resources, core, test, Files 
 	}
 
     // The root directory , where the sub directories exist 

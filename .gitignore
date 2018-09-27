@@ -47,7 +47,7 @@ ScheduleFiles/
 
 
 # ignore files
-
+.vscode/
 package-info.java
 changelog.md
 LICENSE.txt
@@ -55,15 +55,17 @@ README.md
 *.orig
 core/src/main/resources/application.properties
 core/src/main/resources/static/js/lecturescheduleassetsmanager/main.*
-core/src/main/resources/static/js/lecturescheduleassetsmanager/main.*
+core/src/main/resources/static/js/schedulemanager/scripts.*
 core/src/main/resources/static/js/schedulemanager/main.*
-core/src/main/resources/static/js/schedulemanager/scripts.*
-core/src/main/resources/static/js/schedulemanager/scripts.*
-core/src/main/resources/static/js/lecturescheduleassetsmanager/scripts.*
 core/src/main/resources/static/js/coursescheduleassetsmanager/main.*
+core/src/main/resources/static/js/coursescheduleassetsmanager/scripts.*
+core/src/main/resources/static/js/coursescheduleassetsmanager/scripts.*
+core/src/main/resources/static/js/lecturescheduleassetsmanager/scripts.*
 core/src/test/resources/Files/AISEXLSFileAsset.xls
 core/src/test/resources/Files/LectureScheduleAISEBa.xml
 core/src/test/resources/Files/LectureScheduleWiInfBA.xml
 core/src/test/resources/Files/WiInfXLSFileAsset.xls
-.vscode/
-core/src/main/resources/static/js/coursescheduleassetsmanager/scripts.ad748f54b506b23d6ad6.js
+core/src/main/java/core/backend/NonREST/IndexPageController.java.orig
+core/src/main/java/core/backend/NonREST/ScheduleManagerPageController.java.orig
+core/src/main/resources/static/templates/fragments/lecturescheduleassetsmanager.html.orig
+resources/src/main/java/resources/components/filehandler/assetsmanager/FileRepositoryManager.java.orig

@@ -1,11 +1,10 @@
 import { Component , 
-           Input, OnInit ,ViewContainerRef} from '@angular/core';  
+           Input, OnInit ,ViewContainerRef } from '@angular/core';  
 import {CourseService} from "@frontendutilities/src/services/REST/course.service"; 
 import {CoursesRequestParameter} from "@frontendutilities/src/services/entities/Parameter/coursesrequestparameter";  
 import {CoursePOJO} from "@frontendutilities/src/services/entities/REST/scheduling/coursepojo"; 
 import {ScheduleManager} from "./courseschedule/schedulemanager.component";  
 import {ParallelCourseNameFilterPipe} from "@frontendutilities/src/pipes/ParallelCourseNameFilterPipe"; 
-import {ScheduleData} from "@frontendutilities/src/services/Data/schedule.data.services";
 import {LectureSchedulePOJOList} from "@frontendutilities/src/utils/lists/LectureSchedulePOJOList"; 
 import {CollisionCheckRequestParameter} from "@frontendutilities/src/services/entities/Parameter/collisioncheckrequestparameter"; 
 import {CoursesScheduleService} from "@frontendutilities/src/services/REST/coursesschedule.service"; 
@@ -16,24 +15,23 @@ import {ScheduledLecturePOJO } from "@frontendutilities/src/services/entities/RE
 import { NoticeRequestParameter } from "@frontendutilities/src/services/entities/Parameter/noticerequestparameter"; 
 import {CorrectionPOJO} from "@frontendutilities/src/services/entities/REST/scheduling/correctionpojo";
 import {NoticeService} from "@frontendutilities/src/services/REST/notice.service"; 
-
-
+import {ScheduleData} from "@frontendutilities/src/services/Data/schedule.data.services";
+import {LectureListStack} from "@frontendutilities/src/utils/stacks/LectureListStack";
+ 
 @Component({
     selector: 'courseschedulemanager-root',
     templateUrl: './courseschedulemanager.component.html',
     providers: [CoursesScheduleService, 
                     CollisionCourseScheduleService,
                           CourseService, 
-                             NoticeService,
-                                ScheduleData,
-                                   ScheduleManager , 
-                                       ParallelCourseNameFilterPipe ]
-  //  styleUrls: ['./selectbox.component.css']
-  })
+                             NoticeService, 
+                                 ParallelCourseNameFilterPipe ]
+  
+  }) 
    
  
-
-export class CourseScheduleManager implements OnInit  {
+  
+export class CourseScheduleManager implements OnInit   {
   
     @Input() coursesSchedule:  CourseSchedulePOJO[];
     @Input() courses: CoursePOJO ; 
@@ -54,7 +52,7 @@ export class CourseScheduleManager implements OnInit  {
                                 private noticeService : NoticeService,
                                 private courseservice: CourseService, 
                                     private parallelCourseNameFilter :ParallelCourseNameFilterPipe,
-                                        public  scheduleData :ScheduleData ){ }
+                                        public  scheduleData : ScheduleData ){ }
      
     ngOnInit(): void {
      
@@ -67,6 +65,7 @@ export class CourseScheduleManager implements OnInit  {
         })
     }
 
+    
     removeCurrentSchedule(){
 
         this.scheduleManager.lecturesList = null;
@@ -87,7 +86,7 @@ export class CourseScheduleManager implements OnInit  {
         } )
 
         this.collisioncourseschedule.checkCollisions(collisionCheckRequestParameter ).subscribe( collisionSolutions=> {
-   
+    
             let scheduledLectures : LinkedList<ScheduledLecturePOJO> = collisionSolutions.scheduledLectures
 
             this.scheduleManager.lecturesList.forEach(lecture => {
@@ -120,7 +119,7 @@ export class CourseScheduleManager implements OnInit  {
     addNotice(){
  
         let noticeRequestParameter = new  NoticeRequestParameter ();
-
+ 
         noticeRequestParameter.noticeHeadline = this.noticeHeadline; 
 
         noticeRequestParameter.notice = this.scheduleNotices;
@@ -129,26 +128,25 @@ export class CourseScheduleManager implements OnInit  {
             
             noticeRequestParameter.scheduledLectures.push(item) 
         })
-        
-        
+         
         this.noticeService.addNotice(noticeRequestParameter).subscribe(notices => {
                
-        
+         
         });
  
     }
-
+ 
 
     buildSchedule(){
-  
+    
         let coursesRequestParameter = new CoursesRequestParameter ();
  
         coursesRequestParameter.courseDegree = this.selectedCourseDegreeValue;
         coursesRequestParameter.courseName =  this.selectedCourseNameValue;
         coursesRequestParameter.courseTerm = this.selectedCourseTermValue;
- 
+        
         this.scheduleManager.lecturesList  = new LectureSchedulePOJOList();  
-
+        
         this.courseservice.getCourses(coursesRequestParameter).subscribe(courses => {
             
             this.scheduleManager.course = this.selectedCourseNameValue
@@ -160,12 +158,13 @@ export class CourseScheduleManager implements OnInit  {
             this.scheduleManager.semester = this.selectedCourseTermValue
  
             this.scheduleManager.lecturesList =  this.scheduleManager.buildLectures(courses);
-     
+       
             this.scheduleManager.setRootViewContainerRef(this.viewContainerRef);
 
             this.scheduleManager.addDynamicComponent();    
          
         });
+ 
     }
  
 

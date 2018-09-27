@@ -1,4 +1,4 @@
-import {   Input, OnInit} from '@angular/core';    
+import { HostBinding, Input, OnInit} from '@angular/core';    
 import {CourseSchedulePOJO} from "@frontendutilities/src/services/entities/REST/scheduling/courseschedulepojo";
 import {AssetsStockService} from "../services/files/assets/assets.stock.files.service";
 import {CourseRequestParameter} from "@frontendutilities/src/services/entities/Parameter/courserequestparameter";
@@ -12,8 +12,8 @@ import * as FileSaver from "file-saver";
  
 
 declare function uploadAsset2(input : HTMLInputElement);
-
-
+ 
+ 
 export class AssetsManager implements OnInit  {
 
     private assetsThere: boolean = false;
@@ -108,6 +108,8 @@ export class AssetsManager implements OnInit  {
         });
         
     } 
+
+    
     uploadAsset(test : Event) {
        
       let reader : FileReader = uploadAsset2((test.target as HTMLInputElement))

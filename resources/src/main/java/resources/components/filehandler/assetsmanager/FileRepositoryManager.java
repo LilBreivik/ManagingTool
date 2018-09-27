@@ -3,7 +3,8 @@ package resources.components.filehandler.assetsmanager;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Date; 
+import java.util.Date;
+import java.util.UUID;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.security.core.Authentication;
@@ -12,7 +13,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import resources.database.entities.File.Files;
 import resources.database.repository.FilesRepository; 
 import resources.components.filehandler.PathManager;
-import resources.components.filehandler.filereader.FileNameTranslator; 
+import resources.components.filehandler.filereader.FileNameTranslator;
+import resources.components.filehandler.filereader.FileReadingPlan;
+import resources.error.InternalError;
 
 /**
  * Class that handles
@@ -40,20 +43,29 @@ public class FileRepositoryManager  extends FileAssetsManager {
 	@Override
 	public void deleteFile(File  fileToBeDeleted) {
 	 
-		System.out.println();
+		System.out.println(fileToBeDeleted.getName());
 		
 		final String fileNameToTranslate = p_fileNameTranslator.translateFileName(fileToBeDeleted.getName());
-		  
-		
-		System.out.println(getPathManager().getPathOfFile(fileNameToTranslate).toFile().toString());
-	 	
+		 	
 		// here we remove the expecting file physically 
 			
 		super.deleteFile(getPathManager().getPathOfFile(fileNameToTranslate).toFile());
 		
 		// We will commit the change to the database at this point 
 		
-		m_FileRepository.delete(fileToBeDeleted.getName());
+		Files fileStateToUpdate = new Files();
+	 	
+		fileStateToUpdate.setFileName(fileToBeDeleted.getName()); // we store the information to the row with the expected name
+		fileStateToUpdate.setFileUploaded(false);
+		fileStateToUpdate.setFiledeleted(true);
+		fileStateToUpdate.setFileDeleter("Rainer Winkler");
+		fileStateToUpdate.setFileDeletedAt(new Date(System.currentTimeMillis()));
+		
+		 
+		fileStateToUpdate.setFilePath(null); // we have to store the physical location of this file 
+		
+		
+		m_FileRepository.addNewFile(fileStateToUpdate);
 		 
 	}
   
@@ -68,33 +80,26 @@ public class FileRepositoryManager  extends FileAssetsManager {
 		final String expectedFileName = targetPath.toFile().getName();
 		
 		final Path pathToExistingFile = Paths.get(FilenameUtils. getFullPath(targetPath.toString()) , file.getName());
-		
-		System.out.println("");
 		  
 	    super.moveFile( file, pathToExistingFile);
 		 
-	    
-	    
+	     
 	    PathManager pathManagerToCurrentWorkDirectory  = new PathManager( );
 	    
-		Files fileToUpdate = new Files();
+		Files fileStateToUpdate = new Files();
 	 	
-		fileToUpdate.setFileName(expectedFileName); // we store the information to the row with the expected name
-		fileToUpdate.setFileUploaded(true);
-		fileToUpdate.setFileUploadedAt(new Date(System.currentTimeMillis()));
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		
-		 
-		
-		
+		fileStateToUpdate.setFileName(expectedFileName); // we store the information to the row with the expected name
+		fileStateToUpdate.setFileUploaded(true);
+		fileStateToUpdate.setFiledeleted(false);
+		fileStateToUpdate.setFileUploadedAt(new Date(System.currentTimeMillis()));
+		  
 		final String uploaderName = authentication.getName();
+        
+		fileStateToUpdate.setFileUploader(uploaderName);  
+		fileStateToUpdate.setFilePath( pathManagerToCurrentWorkDirectory.getPathToOperateOn().relativize(pathToExistingFile  ).toString()); // we have to store the physical location of this file 
 		
-		fileToUpdate.setFileUploader(uploaderName); 
-		fileToUpdate.setFilePath( pathManagerToCurrentWorkDirectory.getPathToOperateOn().relativize(pathToExistingFile  ).toString()); // we have to store the physical location of this file 
 		
-		
- 		m_FileRepository.addNewFile(fileToUpdate);
+ 		m_FileRepository.addNewFile(fileStateToUpdate);
 		
 	}
 	
