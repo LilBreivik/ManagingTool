@@ -65,12 +65,12 @@ public class UserAuthenticationProvider  implements AuthenticationProvider {
 					  int authorizedAccountId = GeneralPurpose.CollectionToList(authorizingUser.getAccountIds()).get(m_accountPasswords.indexOf(accountPassword));
 				 	    
 					  AuthorizedUserAccount authorizedAccount = new AuthorizedUserAccount(authorizingUser.getUsername(), accountPassword, authorizingUser.getLoginName(), authorityOfAccount, authorizedAccountId);
-					   
-					  Sessions newSession = new Sessions(authorizedAccountId);
+					  
+					  Sessions newSession = m_sessionRepository.read(authorizedAccountId);
 						
 					  newSession.handleLogin();
 						
-					  m_sessionRepository.saveOrUpdate(newSession);
+					  m_sessionRepository.registerSession(newSession);
 					  
 					  
 					  return new UsernamePasswordAuthenticationToken(authorizedAccount,   m_userPassword, Arrays.asList( authorityOfAccount) );

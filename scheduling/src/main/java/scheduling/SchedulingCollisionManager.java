@@ -5,14 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.springframework.stereotype.Component;  
+import org.springframework.stereotype.Component;
+
+import resources.components.elements.POJO.Scheduling.Lectures.LecturePOJO;
+import resources.components.elements.POJO.Scheduling.Lectures.ScheduledLecturePOJO;
+import resources.components.elements.POJO.Scheduling.Lectures.ScheduledLecturesPOJO;
+import resources.components.elements.POJO.Scheduling.Timing.ConflictsManager;
+import resources.components.elements.POJO.Scheduling.Timing.SchedulingDay;
+import resources.components.elements.POJO.Scheduling.Timing.TimeBlock;
+import resources.components.elements.corrections.CorrectionMessage;
 import resources.utils.general.Constants.Days; 
-import scheduling.elements.POJO.LecturePOJO;
-import scheduling.elements.POJO.ScheduledLecturePOJO;
-import scheduling.elements.POJO.ScheduledLecturesPOJO;
-import scheduling.elements.corrections.CorrectionMessage;
-import scheduling.timing.ConflictsManager;
-import scheduling.timing.TimeBlock; 
 
 @Component
 public class SchedulingCollisionManager {

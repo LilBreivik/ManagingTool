@@ -16,12 +16,16 @@ import static resources.utils.general.Constants.Directory.resources;
 import static resources.utils.general.Constants.Directory.src;
 import static resources.utils.general.Constants.Directory.test;
 import static resources.utils.general.Constants.Directory.Files;
+import static resources.utils.general.Constants.Directory.Users;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import resources.components.filehandler.PathManager;
+import resources.database.entities.User.Users;
 
 /**
  * Class that globalls 
@@ -116,7 +120,17 @@ public class PathManagerProvider {
 	public PathManager configurePathMangagerForTestResources(){
 		 
 		return new PathManager(src, test, resources, Files);
+	} 
+	  
+	public static PathManager configurePathMangagerToNoticesForLoggedInUser(String loggedInUserName){
+		  
+		
+		return new PathManager(loggedInUserName, ScheduleRootDiectory, JSONFiles, Users );
+	}
+	
+	public static  PathManager configurePathManagerToNoticesForUserCreation(Users user){
+		  	
+		return new PathManager(user.getLoginName(), ScheduleRootDiectory, JSONFiles, Users );
 	}
 	 
- 
 }

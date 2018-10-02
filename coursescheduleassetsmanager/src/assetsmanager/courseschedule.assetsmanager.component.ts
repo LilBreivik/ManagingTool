@@ -5,10 +5,10 @@ import {CourseAssetsFileRequestParameter} from "@scheduleassets/src/entities/par
 import {CoursesScheduleService} from "@frontendutilities/src/services/REST/coursesschedule.service";
 import {DeleteCourseScheduleFileService } from "../service/files/delete/courseschedule.delete.files.service"; 
 import { DownloadCourseScheduleFileService } from "../service/files/download/courseschedule.download.files.service"; 
+import {DownloadCourseScheduleTemplateFileService} from '@scheduleassets/src/services/files/download/download.course.schedule.template.files.service';
 import {UploadAssetsFileRequestParameter} from "@scheduleassets/src/entities/parameter/assets/request/upload/assets.upload.request.parameter";
 import {UploadCourseScheduleFileService }  from "../service/files/upload/courseschedule.upload.files.service";
-
-//"@scheduleassets/src/services/files/upload/courseschedule.upload.files.service";
+ 
 
 
 @Component({
@@ -18,9 +18,10 @@ import {UploadCourseScheduleFileService }  from "../service/files/upload/courses
                     CoursesScheduleService, 
                         CourseAssetsFileRequestParameter, 
                             DeleteCourseScheduleFileService, 
-                               DownloadCourseScheduleFileService, 
-                                  UploadCourseScheduleFileService,
-                                     UploadAssetsFileRequestParameter]
+                                DownloadCourseScheduleTemplateFileService,
+                                    DownloadCourseScheduleFileService, 
+                                        UploadCourseScheduleFileService,
+                                            UploadAssetsFileRequestParameter]
 }) 
 
 export class CourseScheduleAssetsManager 
@@ -32,7 +33,8 @@ export class CourseScheduleAssetsManager
                                 private courseDownloadCourseScheduleFileService: DownloadCourseScheduleFileService,
                                     private courseUploadScheduleFileService : UploadCourseScheduleFileService,
                                         private courseAssetsFileRequestParameter : CourseAssetsFileRequestParameter, 
-                                            private courseAssetsFileUploadRequestParameter: UploadAssetsFileRequestParameter){
+                                            private courseAssetsFileUploadRequestParameter: UploadAssetsFileRequestParameter, 
+                                                protected courseDownloadTemplateFileService: DownloadCourseScheduleTemplateFileService){
        
             super(courseScheduleAssetsStockService,
                       courseScheduleFileDeleteService, 
@@ -43,6 +45,7 @@ export class CourseScheduleAssetsManager
                                      courseAssetsFileUploadRequestParameter,  
                                         ".xml");
                         
+            this.p_downloadTemplateFileService = courseDownloadTemplateFileService;
               
         }
 }

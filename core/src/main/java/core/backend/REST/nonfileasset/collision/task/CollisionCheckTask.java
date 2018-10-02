@@ -4,10 +4,10 @@ package core.backend.REST.nonfileasset.collision.task;
 
 import core.backend.REST.general.response.result.successfully.SuccessResponse;
 import core.backend.REST.general.task.AbstractTaskImpl;
-import core.backend.REST.nonfileasset.collision.parameter.CollisionCheckParameter; 
+import core.backend.REST.nonfileasset.collision.parameter.CollisionCheckParameter;
+import resources.components.elements.POJO.Scheduling.Lectures.ScheduledLecturesPOJO;
 import resources.components.filehandler.filesynthesizer.ISynthesizer;
-import scheduling.SchedulingCollisionManager;
-import scheduling.elements.POJO.ScheduledLecturesPOJO; 
+import scheduling.SchedulingCollisionManager; 
 
 public class CollisionCheckTask 
 

@@ -1,38 +1,35 @@
 package core.backend.REST.nonfileasset.collision.parameter;
-
-import core.backend.REST.general.request.MasterRESTCustomRequest;
+  
+import resources.components.elements.POJO.Schedule.CollisionCheckPOJO; 
+import resources.components.elements.POJO.Scheduling.Lectures.LecturePOJO;
 import resources.error.parameter.ParameterViolationError;
+
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;  
-import scheduling.elements.POJO.LecturePOJO;
+import core.backend.REST.general.request.custom.schedule.RESTCustomScheduleRequest;
 
 
 public class CollisionCheckParameter 		
-													extends MasterRESTCustomRequest{
-
-	private  List<LecturePOJO> m_lecturesList;
-	
+										extends RESTCustomScheduleRequest<CollisionCheckPOJO> {
+ 
 	@JsonCreator
-	public CollisionCheckParameter(@JsonProperty("courseName") String courseName,
-											       @JsonProperty("courseDegree") String courseDegree,
-										       		@JsonProperty("courseTerm") String  courseTerm, 
-										       		  @JsonProperty("lecturesList") List<LecturePOJO> lecturesList) {
-		super(courseName, courseDegree, courseTerm); 
+	public CollisionCheckParameter(@JsonProperty("collisionCheck") CollisionCheckPOJO request) {
+		super(request); 
 		 
-		   p_verifierJob = () -> { 
-    	 	
-				if(lecturesList.size() == 0) {
+		 
+		 p_verifierJob = () -> { 
+	    	 	
+				if(getRequest().getLecturesList().size() == 0) {
 					throw new  ParameterViolationError(parameterErrorMessageInvalidParameter);
 				}
 		   };
-
-	   this.m_lecturesList = lecturesList;
 	}
-	
-	public List<LecturePOJO> getLecturesList(){
+
+	 
+    public List<LecturePOJO> getLecturesList(){
 		
-		return this.m_lecturesList;
+		return getRequest().getLecturesList();
 	}
-
+	 
 }

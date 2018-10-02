@@ -3,15 +3,12 @@ import {ScheduleData} from "@frontendutilities/src/services/Data/schedule.data.s
 import * as html2canvas from 'html2canvas';
 import * as FileSaver from "file-saver";  
 import { LectureSchedulePOJOList } from '@frontendutilities/src/utils/lists/LectureSchedulePOJOList';
-
+ 
 declare function initUndoSetter();
 declare function getUNDO();
 declare function setUNDO(undoFlag : boolean);
 declare function getREDO();
 declare function setREDO(undoFlag : boolean);
-
-
-
 
 @Component({
     selector: 'schedule-root',
@@ -26,13 +23,13 @@ export class Schedule   {
   private UNDO = false; 
 
   constructor(public scheduleData: ScheduleData, private elementRef:ElementRef){
-      initUndoSetter(); 
+     // initUndoSetter(); 
   } 
 
      
-  handleRessetting(event : KeyboardEvent){
+ handleRessetting(event : KeyboardEvent){
  
-  
+  /*
     // Ctrl + z was triggered 
     if(getUNDO() === true){
    
@@ -47,7 +44,7 @@ export class Schedule   {
           
       setUNDO(false)
     }
-   
+   */
   }
   
   createScreenshot(){
@@ -65,4 +62,3 @@ export class Schedule   {
   }
  
 } 
- 

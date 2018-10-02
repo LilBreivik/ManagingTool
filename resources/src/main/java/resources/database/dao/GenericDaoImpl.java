@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 
 import resources.database.dao.GenericDao;
+import resources.error.TransactionError;
  
  
 public class GenericDaoImpl  <T, PK extends Serializable>
@@ -38,14 +39,12 @@ public class GenericDaoImpl  <T, PK extends Serializable>
 		Session session = sessionFactory.getCurrentSession();
 		return session;
 	}
-
-//	@Transactional(readOnly = false, rollbackFor = RuntimeException.class)
+ 
 	@Transactional()
 	public PK create(T o) {
 		
 		try {
-			
-			// do file io!!! 
+			 
 			return (PK) getSession().save(o);
 		
 		}
@@ -53,7 +52,7 @@ public class GenericDaoImpl  <T, PK extends Serializable>
 			
 			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
 			 
-			throw  new InternalError("Cannot add new Entry in resources.database du to " + e.getMessage());
+			throw  new TransactionError("Cannot add new Entry in resources.database du to " + e.getMessage());
 		}
 			
 	}

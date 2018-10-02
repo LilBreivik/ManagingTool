@@ -7,14 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
+import org.springframework.web.bind.annotation.ResponseStatus; 
 import core.backend.REST.fileasset.upload.parameter.UploadLectureScheduleFileParameter;
 import core.backend.REST.fileasset.upload.task.UploadFileTask;
+import core.backend.REST.general.controller.MasterRESTController; 
 
 @Controller 
 public class LectureScheduleUploadFileController 
-						extends  UploadScheduleFileController< UploadLectureScheduleFileParameter , String> {
+						extends   MasterRESTController< UploadLectureScheduleFileParameter , String> {
 
 	@Autowired 
 	public  LectureScheduleUploadFileController(@Qualifier("provide UploadLectureScheduleFileTask") UploadFileTask task) {

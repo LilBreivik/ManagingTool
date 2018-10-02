@@ -1,7 +1,7 @@
 package core.backend.REST.fileasset.delete.task;
 
-  
-import core.backend.REST.fileasset.delete.parameter.request.DeleteFileParameter;
+   
+import core.backend.REST.general.request.schedule.RESTScheduleRequest;
 import core.backend.REST.general.response.result.successfully.SuccessResponse;
 import core.backend.REST.general.task.AbstractTaskImpl;
 import core.backend.utils.delete.DeleteFileAssetsHandler;
@@ -13,7 +13,7 @@ import resources.error.FileIsMissingError;
 import resources.error.MissingAssetError; 
 
 public class DeleteFileTask 
-								extends AbstractTaskImpl<DeleteFileParameter, String> {
+								extends AbstractTaskImpl<RESTScheduleRequest, String> {
 
 	private PersistentJSONFileHandler<?, ?>  m_jsonFileHandler;
 	private PathManager m_pathManagerToOriginalFileAsset;
@@ -39,9 +39,8 @@ public class DeleteFileTask
  
 
 	@Override
-	public void workOnTask(DeleteFileParameter parameter) {
+	public void workOnTask(RESTScheduleRequest parameter) {
 		
-		 
 		try {
 			
 			m_deleteHandler.handleDeletion(m_jsonFileHandler, 

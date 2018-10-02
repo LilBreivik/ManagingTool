@@ -2,8 +2,9 @@ package resources.components.filehandler.JSON;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component; 
-import resources.components.elements.POJO.Schedule.Lectures.CoursePOJO; 
+import org.springframework.stereotype.Component;
+
+import resources.components.elements.POJO.Schedule.CoursePOJO;
 import resources.components.filehandler.assetsmanager.FileAssetsManager;
 
 @Component 
@@ -16,4 +17,4 @@ public class CourseScheduleJSONFileHandler extends JSONFileHandler{
 
 	}
 }
- 
+  

@@ -23,7 +23,7 @@ declare function adjustDimensions();
                            [style.font-size] = "fontSize" [style.height.px] = "height" 
                               [style.background-color] = "color"  [style.opacity] = "opacity"  draggable  
                                        [style.width.px] = "width"  [dragData]="lecture" class="list-group-item"> 
-                                          {{lecture.lectureName}} </div>
+                                          {{lecture.lectureNameShortcut}} </div>
                       
                      </div>   
                 </div>
@@ -144,7 +144,7 @@ export class Lecture implements  AfterViewChecked ,AfterContentChecked {
  
    
   public getLectureInformation(){
-     
+  
      alert(  this.lecturePOJO.lectureName + " findet statt am " + this.lecturePOJO.day + "\r\n" + 
       "zwischen : " +  this.lecturePOJO.startTime + " und " + this.lecturePOJO.endTime + "\r\n" +  "\r\n" + 
       "Das Fach wird gehört im " + this.lecturePOJO.semesterNo + "\r\n" + "Im Studiengang " + JSON.stringify(this.lecturePOJO.courses));

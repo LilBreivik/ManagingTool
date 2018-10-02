@@ -15,14 +15,9 @@ export class UniqueFilterPipe  implements PipeTransform {
         if (!args){ 
             
             items.forEach(item => { 
-                    console.log(args + " " + (!args))
-                    console.log(JSON.stringify(this.itemAttribute(item)));
-                    console.log(uniqueArray.indexOf(this.itemAttribute(item)))
-                    console.log("------>  " + JSON.stringify(item))
                     if(uniqueArray.indexOf(this.itemAttribute(item)) == -1){
 
                         uniqueArray.push(this.itemAttribute(item));
-                        console.log(uniqueArray[uniqueArray.length - 1]);
                     }
             });
  

@@ -1,30 +1,20 @@
 package core.provider;
-
-import static core.utils.Constants.UploadFileName.CourseSchedule;
-import static core.utils.Constants.UploadFileName.LectureSchedule;
-
-import core.backend.REST.fileasset.download.parameter.request.DownloadCourseLectureFileParameter;
-import core.backend.REST.general.request.MasterRESTRequest; 
+ 
 import core.utils.names.FileNameResolver;
-import scheduling.utils.IScheduleParam;
+import resources.components.elements.POJO.Scheduling.Utils.IScheduleParam;
 
 public class FileNameProvider 
 								extends MasterProvider<FileNameResolver>{
-
-
-	public static FileNameResolver provideFileNameResolverForCourseScheduleFile( MasterRESTRequest requestParam) {
+	
+	public static FileNameResolver provideFileNameResolverForCourseScheduleFile( IScheduleParam requestParam) {
 		
-		
-		return new FileNameResolver( (IScheduleParam) requestParam, 
-				(resolvedScheduleFileName) -> CourseSchedule.toString().concat( resolvedScheduleFileName )); 
+		return new FileNameResolver(  requestParam, 
+				NameResolverProvider.provideNameResolverForCourseScheduleFile()); 
 	}
 
-	public static FileNameResolver provideFileNameResolverForLectureScheduleFile( MasterRESTRequest requestParam) {
+	public static FileNameResolver provideFileNameResolverForLectureScheduleFile(  IScheduleParam requestParam) {
 		 
-		return new FileNameResolver( (IScheduleParam) requestParam, 
-				(resolvedScheduleFileName) -> LectureSchedule.toString().concat( resolvedScheduleFileName )); 
+		return new FileNameResolver(  requestParam, 
+				NameResolverProvider.provideNameResolverForLectureScheduleFile()); 
 	} 
-	
-	
-	
 }

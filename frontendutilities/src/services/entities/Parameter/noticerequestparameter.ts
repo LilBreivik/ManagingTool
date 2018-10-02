@@ -1,11 +1,6 @@
-import { LinkedList } from "typescript-collections";
-import {LectureSchedulePOJO} from "../../entities/REST/scheduling/lectureschedulepojo";
+import { NoticesPOJO} from "../REST/scheduling/noticespojo"; 
 
 export  class NoticeRequestParameter  {
  
-	public  scheduledLectures : LectureSchedulePOJO[] = []; 
-
-	public  notice : String 
-
-	public noticeHeadline : string; 
+	notice : NoticesPOJO = new NoticesPOJO(); 
 }

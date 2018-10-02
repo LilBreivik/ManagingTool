@@ -1,46 +1,40 @@
 package core.backend.REST.fileasset.download.task;
-
-import core.backend.REST.fileasset.download.parameter.request.DownloadFileParameter; 
+ 
+import core.backend.REST.fileasset.download.parameter.DownloadFileParameter;
 import core.backend.REST.general.response.result.successfully.SuccessResponse; 
 import core.backend.REST.general.task.AbstractTaskImpl;
 import core.backend.utils.download.DownloadProcessor;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.poi.ss.formula.eval.NotImplementedException;
-
 import com.google.common.io.Files;  
 import resources.components.filehandler.FileHandler;
 import resources.error.FileIsMissingError;
 import resources.error.InternalError;
-import resources.error.download.AssetFileIsMissing; 
 
- 
 public class DownloadFileTask 
 								extends AbstractTaskImpl<DownloadFileParameter, HttpServletResponse>{
 	
 	
-	private FileHandler m_downloadFileHandler;
+	protected FileHandler p_downloadFileHandler;
 
-	private  DownloadProcessor m_downloadHandler; 
+	protected  DownloadProcessor p_downloadHandler; 
 
-	private  HttpServletResponse m_httpServletResponse; 
+	protected  HttpServletResponse p_httpServletResponse; 
 	
 	public DownloadFileTask(FileHandler downloadFileHandler, 
 									DownloadProcessor downloadHandler) {
 		
-		m_downloadFileHandler = downloadFileHandler; 
-		m_downloadHandler =  downloadHandler; 
+		p_downloadFileHandler = downloadFileHandler; 
+		p_downloadHandler =  downloadHandler; 
 	}
 	
 	
 	@Override
 	public void workOnTask(DownloadFileParameter parameter) {
 		  
-		m_httpServletResponse = parameter.getDownloadResponse();
+		p_httpServletResponse = parameter.getDownloadResponse();
 		 
 		// first check , if the file does exist at all 
 		
@@ -48,20 +42,20 @@ public class DownloadFileTask
 		
 		try {
 			
-			final String physicalNameOfSource = m_downloadFileHandler.getFileAssetsManager()
+			final String physicalNameOfSource = p_downloadFileHandler.getFileAssetsManager()
 					.getFileNameTranslator()
 						.translateFileName(parameter.getFileNameResolver()
 						  .getResolvedFileName());
 			
-			if(m_downloadFileHandler.getFileAssetsManager()
+			if(p_downloadFileHandler.getFileAssetsManager()
 										.getPathManager()
 											.getPathOfFile(physicalNameOfSource )
 												.toFile().exists()) 
 			{
-				if(this.m_httpServletResponse != null) {
+				if(this.p_httpServletResponse != null) {
 				
-					processDownload( m_downloadFileHandler.getFileAssetsManager().getPathManager().getPathOfFile(physicalNameOfSource ).toFile(),
-					m_httpServletResponse);
+					processDownload( p_downloadFileHandler.getFileAssetsManager().getPathManager().getPathOfFile(physicalNameOfSource ).toFile(),
+					p_httpServletResponse);
 				}
 				else 
 				{			
@@ -93,7 +87,7 @@ public class DownloadFileTask
 	}
 
 	
-	private void processDownload(File sourceFile, HttpServletResponse fileToBuild) {
+	protected void processDownload(File sourceFile, HttpServletResponse fileToBuild) {
 		
 		 try {
 		      // get your file as InputStream
@@ -101,7 +95,7 @@ public class DownloadFileTask
 		      // copy it to response's OutputStream
 		      org.apache.commons.io.IOUtils.copy(contentToBuildDownload, fileToBuild.getOutputStream());
 		     
-		      m_downloadHandler.processDownload(sourceFile,  fileToBuild);
+		      p_downloadHandler.processDownload(sourceFile,  fileToBuild);
 		       
 		      // set correct type 
 		      
@@ -120,7 +114,7 @@ public class DownloadFileTask
     @Override
     public SuccessResponse<HttpServletResponse> getResultsFromTask() {
     
-    	return  new SuccessResponse<HttpServletResponse>(m_httpServletResponse) ;
+    	return  new SuccessResponse<HttpServletResponse>(p_httpServletResponse) ;
     	 
     }
  

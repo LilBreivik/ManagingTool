@@ -9,6 +9,7 @@ import resources.components.filehandler.PathManager;
 import resources.components.filehandler.assetsmanager.FileAssetsManager;
 import resources.components.filehandler.assetsmanager.FileRepositoryManager;
 import resources.components.filehandler.filereader.FileNameTranslator;
+import resources.database.entities.User.Users;
 import resources.database.repository.FilesRepository; 
 
 @Configuration
@@ -34,6 +35,21 @@ public class FileAssetManagerProvider {
 		});
 	}
 	
+	
+	@Bean
+	@Qualifier("FileAssetsManager for Lectures Assets")
+	public  FileAssetsManager provideFileAssetsManagerForLecturesAssets(@Qualifier("PathManager to Lecture Assets") 
+	PathManager pathToWorkingDirectory ){
+		 
+		return new  FileAssetsManager( pathToWorkingDirectory, new FileNameTranslator() {
+			
+			@Override
+			public String translateFileName(String filename) {
+			
+				return filename;
+			}
+		});
+	}
 	
 	@Bean
 	@Qualifier("FileAssetsManager Manager for POM XML Assets")
@@ -79,4 +95,39 @@ public class FileAssetManagerProvider {
 			}
 		});
 	}
+	
+	
+	 
+	public static  FileAssetsManager provideNoticesJSONFileHandlerForUserFileAssetsManager(String loggedInUser){
+		  
+		PathManager pathToWorkingDirectory = PathManagerProvider.configurePathMangagerToNoticesForLoggedInUser(loggedInUser);
+		
+		return new  FileAssetsManager( pathToWorkingDirectory, new FileNameTranslator() {
+			
+			@Override
+			public String translateFileName(String filename) {
+			
+				return filename;
+			}
+		});
+	}
+	 
+	 
+	public static FileAssetsManager provideNoticesJSONFileHandlerForUserCreationFileAssetsManager(
+			Users user){
+		  
+		
+		return new  FileAssetsManager(  PathManagerProvider.configurePathManagerToNoticesForUserCreation(user), new FileNameTranslator() {
+			
+			@Override
+			public String translateFileName(String filename) {
+			
+				return filename;
+			}
+		});
+	}
+	
+	
 }
+
+

@@ -15,7 +15,7 @@
             <label>&nbsp;Startsemester: </label>
             <select id="selectedCourseTerm" class="form-control" (change)="removeCurrentSchedule()" [(ngModel)]="selectedCourseTermValue">
                     <option *ngFor="let course of coursesSchedule | courseterms" > {{ course  }} </option>      
-            </select>
+            </select> 
             <button type="button" class="btn btn-success" (click)="buildSchedule()"> Erstelle Stundenplan </button>
  
             <button *ngIf="scheduleManager.lecturesList?.size() > 0" class="btn btn-danger"  type="button" (click)="checkSchedule()"> Auf Überschneidungen prüfen </button>
@@ -23,15 +23,20 @@
             <div *ngIf="scheduleManager.lecturesList?.size() > 0">
  
                 <div class="col-md-12 col-sm-12 col-xs-12">
-
+ 
                     <label> Notizen abrufen: </label>
-                    <select  id="noticesSeletions" class="form-control"  ></select>
+                   
+                    <select id="noticesSeletions" class="form-control" (change)="readNotice()" [(ngModel)]="selectedNoticeHeadline" >
+                            <option *ngFor="let notice of notices" > {{ notice }} </option>      
+                    </select>
 
                     <label> Notizen hinzufügen: </label>
                     
-                    <input type="text" id="noticeHeadline" size="50" [(ngModel)]="noticeHeadline">
-                    <textarea class="form-control" rows="5" placeholder="Notizen hinzufügen" [(ngModel)]="scheduleNotices"></textarea>    
+                    <input type="text" id="noticeHeadline" size="50"  >
+                    <textarea class="form-control" rows="5" placeholder="Notizen hinzufügen" id="noticeMessage" ></textarea>    
+                   
                     <button type="button" class="btn btn-success" (click)="addNotice()">Notizen sichern</button> 
+                    <button    type="button" class="btn btn-danger" (click)="deleteNotice()">Notiz löschen</button> 
                 </div>
 
                 
@@ -44,8 +49,3 @@
         </div>     
 </div> 
  
-
-
-
-
-

@@ -2,25 +2,21 @@ package core.backend.REST.fileasset.upload.parameter;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import static core.utils.Constants.UploadFileName.AllLecturesSchedule;
+import static core.utils.Constants.UploadFileName.AllLecturesSchedule; 
 import core.provider.FileNameProvider;
+import resources.components.elements.POJO.Schedule.CourseScheduleFilePOJO;
 import resources.error.ConnectionError;
 import resources.error.parameter.FileAssetParameterViolationError;
 import resources.fileconnection.XLSFileConnection;
 
 public class UploadLectureScheduleFileParameter 
-									extends UploadFileParameter {
+												extends  UploadScheduleFileParameter {
 
 	@JsonCreator
 	public UploadLectureScheduleFileParameter(
-			
-			@JsonProperty("courseName") String courseName, 
-				@JsonProperty("courseDegree") String courseDegree,
-			    	@JsonProperty("courseTerm")	String courseTerm, 
-			    		@JsonProperty("scheduleFile")	String scheduleFile
-				
-			) {
-		super(courseName, courseDegree, courseTerm, scheduleFile);
+			@JsonProperty("courseScheduleFile") CourseScheduleFilePOJO  courseScheduleFilePOJO
+		) {
+		super(courseScheduleFilePOJO);
 		 
 		setFileNameResolver(FileNameProvider.provideFileNameResolverForLectureScheduleFile(this));
 		

@@ -9,9 +9,9 @@ import resources.components.elements.POJO.Persistence.AllLecturesPOJO;
 import resources.components.elements.POJO.Persistence.LectureScheduleOfCoursePOJO;
 import resources.components.elements.POJO.Persistence.LectureSchedulePOJO;
 import resources.components.elements.POJO.Persistence.Lectures.PersistenceLectureSemesterSchedulePOJO;
-import resources.components.elements.POJO.Schedule.Lectures.CoursePOJO;
-import resources.components.elements.POJO.Schedule.Lectures.LectureSchedulePOJOalt;
-import resources.components.elements.POJO.Schedule.Lectures.SemesterPOJO;
+import resources.components.elements.POJO.Schedule.CoursePOJO;
+import resources.components.elements.POJO.Schedule.LectureSchedulePOJOalt;
+import resources.components.elements.POJO.Schedule.SemesterPOJO;
 import resources.components.filehandler.JSON.AllLecturesScheduleJSONFileHandler; 
 import resources.components.filehandler.JSON.SynthesizedCourseScheduleJSONFileHandler; 
  

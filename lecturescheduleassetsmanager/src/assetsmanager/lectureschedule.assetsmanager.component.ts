@@ -7,7 +7,7 @@ import {DeleteLectureScheduleFileService } from "../services/files/delete/lectur
 import { DownloadLectureScheduleFileService } from "../services/files/download/lectureschedule.download.files.service"; 
 import {UploadAssetsFileRequestParameter} from "@scheduleassets/src/entities/parameter/assets/request/upload/assets.upload.request.parameter";
 import {UploadLectureScheduleFileService }  from "../services/files/upload/lectureschedule.upload.files.service";
-
+ 
  
 @Component({
     selector: 'lectureschedulemanager-root',

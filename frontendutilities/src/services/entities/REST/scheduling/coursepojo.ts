@@ -9,8 +9,8 @@ export class CoursePOJO {
 	courseTerm: string;
 	
 	// Course Degree 
-	courseDegree: string;
+	courseDegree: string; 
 	
 	semesters : Collections.LinkedList<SemesterPOJO>;
  
-}
+} 

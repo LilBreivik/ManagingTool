@@ -27,11 +27,11 @@ public class AuthenticatedLogoutSuccessHandler  extends  MasterAuthenticationRes
 		
 		AuthorizedUserAccount account  =  (AuthorizedUserAccount)  authentication.getPrincipal();
 		
-		Sessions newSession = new Sessions(account.getLoggedInAccountId());
+		Sessions newSession = p_sessionRepo.read(account.getLoggedInAccountId());
 		
 		newSession.handleLogout();
 		
-		m_sessionRepo.saveOrUpdate(newSession);
+		p_sessionRepo.unRegisterSession(newSession);
 		
 		handle(request, response);
 		

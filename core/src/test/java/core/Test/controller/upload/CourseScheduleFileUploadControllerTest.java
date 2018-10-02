@@ -2,6 +2,9 @@ package core.Test.controller.upload;
  
   
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 import java.io.IOException;
 import java.nio.file.Paths; 
 import org.junit.Before;
@@ -15,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -27,10 +31,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.TestContext.ControllerTestApplicationContext;
-import core.TestContext.ScheduleFileUploadParam;
+import core.TestContext.utils.FileParameter;
+import core.TestContext.utils.ScheduleFileUploadParam;
 import core.backend.REST.fileasset.upload.controller.CourseScheduleUploadFileController;
-import core.backend.REST.general.request.MasteRESTFileRequest;
-import resources.components.filehandler.JSON.PersistenceCourseScheduleJSONFileHandler; 
+import core.provider.FileNameProvider;
+import core.utils.names.FileNameResolver;
+import resources.components.filehandler.JSON.PersistenceCourseScheduleJSONFileHandler;
+import resources.database.repository.FilesRepository; 
 
 @ContextConfiguration( classes={ ControllerTestApplicationContext.class })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -41,29 +48,18 @@ import resources.components.filehandler.JSON.PersistenceCourseScheduleJSONFileHa
 public class  CourseScheduleFileUploadControllerTest {
   
 	 private static ScheduleFileUploadParam testRequestParameter; 
-	  
+	   
 	 @Autowired
 	 private MockMvc mockMvc;
  
+	 @Autowired 
+	 private FilesRepository filesRepo; 
 	 
 	 @Autowired
      public PersistenceCourseScheduleJSONFileHandler handler; 
 	 
 
- 
-	/* public LectureScheduleFileUploadControllerTest(String courseName, 
-			 											String courseTerm, 
-			 												String courseDegree, 
-			 													String lectureFileName, 
-			 														String otherLectureFileName) {
-		 m_courseName = courseName; 
-		 m_courseTerm = courseTerm; 
-		 m_courseDegree = courseDegree; 	
-		 m_lectureFileName = lectureFileName;
-		 m_otherLectureFileName = otherLectureFileName;
-	 }
-	 */
-	  
+  
      @Rule
      public TestName testName = new TestName();
 
@@ -112,7 +108,7 @@ public class  CourseScheduleFileUploadControllerTest {
     		 testRequestParameter.setScheduleFile(Paths.get(System.getProperty("user.dir"), "/src/test/resources/Files/".concat("PDFFileAsset") ).toFile());
    		  
     	 }
-		 else if(testName.getMethodName().equals("TESTE_handleCorrectFileRequest")){
+		 else if(testName.getMethodName().equals("TESTE_handleCorrectFileRequestForAISEBa")){
     		  
 			 testRequestParameter.setCourseName( "Angewandte Informatik" );
 	    	 testRequestParameter.setCourseDegree( "Bachelor Of Science" );
@@ -122,22 +118,22 @@ public class  CourseScheduleFileUploadControllerTest {
     		 testRequestParameter.setScheduleFile(Paths.get(System.getProperty("user.dir"), "/src/test/resources/Files/".concat("LectureScheduleAISEBa") ).toFile());
    		  
     	 }
-		 
-	/*	 else if(testName.getMethodName().equals("TESTB_handleAnotherXLSFile")){
-    		 
+		  
+		 else if(testName.getMethodName().equals("TESTF_handleCorrectFileRequestForLectureScheduleWiInfBA")){
+   		  
+			 testRequestParameter.setCourseName( "Wirtschaftsinformatik" );
+	    	 testRequestParameter.setCourseDegree( "Bachelor Of Science" );
+	    	 testRequestParameter.setCourseTerm( "Sommersemester" );
 			 
-    		 correctParameter.setScheduleFile(Paths.get(System.getProperty("user.dir"), "/src/test/resources/Files/".concat(m_otherLectureFileName )).toFile());
+			 
+    		 testRequestParameter.setScheduleFile(Paths.get(System.getProperty("user.dir"), "/src/test/resources/Files/".concat("LectureScheduleWiInfBA") ).toFile());
+   		  
     	 }
-    	 else if(testName.getMethodName().equals("TESTC_checkIfCoursesDoNotGetCountedTwice")){
-    		 
-    		 correctParameter.setScheduleFile(Paths.get(System.getProperty("user.dir"), "/src/test/resources/Files/".concat(m_otherLectureFileName )).toFile());
-    	 }
-		  */
-      
      }
       
 	 
      @Test
+     @WithMockUser(username = "DUSTIN79", password = "root" )
 	 public void TESTA_handleInCorrectRequestWithWrongCourseName() throws Exception {
 	      
 	 
@@ -145,7 +141,7 @@ public class  CourseScheduleFileUploadControllerTest {
 		 
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleFileParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -172,7 +168,8 @@ public class  CourseScheduleFileUploadControllerTest {
 	 }
      
 	 
-	 @Test
+     @Test
+	 @WithMockUser(username = "DUSTIN79", password = "root" )
 	 public void TESTB_handleInCorrectRequestWithWrongCourseDegree() throws Exception {
 	      
 	 
@@ -180,7 +177,7 @@ public class  CourseScheduleFileUploadControllerTest {
 		 
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleFileParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -206,7 +203,9 @@ public class  CourseScheduleFileUploadControllerTest {
 		/// mockMvc.perform(post("/Upload/Schedule/Course").buildRequest(servletContext))
 	 }
      
+	 
 	 @Test
+	 @WithMockUser(username = "DUSTIN79", password = "root" )
 	 public void TESTC_handleInCorrectRequestWithWrongCourseTerm() throws Exception {
 	      
 	 
@@ -214,7 +213,7 @@ public class  CourseScheduleFileUploadControllerTest {
 		 
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleFileParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -242,7 +241,8 @@ public class  CourseScheduleFileUploadControllerTest {
      
      
     
-	 @Test
+	 @Test 
+	 @WithMockUser(username = "DUSTIN79", password = "root" )
 	 public void TESTD_handleInCorrectFileRequest() throws Exception {
 	      
 	 
@@ -250,7 +250,7 @@ public class  CourseScheduleFileUploadControllerTest {
 		 
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleFileParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -278,14 +278,21 @@ public class  CourseScheduleFileUploadControllerTest {
 	
      
      @Test
-	 public void TESTE_handleCorrectFileRequest() throws Exception {
+     @WithMockUser(username = "DUSTIN79", password = "root" )
+	 public void TESTE_handleCorrectFileRequestForAISEBa() throws Exception {
 	      
 	 
 		 ObjectMapper mapper = new ObjectMapper();
 		 
+
+	     FileParameter uploadedTestParameter = new FileParameter(testRequestParameter.createCourseScheduleParam().getCourse());
+	        
+	     FileNameResolver resolvedFileName =  FileNameProvider.provideFileNameResolverForCourseScheduleFile(uploadedTestParameter);
+	         
+		 
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleFileParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -295,13 +302,72 @@ public class  CourseScheduleFileUploadControllerTest {
 			 MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/Upload/Schedule/Course")
 	                           .contentType(MediaType.APPLICATION_JSON_VALUE)
 	                           .content(jsonInString);
-	                           
+	                            
+			 
+			 
+			  mockMvc.perform(builder)
+	         .andExpect(ok)
+	         .andDo(MockMvcResultHandlers.print());
+			  
+			  
+			  final String uploadedFileNameToCheck = resolvedFileName.getResolvedFileName().toString();
+
+			  resources.database.entities.File.Files uploadedFile = filesRepo.read(uploadedFileNameToCheck);
+		 
+		      assertThat("The file was not recognized as deleted", uploadedFile.isFileUploaded(), is(true));
+	 
+			 
+		 } catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		 }
+		 
+		 System.out.println();
+		/// mockMvc.perform(post("/Upload/Schedule/Course").buildRequest(servletContext))
+	 }
+     
+     
+     @Test
+     @WithMockUser(username = "DUSTIN79", password = "root" )
+	 public void TESTF_handleCorrectFileRequestForLectureScheduleWiInfBA() throws Exception {
+	      
+	 
+		 ObjectMapper mapper = new ObjectMapper();
+		 
+		 FileParameter uploadedTestParameter = new FileParameter(testRequestParameter.createCourseScheduleParam().getCourse());
+	        
+		 FileNameResolver resolvedFileName =  FileNameProvider.provideFileNameResolverForCourseScheduleFile(uploadedTestParameter);
+		         
+		 
+		 
+		 try {
+			
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleFileParam());
+		 
+			 System.out.println(jsonInString);
+			 
+			 ResultMatcher ok = MockMvcResultMatchers.status()
+	                   .isOk();
+
+			 MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/Upload/Schedule/Course")
+	                           .contentType(MediaType.APPLICATION_JSON_VALUE)
+	                           .content(jsonInString);
+	                            
 			 
 			 
 			  mockMvc.perform(builder)
 	         .andExpect(ok)
 	         .andDo(MockMvcResultHandlers.print());
 			 
+			  final String uploadedFileNameToCheck = resolvedFileName.getResolvedFileName().toString();
+
+			  resources.database.entities.File.Files uploadedFile = filesRepo.read(uploadedFileNameToCheck);
+		 
+		      assertThat("The file was not recognized as deleted", uploadedFile.isFileUploaded(), is(true));
+	 
+			 
+			  
+			  
 		 } catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

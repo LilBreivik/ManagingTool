@@ -1,21 +1,22 @@
 package resources.components.filehandler;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.File; 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList; 
-import java.util.Collection; 
+import java.util.Collection;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 
 import com.jayway.jsonpath.InvalidPathException;
 
 import resources.utils.general.GeneralPurpose;
 import resources.utils.general.Constants.Directory;
- 
-
+import resources.database.entities.User.Users;
 import resources.error.InternalError;
 
 
@@ -36,40 +37,56 @@ public class PathManager {
 	
 	public PathManager(Directory... subdirectories) {
 		
-		// If we work on the working directory, we do not need to define 
-		// the path to operate on, cause its is the working directory itself .... 
-		
-		m_subdirectoriesAsString = new ArrayList<>();
-		
-		if(subdirectories.length == 0) {
-			
-			m_pathToOperateOn = Paths.get(System.getProperty("user.dir"));
-		}
-	
-		else {
-			
-			// we need to convert the  (Collection<Directory> ) to
-			// a List<String> to be convinient to the underlysing path building method ...
-			
-			m_subdirectoriesAsString = GeneralPurpose.convertList((new ArrayList(GeneralPurpose.ArrayToCollection(subdirectories) )), sub -> sub.toString());
-			 
-			initialize();
-		}
-	
+		List<String>  temp_subdirectories = GeneralPurpose.convertList((new ArrayList(GeneralPurpose.ArrayToCollection(subdirectories) )), sub -> sub.toString());
+		 
+		setUpPath( temp_subdirectories);
 	}
-	
-	 
 	
 	
 	/**
-	 * Method that shall ensure 
-	 * all needed Assets do exist before executing 
-	 * any further Actions, that could let to bigger failures... 
+	 * Constructor needed for the Users directory 
+	 * 
+	 * @param (String) UserName; 
+	 * @param ( Directory...) subdirectories; 
+	 * 
+	 * 
 	 * */
 	
-	private void initialize() {
+	public PathManager(String UserName, Directory... subdirectories) {
 		
-		createPath();
+		List<String>  temp_subdirectories = GeneralPurpose.convertList((new ArrayList(GeneralPurpose.ArrayToCollection(subdirectories) )), sub -> sub.toString());
+		 
+		temp_subdirectories.add(UserName);
+		
+		setUpPath( temp_subdirectories);
+	 
+	}
+	 
+	
+	private void setUpPath(List<String> subdirectories){
+		
+		
+		// If we work on the working directory, we do not need to define 
+		// the path to operate on, cause its is the working directory itself .... 
+			
+		m_subdirectoriesAsString = new ArrayList<>();
+		
+		if(subdirectories.size() == 0) {
+					
+				m_pathToOperateOn = Paths.get(System.getProperty("user.dir"));
+		}
+			
+		else {
+			 
+			/**
+			 * At this point we have to guarantee that the directories 
+			 * were set ... 
+			 * */
+			 
+			m_subdirectoriesAsString = subdirectories;
+			
+			createPath();
+		}
 	}
 	
 	
@@ -120,10 +137,22 @@ public class PathManager {
 		}
 	}
 	
-	public void deletePath() {}
 	
-	public void deletePathAndSubdirectories() {}
+	// delete all it files and Subdirectories 
 	
+	public void deletePath() {
+		
+		System.out.println(m_pathToOperateOn.toAbsolutePath().toFile());
+		
+		try {
+
+			FileUtils.deleteDirectory(m_pathToOperateOn.toAbsolutePath().toFile());
+
+		} catch (IOException e) {
+			
+			new InternalError("Could not delete Path " + m_pathToOperateOn.toAbsolutePath());
+		}
+	}
 	
 	/**
 	 * Method that gets the Abolute Path of A File 
@@ -133,7 +162,7 @@ public class PathManager {
 	 * @throw FileNotFoundException, if the file does not exist
 	 * */
 	
-	public Path getPathOfFile(String fileName) throws InternalError{
+	public Path getPathOfFile(String fileName)  {
 		 	
 		File fileToCheckWhereItExists = new File(m_pathToOperateOn.toAbsolutePath().toString(), fileName);
 		
@@ -192,4 +221,6 @@ public class PathManager {
 		
 		return m_pathToOperateOn; 
 	}
+
+
 }

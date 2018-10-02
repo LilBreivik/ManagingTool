@@ -1,24 +1,20 @@
 package core.backend.REST.fileasset.upload.parameter;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonProperty; 
 import core.provider.FileNameProvider;
+import resources.components.elements.POJO.Schedule.CourseScheduleFilePOJO;
 import resources.error.ConnectionError;
 import resources.error.parameter.FileAssetParameterViolationError;
 import resources.fileconnection.XMLFileConnection;
 
 public class UploadCourseScheduleFileParameter 
-											extends UploadFileParameter {
-
+											extends  UploadScheduleFileParameter{
+ 
 	@JsonCreator
-	public UploadCourseScheduleFileParameter(@JsonProperty("courseName") String courseName, 
-												@JsonProperty("courseDegree") String courseDegree,
-											    	@JsonProperty("courseTerm")	String courseTerm, 
-											    		@JsonProperty("scheduleFile")	String scheduleFile) {
-		super(courseName, courseDegree, courseTerm, scheduleFile);
-		
-		
+	public UploadCourseScheduleFileParameter(@JsonProperty("courseScheduleFile") CourseScheduleFilePOJO  courseScheduleFilePOJO) {
+		super(courseScheduleFilePOJO);
+
 		setFileNameResolver(FileNameProvider.provideFileNameResolverForCourseScheduleFile(this));
 		
 		setTargetFileName(  getFileNameResolver().getResolvedFileName());
@@ -35,8 +31,7 @@ public class UploadCourseScheduleFileParameter
 				throw new  FileAssetParameterViolationError(this.getScheduleFile(), 
 																FileAssetParameterViolationError.FileExtension.XML );
 			}
-	    
-	};
+	   };
 	}
 
 }

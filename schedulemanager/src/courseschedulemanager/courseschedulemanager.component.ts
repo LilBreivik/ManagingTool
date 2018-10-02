@@ -1,4 +1,4 @@
-import { Component , 
+import { Component , HostBinding, 
            Input, OnInit ,ViewContainerRef } from '@angular/core';  
 import {CourseService} from "@frontendutilities/src/services/REST/course.service"; 
 import {CoursesRequestParameter} from "@frontendutilities/src/services/entities/Parameter/coursesrequestparameter";  
@@ -14,34 +14,47 @@ import {CourseSchedulePOJO} from "@frontendutilities/src/services/entities/REST/
 import {ScheduledLecturePOJO } from "@frontendutilities/src/services/entities/REST/scheduling/scheduledlecturepojo"; 
 import { NoticeRequestParameter } from "@frontendutilities/src/services/entities/Parameter/noticerequestparameter"; 
 import {CorrectionPOJO} from "@frontendutilities/src/services/entities/REST/scheduling/correctionpojo";
-import {NoticeService} from "@frontendutilities/src/services/REST/notice.service"; 
-import {ScheduleData} from "@frontendutilities/src/services/Data/schedule.data.services";
-import {LectureListStack} from "@frontendutilities/src/utils/stacks/LectureListStack";
- 
-@Component({
+import {AddNoticeService} from "@frontendutilities/src/services/REST/notice/notice.add.service"; 
+import {ReadSpecificNoticeService } from "@frontendutilities/src/services/REST/notice/notice.read.specific.service"; 
+import {ReadGeneralNoticeService } from "@frontendutilities/src/services/REST/notice/notice.read.general.service"; 
+import {ScheduleData} from "@frontendutilities/src/services/Data/schedule.data.services";  
+import{ DeleteNoticeService}  from "@frontendutilities/src/services/REST/notice/notice.delete.service"; 
+
+
+declare function  updateNoticeInformation(headline, notice);
+
+@Component({ 
     selector: 'courseschedulemanager-root',
     templateUrl: './courseschedulemanager.component.html',
     providers: [CoursesScheduleService, 
                     CollisionCourseScheduleService,
                           CourseService, 
-                             NoticeService, 
-                                 ParallelCourseNameFilterPipe ]
+                              AddNoticeService, 
+                                DeleteNoticeService,
+                                  ReadSpecificNoticeService,
+                                      ReadGeneralNoticeService,
+                                         ParallelCourseNameFilterPipe ]
   
   }) 
    
  
   
 export class CourseScheduleManager implements OnInit   {
-  
-    @Input() coursesSchedule:  CourseSchedulePOJO[];
-    @Input() courses: CoursePOJO ; 
+   
+    public coursesSchedule:  CourseSchedulePOJO[];
+    private courses: CoursePOJO ; 
+    private  notices: String[];
 
+     // variable needed to activate the notice bar 
+ 
     private selectedCourseNameValue: string; 
     private selectedCourseDegreeValue: string; 
     private selectedCourseTermValue: string;  
     private scheduleNotices : string = ""; 
     private noticeHeadline : string = "";
-
+    private noticeWasRead : boolean = false; 
+    private selectedNoticeHeadline : string;
+ 
     private lecturesToAppend : LectureSchedulePOJOList = new LectureSchedulePOJOList();
     private fetchedLectures : LectureSchedulePOJOList = new LectureSchedulePOJOList();
 
@@ -49,17 +62,21 @@ export class CourseScheduleManager implements OnInit   {
                     private scheduleManager: ScheduleManager,
                         private collisioncourseschedule: CollisionCourseScheduleService,
                             private coursescheduleService : CoursesScheduleService, 
-                                private noticeService : NoticeService,
-                                private courseservice: CourseService, 
-                                    private parallelCourseNameFilter :ParallelCourseNameFilterPipe,
-                                        public  scheduleData : ScheduleData ){ }
+                                private addNoticeService : AddNoticeService,
+                                    private deleteNoticeService :  DeleteNoticeService,
+                                    private readSpecificNoticeService : ReadSpecificNoticeService,
+                                      private readGeneralNoticeService : ReadGeneralNoticeService,
+                                        private courseservice: CourseService, 
+                                            private parallelCourseNameFilter :ParallelCourseNameFilterPipe,
+                                                public  scheduleData : ScheduleData ){ }
      
     ngOnInit(): void {
      
         this. coursescheduleService .getCourseSchedule().subscribe(courseSchedule => {
            
+            this.notices = []
             this.coursesSchedule = []
-            this.noticeHeadline = "Notizen vom " + new Date().toLocaleString();
+            
             courseSchedule.coursesSchedulePOJO.forEach(course =>{this.coursesSchedule.push(course)})
            
         })
@@ -76,13 +93,14 @@ export class CourseScheduleManager implements OnInit   {
 
         let collisionCheckRequestParameter  = new CollisionCheckRequestParameter();
  
-        collisionCheckRequestParameter.courseDegree = this.selectedCourseDegreeValue;
-        collisionCheckRequestParameter.courseName =  this.selectedCourseNameValue;
-        collisionCheckRequestParameter.courseTerm = this.selectedCourseTermValue;
+         
+        collisionCheckRequestParameter.collisionCheck.courseDegree = this.selectedCourseDegreeValue;
+        collisionCheckRequestParameter.collisionCheck.courseName =  this.selectedCourseNameValue;
+        collisionCheckRequestParameter.collisionCheck.courseTerm = this.selectedCourseTermValue;
   
         this.scheduleManager.lecturesList.forEach(item =>  {
             
-            collisionCheckRequestParameter.lecturesList.push(item) 
+            collisionCheckRequestParameter.collisionCheck.lecturesList.push(item) 
         } )
 
         this.collisioncourseschedule.checkCollisions(collisionCheckRequestParameter ).subscribe( collisionSolutions=> {
@@ -107,43 +125,106 @@ export class CourseScheduleManager implements OnInit   {
     }
 
     private updateNotices( correctionMessages : LinkedList<CorrectionPOJO>){
- 
 
         correctionMessages.forEach(message => {
 
             this.scheduleNotices = this.scheduleNotices + "" + message.correctionMessage;
         })
+
+        updateNoticeInformation("",  this.scheduleNotices.toString());
     }
 
+
+    readNotice(){
+ 
+        this.noticeWasRead = true; 
+        let noticeRequestParameter = new  NoticeRequestParameter ();
+       
+        noticeRequestParameter.notice.noticeHeadline = this.selectedNoticeHeadline;
+ 
+        // we must read the values via JS; cause of performance issues with the schedule table .. 
+    
+        this.readSpecificNoticeService .handleNoticeRequest(noticeRequestParameter).subscribe(receivedNotices => {
+            updateNoticeInformation(receivedNotices.noticeHeadline ,  receivedNotices.notice);
+ 
+           let scheduledLectures : LinkedList<ScheduledLecturePOJO> = new LectureSchedulePOJOList();  
+            
+           receivedNotices.scheduledLectures.forEach(lecture =>  scheduledLectures.add(lecture))
+
+           this.scheduleManager.lecturesList.forEach(lecture => {
+
+               scheduledLectures.forEach(scheduledLecture => {
+
+                       if(lecture.isEqual(scheduledLecture) ){
+
+                           lecture.updateInformation(scheduledLecture)
+                       }
+               })
+           })  
+        }); 
+    }
+ 
+
+    deleteNotice(){
+ 
+        let noticeRequestParameter = new  NoticeRequestParameter ();
+       
+        noticeRequestParameter.notice.noticeHeadline = this.selectedNoticeHeadline;
+ 
+        // we must read the values via JS; cause of performance issues with the schedule table .. 
+    
+        this.deleteNoticeService .handleNoticeRequest(noticeRequestParameter).subscribe(receivedNotices => {
+              
+            updateNoticeInformation("",  "");
+            this.notices = [];
+
+            receivedNotices.noticesStatus.forEach(notice => {
+  
+                this.notices.push(notice.noticeStatus)
+            })
+ 
+        }); 
+    }
+ 
 
     addNotice(){
  
         let noticeRequestParameter = new  NoticeRequestParameter ();
+         
+        // we must read the values via JS; cause of performance issues with the schedule table .. 
+
+        noticeRequestParameter.notice.noticeHeadline = (document.getElementById("noticeHeadline") as HTMLInputElement).value  == "" ? "Notizen vom " + new Date().toLocaleString() : (document.getElementById("noticeHeadline") as HTMLInputElement).value ; 
+
+        // if the client enters some blank, we have to remove it afterwards
+        noticeRequestParameter.notice.noticeHeadline =  noticeRequestParameter.notice.noticeHeadline.trim()
+
+        noticeRequestParameter.notice.notice =  (document.getElementById("noticeMessage") as HTMLTextAreaElement).value;
  
-        noticeRequestParameter.noticeHeadline = this.noticeHeadline; 
-
-        noticeRequestParameter.notice = this.scheduleNotices;
-
         this.scheduleManager.lecturesList.forEach(item =>  {
             
-            noticeRequestParameter.scheduledLectures.push(item) 
+            noticeRequestParameter.notice.scheduledLectures.push(item) 
         })
          
-        this.noticeService.addNotice(noticeRequestParameter).subscribe(notices => {
-               
-         
-        });
+        this.addNoticeService.handleNoticeRequest(noticeRequestParameter).subscribe(receivedNotices => {
+              
+            this.notices = [];
+
+            receivedNotices.noticesStatus.forEach(notice => {
+  
+                this.notices.push(notice.noticeStatus)
+            })
  
+        }); 
     }
  
 
     buildSchedule(){
     
         let coursesRequestParameter = new CoursesRequestParameter ();
- 
-        coursesRequestParameter.courseDegree = this.selectedCourseDegreeValue;
-        coursesRequestParameter.courseName =  this.selectedCourseNameValue;
-        coursesRequestParameter.courseTerm = this.selectedCourseTermValue;
+  
+        coursesRequestParameter.course.courseDegree = this.selectedCourseDegreeValue;
+        coursesRequestParameter.course.courseName =  this.selectedCourseNameValue;
+        coursesRequestParameter.course.courseTerm = this.selectedCourseTermValue;
         
         this.scheduleManager.lecturesList  = new LectureSchedulePOJOList();  
         
@@ -158,13 +239,24 @@ export class CourseScheduleManager implements OnInit   {
             this.scheduleManager.semester = this.selectedCourseTermValue
  
             this.scheduleManager.lecturesList =  this.scheduleManager.buildLectures(courses);
-       
+         
             this.scheduleManager.setRootViewContainerRef(this.viewContainerRef);
 
             this.scheduleManager.addDynamicComponent();    
          
         });
- 
+
+        let noticeRequestParameter = new  NoticeRequestParameter ();
+
+        this.readGeneralNoticeService.handleNoticeRequest(noticeRequestParameter).subscribe(receivedNotices => {
+              
+            this.notices = [];
+
+            receivedNotices.noticesStatus.forEach(notice => {
+  
+                this.notices.push(notice.noticeStatus)
+            })
+        }); 
     }
  
 
@@ -174,9 +266,9 @@ export class CourseScheduleManager implements OnInit   {
  
             let coursesRequestParameter = new CoursesRequestParameter ();
  
-            coursesRequestParameter.courseDegree = this.selectedCourseDegreeValue;
-            coursesRequestParameter.courseName = this.parallelCourseNameFilter.transform(   this.coursesSchedule, this.selectedCourseNameValue)[0];
-            coursesRequestParameter.courseTerm = this.selectedCourseTermValue;
+            coursesRequestParameter.course.courseDegree = this.selectedCourseDegreeValue;
+            coursesRequestParameter.course.courseName = this.parallelCourseNameFilter.transform(   this.coursesSchedule, this.selectedCourseNameValue)[0];
+            coursesRequestParameter.course.courseTerm = this.selectedCourseTermValue;
   
             if(this.lecturesToAppend.size() === 0){
 

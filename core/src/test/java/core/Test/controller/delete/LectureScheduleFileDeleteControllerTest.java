@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,12 +25,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.TestContext.ControllerTestApplicationContext; 
+import core.TestContext.ControllerTestApplicationContext;
+import core.TestContext.utils.FileParameter;
+import core.TestContext.utils.ScheduleFileUploadParam;
 import resources.components.filehandler.PathManager; 
 import java.io.IOException;  
 import org.springframework.context.annotation.EnableAspectJAutoProxy; 
-import core.TestContext.ScheduleFileUploadParam;
-import core.backend.REST.fileasset.delete.parameter.request.DeleteFileParameter;
 import core.backend.REST.fileasset.download.controller.LectureScheduleFileDownloadController;
 import core.provider.FileNameProvider;
 import core.utils.names.FileNameResolver; 
@@ -116,13 +117,14 @@ public class  LectureScheduleFileDeleteControllerTest {
      }
      
      @Test
+     @WithMockUser(username = "DUSTIN79", password = "root" )
 	 public void TESTA_checkIfWeCanDeleteAFileWithInCorrectCourseNameInRequestParameter() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
 		 
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -148,14 +150,15 @@ public class  LectureScheduleFileDeleteControllerTest {
 	 }
      
      
-	 @Test 
+     @Test
+     @WithMockUser(username = "DUSTIN79", password = "root" )
 	 public void TESTB_checkIfWeCanDeleteAFileWithInCorrectDegreeInRequestParameter() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
 		 
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -181,14 +184,15 @@ public class  LectureScheduleFileDeleteControllerTest {
 		 
 	 }
      
-	 @Test
+     @Test
+     @WithMockUser(username = "DUSTIN79", password = "root" )
 	 public void TESTC_checkIfWeCanDeleteAFileWithInCorrectTermInRequestParameter() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
 		 
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -215,13 +219,14 @@ public class  LectureScheduleFileDeleteControllerTest {
 	 
       
      @Test
+     @WithMockUser(username = "DUSTIN79", password = "root" )
 	 public void TESTD_checkIfWeCanDeleteAFileThatDoesNotExist() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
 		 
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -248,20 +253,18 @@ public class  LectureScheduleFileDeleteControllerTest {
 	 }
       
      @Test
+     @WithMockUser(username = "DUSTIN79", password = "root" )
 	 public void TESTE_checkIfWeCanDeleteAnExistingFile() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
 		 
-        
-        DeleteFileParameter deleteTestParameter = new DeleteFileParameter(testRequestParameter.getCourseName(), 
-        																	testRequestParameter.getCourseDegree(), 
-        																		testRequestParameter.getCourseTerm());
-        
+        FileParameter deleteTestParameter = new FileParameter(testRequestParameter.createCourseScheduleParam().getCourse());
+       
         FileNameResolver resolvedFileName =  FileNameProvider.provideFileNameResolverForLectureScheduleFile(deleteTestParameter);
          
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleParam());
 		 
 			 System.out.println(jsonInString);
 			 

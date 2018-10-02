@@ -30,6 +30,14 @@ public class Sessions {
 	 @Temporal(TemporalType.TIMESTAMP)
 	 protected  Date loggedOutAt;
 	 
+	 
+	 public Sessions() {}
+	 
+	 public  Date getLastLogin() {
+		 
+		 return lastloggedInAt;
+	 }
+	 
 	 public Sessions(int loggedInAccountId) {
 	
 		 accountid = loggedInAccountId; 
@@ -37,12 +45,14 @@ public class Sessions {
 
 	public void handleLogin() {
 		 
+		 loggedOutAt = null;
 		 loggedInAt =  new Date(System.currentTimeMillis());
 	 }
 	 
      public void handleLogout() {
 		 
     	 lastloggedInAt = loggedInAt; 
+    	 loggedInAt  = null;
 		 loggedOutAt =  new Date(System.currentTimeMillis());
 	 }
 	

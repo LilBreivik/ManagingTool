@@ -15,8 +15,6 @@ import resources.components.filehandler.filereader.XMLFileReaderManager;
 import resources.error.ConnectionError;
 import resources.fileconnection.XMLFileConnection;
 import resources.utils.general.GeneralPurpose;
-
- 
  
 @Component 
 public class LectureScheduleXMLFileHandler 

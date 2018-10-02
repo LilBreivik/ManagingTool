@@ -2,10 +2,11 @@ package scheduling;
 
 import java.util.ArrayList;
 import java.util.Arrays; 
-import java.util.List; 
-import resources.components.elements.POJO.Schedule.Lectures.CoursePOJO;
-import resources.components.elements.POJO.Schedule.Lectures.LectureSchedulePOJOalt;
-import resources.components.elements.POJO.Schedule.Lectures.SemesterPOJO;
+import java.util.List;
+
+import resources.components.elements.POJO.Schedule.CoursePOJO;
+import resources.components.elements.POJO.Schedule.LectureSchedulePOJOalt;
+import resources.components.elements.POJO.Schedule.SemesterPOJO;
 import resources.utils.general.GeneralPurpose;
 import resources.utils.names.NameResolver;
 

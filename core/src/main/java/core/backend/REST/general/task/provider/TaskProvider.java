@@ -3,19 +3,22 @@ package core.backend.REST.general.task.provider;
 import static resources.error.parameter.FileAssetParameterViolationError.FileExtension.XLS;
 import static resources.error.parameter.FileAssetParameterViolationError.FileExtension.XML;
 
-import java.nio.file.Paths;
-
+import java.nio.file.Paths;  
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
+import org.springframework.context.annotation.Configuration; 
 import core.backend.REST.assets.task.AssetsStockTask;
 import core.backend.REST.fileasset.delete.task.DeleteFileTask;
 import core.backend.REST.fileasset.download.task.DownloadFileTask;
+import core.backend.REST.fileasset.download.task.DownloadGeneralCourseScheduleTemplateFileTask;
 import core.backend.REST.fileasset.upload.task.UploadFileTask;
-import core.backend.REST.nonfileasset.synthesize.task.SpecificSynthesizedCourseScheduleTask;
-import core.backend.REST.nonfileasset.collision.parameter.CollisionCheckParameter;
+import core.backend.REST.nonfileasset.synthesize.task.SpecificSynthesizedCourseScheduleTask; 
 import core.backend.REST.nonfileasset.collision.task.CollisionCheckTask;
+import core.backend.REST.nonfileasset.notice.task.NoticeTask;
+import core.backend.REST.nonfileasset.notice.task.add.AddNoticeTask;
+import core.backend.REST.nonfileasset.notice.task.delete.DeleteNoticeTask;
+import core.backend.REST.nonfileasset.notice.task.read.ReadGeneralNoticeTask;
+import core.backend.REST.nonfileasset.notice.task.read.ReadSpecificNoticeTask;
 import core.backend.REST.nonfileasset.synthesize.task.GeneralSynthesizedCourseScheduleTask;
 import core.backend.REST.nonfileasset.synthesize.task.SynthesizedTask;
 import resources.components.elements.POJO.Persistence.AllLecturesPOJO;
@@ -24,15 +27,23 @@ import resources.components.filehandler.JSON.AllLecturesScheduleJSONFileHandler;
 import resources.components.filehandler.JSON.LectureScheduleJSONFileHandler;
 import resources.components.filehandler.XLS.LectureScheduleXLSFileHandler;
 import resources.components.filehandler.XML.CourseScheduleXMLFileHandler;
+import resources.components.filehandler.XML.GeneralCourseScheduleTemplateXMLFileHandler;
 import resources.components.filehandler.XML.LectureScheduleXMLFileHandler;
 import resources.components.filehandler.filesynthesizer.LectureScheduleSynthesizer;
 import resources.database.repository.FilesRepository;
 import resources.utils.files.OrdinaryFileHandler;
 import scheduling.SchedulingCollisionManager;
 
-@Configuration
+@Configuration 
 public class TaskProvider {
-
+	
+	@Bean
+	@Qualifier("provide DownloadGeneralCourseScheduleTemplateFileTask")
+	public DownloadGeneralCourseScheduleTemplateFileTask provideDownloadGeneralCourseScheduleTemplateFileTask(GeneralCourseScheduleTemplateXMLFileHandler xmlFileHandler) {
+		
+		return new DownloadGeneralCourseScheduleTemplateFileTask(xmlFileHandler);
+	}
+	
 	@Bean
 	@Qualifier("provide DownloadCourseScheduleFileTask")
 	public DownloadFileTask provideCourseScheduleFileDownloadTask(LectureScheduleXMLFileHandler xmlFileHandler) {
@@ -150,7 +161,7 @@ public class TaskProvider {
 	 
 	
 	@Bean 
-	@Qualifier("provide provideCollisionCheckTask")
+	@Qualifier("provide CollisionCheckTask")
 	public CollisionCheckTask provideCollisionCheckTask(SchedulingCollisionManager m_collisionManager){
 		
 		return new CollisionCheckTask(m_collisionManager); 
@@ -163,4 +174,35 @@ public class TaskProvider {
 		return new AssetsStockTask(filesRepo); 
 	}
 	
+	
+	@Bean 
+	@Qualifier("provide AddNoticeTask")
+	public NoticeTask provideAddNoticeTask( ){
+		
+		return new AddNoticeTask( ); 
+	}
+	
+	
+	@Bean 
+	@Qualifier("provide DeleteNoticeTask")
+	public NoticeTask provideDeleteNoticeTask( ){
+		
+		return new DeleteNoticeTask( ); 
+	}
+	
+	
+	@Bean 
+	@Qualifier("provide ReadSpecificNoticeTask")
+	public NoticeTask provideReadSpecificNoticeTask( ){
+		 
+		return new ReadSpecificNoticeTask( ); 
+	}
+	
+	
+	@Bean 
+	@Qualifier("provide ReadGeneralNoticeTask")
+	public NoticeTask provideReadGeneralNoticeTask( ){
+		 
+		return new ReadGeneralNoticeTask( ); 
+	}
 }

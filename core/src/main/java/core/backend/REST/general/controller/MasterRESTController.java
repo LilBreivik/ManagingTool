@@ -5,7 +5,7 @@ import core.backend.REST.general.request.MasterRESTRequest;
 import core.backend.REST.general.response.result.successfully.SuccessResponse;
 import core.backend.REST.general.task.ITask;
 
-public abstract class MasterRESTController<Request extends MasterRESTRequest, 
+public abstract class MasterRESTController<Request extends  MasterRESTRequest, 
 													ResponseType>	 {
 
 	protected ITask p_task; 
@@ -53,5 +53,13 @@ public abstract class MasterRESTController<Request extends MasterRESTRequest,
 		return p_task.getResultsFromTask(); 
 	}
 	
+	
+	
+	protected SuccessResponse<ResponseType> handleResponse() {
+	  	
+		// At last we will return the reuslt of the above task-handling procedere 
+		
+		return p_task.getResultsFromTask(); 
+	}
 	
 }

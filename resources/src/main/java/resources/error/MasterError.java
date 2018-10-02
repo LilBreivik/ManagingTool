@@ -23,9 +23,7 @@ public class MasterError extends RuntimeException {
 		m_errorMessage = errorMessage; 
 		
 		// print the error Message on the Screen 
-		//@Fixme: put a logger 
-		
-		System.out.println(toString());
+		//@Fixme: put a logger  
 	}
 	
 	@Override

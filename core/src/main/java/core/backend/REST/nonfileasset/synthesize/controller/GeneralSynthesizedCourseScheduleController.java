@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.http.HttpStatus; 
+import org.springframework.http.HttpStatus;
+
+import core.backend.REST.general.controller.MasterRESTController;
 import core.backend.REST.general.response.result.successfully.SuccessResponse;
 import core.backend.REST.nonfileasset.synthesize.parameter.SynthesizedCourseScheduleFileParameter;
 import core.backend.REST.nonfileasset.synthesize.task.SynthesizedTask;
@@ -15,7 +17,7 @@ import resources.components.elements.POJO.Persistence.Course.PersistenceCourseSc
 
 @Controller
 public class GeneralSynthesizedCourseScheduleController 
-							extends SynthesizedScheduleController<SynthesizedCourseScheduleFileParameter,PersistenceCourseSchedulePOJO >{
+							extends MasterRESTController<SynthesizedCourseScheduleFileParameter,PersistenceCourseSchedulePOJO >{
 
 	@Autowired
 	public GeneralSynthesizedCourseScheduleController(@Qualifier("provide GeneralSynthesizedCourseScheduleTask") SynthesizedTask task) {

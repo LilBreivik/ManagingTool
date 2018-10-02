@@ -1,0 +1,63 @@
+<div class="x_panel contents_view">
+    <div class="col-md-12 col-sm-12 col-xs-12"> 
+            <div th:if="${DISPLAY_STATE}">
+                    <div class="row x_title">
+                    <div class="col-md-9">
+                        <h4>Dateien Status</h4>
+                    </div>
+                        <div class="col-md-3">
+                            <h4>Status des Managing-Tool</h4>
+                        </div>
+                    </div>
+                </div>
+            
+                <div th:if="!${DISPLAY_STATE}">
+                    <div class="row x_title">
+                        <div class="col-md-12">
+                            <h4>Dateien Status</h4>
+                        </div>
+                    </div>
+                </div>
+            
+                <div th:class="${STATE_DESCRIPTION}">
+                    <p> (vorhandene Dateien sind markiert) </p>
+            
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h4>&nbsp;Studienverlaufsplan&nbsp;</h4>
+            
+                                <div th:each="course : ${COURSE_STOCK_ASSETS_VIEW}">
+                                    <div class="checkbox">
+                                            <label><input type="checkbox"   th:text="${course.getStockName()}" th:checked="${course.getStatus()}"  disabled></label>
+                                    </div>    
+                                </div>
+                            </div>
+                                
+                            <div class="col-sm-6">
+                                <h4>&nbsp;Vorlesungen&nbsp;</h4>
+                                
+                                <div th:each="lecture : ${LECTURE_STOCK_ASSETS_VIEW}">
+                                    <div class="checkbox">
+                                            <label><input type="checkbox"   th:text="${lecture.getStockName()}" th:checked="${lecture.getStatus()}"  disabled></label>
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            
+                <div th:if="${DISPLAY_STATE}">
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <div class="x_title">
+                            <h2> Die Software ist nicht einsetzbar </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-6">
+                            <span> Bitte laden Sie eine Vorlesungs und eine Studienverlaufsplandatei , zu einem Tripel aus "Studiengang", "Abschluss", "Startsemester" , hoch</span>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+     

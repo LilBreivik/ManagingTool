@@ -2,7 +2,7 @@ package core.backend.REST.nonfileasset.synthesize.task;
  
 
 import core.backend.REST.nonfileasset.synthesize.parameter.SynthesizedCourseScheduleFileParameter;
-import resources.components.elements.POJO.Schedule.Lectures.CoursePOJO;
+import resources.components.elements.POJO.Schedule.CoursePOJO;
 import resources.components.filehandler.filesynthesizer.LectureScheduleSynthesizer;
 
 public class SpecificSynthesizedCourseScheduleTask 

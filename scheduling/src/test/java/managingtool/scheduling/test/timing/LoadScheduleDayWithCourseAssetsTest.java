@@ -22,13 +22,13 @@ import org.junit.Test;
 import org.junit.rules.TestName;
 import org.junit.runners.MethodSorters;
 
-import resources.components.elements.POJO.Schedule.Lectures.CoursePOJO;
-import resources.components.elements.POJO.Schedule.Lectures.SemesterPOJO;
+import resources.components.elements.POJO.Schedule.CoursePOJO;
+import resources.components.elements.POJO.Schedule.SemesterPOJO;
+import resources.components.elements.POJO.Scheduling.Timing.ScheduleLectureTimeBlock;
+import resources.components.elements.POJO.Scheduling.Timing.SchedulingDay;
+import resources.components.elements.POJO.Scheduling.Timing.TimeBlock;
 import resources.utils.general.GeneralPurpose;
 import scheduling.SchedulingCollisionManager;
-import scheduling.SchedulingDay;
-import scheduling.timing.ScheduleLectureTimeBlock;
-import scheduling.timing.TimeBlock;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoadScheduleDayWithCourseAssetsTest {

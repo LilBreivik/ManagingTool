@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import scheduling.timing.TimeBlock;
+import resources.components.elements.POJO.Scheduling.Timing.TimeBlock;
 
 public class TimeBlockTests {
 

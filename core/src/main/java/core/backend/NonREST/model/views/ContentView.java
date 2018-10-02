@@ -1,6 +1,6 @@
 package core.backend.NonREST.model.views;
 
-public class ContentView {
+public abstract class ContentView {
 
 	protected final String HEADLINE_DISPLAY_ATTRIBUTE = "DISPLAY_HEADLINE";
 	

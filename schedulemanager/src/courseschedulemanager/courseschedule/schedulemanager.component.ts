@@ -108,6 +108,7 @@ export class ScheduleManager  {
                                         pojo.day = timing.day; 
                                         pojo.degree = this.degree;
                                   
+                                        pojo.lectureNameShortcut = lecture.lectureNameShortcut
                                 
                                         this.lecturesList.addUniquely(pojo);
                                       

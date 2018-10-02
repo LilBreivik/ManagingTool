@@ -13,7 +13,7 @@ import resources.database.repository.SessionsRepository;
 
 public abstract  class MasterAuthenticationResultHandler {
 
-	protected  SessionsRepository m_sessionRepo; 
+	protected  SessionsRepository p_sessionRepo; 
 	
 	protected String landingUrl; 
 	
@@ -21,7 +21,7 @@ public abstract  class MasterAuthenticationResultHandler {
     
     public MasterAuthenticationResultHandler(SessionsRepository sessionRepo) {
     	
-    	m_sessionRepo = sessionRepo;
+    	p_sessionRepo = sessionRepo;
     	landingUrl = ""; 
     	redirectStrategy = new DefaultRedirectStrategy();
     }

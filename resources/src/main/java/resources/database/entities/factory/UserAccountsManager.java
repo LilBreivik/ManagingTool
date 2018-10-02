@@ -24,7 +24,7 @@ public class UserAccountsManager {
     private  AccountsRepository accountsRepo;
 	    
 	
-	public static Users createUser(String userEmail, String userName) {
+	public Users createUser(String userEmail, String userName) {
 		
 		 Users user = new Users(); 
 		 
@@ -139,14 +139,14 @@ public class UserAccountsManager {
 				  throw new InternalError("Internal Server Error");
 			  }
 		  } 
-  }
+  } 
 	
     
     public void createAccount(Users user, Accounts account) {
     	
     	  try {
     	    	account.setAccountOwners(user);
-    	    	accountsRepo.create(account);
+    	    	accountsRepo.create( account);
 		  }
 		  
 		  catch(Exception databaseException) {

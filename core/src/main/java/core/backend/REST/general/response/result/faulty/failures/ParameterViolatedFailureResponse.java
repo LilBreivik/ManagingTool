@@ -15,7 +15,9 @@ public class ParameterViolatedFailureResponse
 	
 	public ParameterViolatedFailureResponse(String errorMessage) {
 		
-		m_errorMessage = errorMessage;
+		// standard error info, if it does not get specialized 
+		
+		m_moreInfo = errorMessage;
 	}
  
 

@@ -1,11 +1,7 @@
 package core.Test.controller.delete;
  
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;  
-import java.nio.file.Files;
-
-import org.assertj.core.api.Assertions;
+import static org.junit.Assert.assertThat; 
 import org.junit.Before; 
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
@@ -17,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -28,12 +25,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.TestContext.ControllerTestApplicationContext; 
+import core.TestContext.ControllerTestApplicationContext;
+import core.TestContext.utils.FileParameter;
+import core.TestContext.utils.ScheduleFileUploadParam;
 import resources.components.filehandler.PathManager; 
 import java.io.IOException;  
 import org.springframework.context.annotation.EnableAspectJAutoProxy; 
-import core.TestContext.ScheduleFileUploadParam;
-import core.backend.REST.fileasset.delete.parameter.request.DeleteFileParameter;
 import core.backend.REST.fileasset.download.controller.LectureScheduleFileDownloadController;
 import core.provider.FileNameProvider;
 import core.utils.names.FileNameResolver; 
@@ -100,33 +97,34 @@ public class  CourseScheduleFileDeleteControllerTest {
 				 
 	     } 
 		 
-		 else if(testName.getMethodName().equals("TESTD_checkIfWeCanDeleteAFileThatDoesNotExist")){
-   		  
-			 testRequestParameter.setCourseName( "Wirtschaftsinformatik" );
-	    	 testRequestParameter.setCourseDegree( "Bachelor Of Science" );
-	    	 testRequestParameter.setCourseTerm( "Sommersemester" );
-			 
-			  
-    	 } 
-      
-    	 else if(testName.getMethodName().equals("TESTE_checkIfWeCanDeleteAnExistingFile")){
+    	 else if(testName.getMethodName().equals("TESTE_checkIfWeCanDeleteLectureScheduleAISEBa")){
     		   		  
     	  	 testRequestParameter.setCourseName( "Angewandte Informatik" );
     		 testRequestParameter.setCourseDegree( "Bachelor Of Science" );
         	 testRequestParameter.setCourseTerm( "Sommersemester" );
     				 
     		  
-    	  } 		 
+    	 } 		
+    	 else if(testName.getMethodName().equals("TESTF_checkIfWeCanDeleteLectureScheduleWiInfBA")){
+	   		  
+    	  	 testRequestParameter.setCourseName( "Wirtschaftsinformatik" );
+    		 testRequestParameter.setCourseDegree( "Bachelor Of Science" );
+        	 testRequestParameter.setCourseTerm( "Sommersemester" );
+    				 
+    		  
+    	 } 	
      }
      
+
      @Test
+     @WithMockUser(username = "DUSTIN79", password = "root" )
 	 public void TESTA_checkIfWeCanDeleteAFileWithInCorrectCourseNameInRequestParameter() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
 		 
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -152,14 +150,16 @@ public class  CourseScheduleFileDeleteControllerTest {
 	 }
      
      
-	 @Test 
+
+     @Test
+     @WithMockUser(username = "DUSTIN79", password = "root" )
 	 public void TESTB_checkIfWeCanDeleteAFileWithInCorrectDegreeInRequestParameter() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
 		 
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -185,14 +185,16 @@ public class  CourseScheduleFileDeleteControllerTest {
 		 
 	 }
      
-	 @Test
+
+     @Test
+     @WithMockUser(username = "DUSTIN79", password = "root" )
 	 public void TESTC_checkIfWeCanDeleteAFileWithInCorrectTermInRequestParameter() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
 		 
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -218,54 +220,21 @@ public class  CourseScheduleFileDeleteControllerTest {
 	 }
 	 
       
+ 
      @Test
-	 public void TESTD_checkIfWeCanDeleteAFileThatDoesNotExist() throws Exception {
-			
-        ObjectMapper mapper = new ObjectMapper();
-		 
-		 try {
-			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
-		 
-			 System.out.println(jsonInString);
-			 
-			 ResultMatcher notFound  = MockMvcResultMatchers.status()
-	                   .isNotFound();
-
-
-			 MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/Delete/Schedule/Course")
-	                           .contentType(MediaType.APPLICATION_JSON_VALUE)
-	                           .content(jsonInString);
-	                           
-		  
-			 
-			  mockMvc.perform(builder)
-		      .andExpect( notFound) 
-		      .andDo(MockMvcResultHandlers.print());
-			  
-			 
-		 } catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		 }
-		 
-	 }
-      
-     @Test
-	 public void TESTE_checkIfWeCanDeleteAnExistingFile() throws Exception {
+     @WithMockUser(username = "DUSTIN79", password = "root" )
+	 public void TESTE_checkIfWeCanDeleteLectureScheduleAISEBa() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
 		 
         
-        DeleteFileParameter deleteTestParameter = new DeleteFileParameter(testRequestParameter.getCourseName(), 
-        																	testRequestParameter.getCourseDegree(), 
-        																		testRequestParameter.getCourseTerm());
+        FileParameter deleteTestParameter = new FileParameter(testRequestParameter.createCourseScheduleParam().getCourse());
         
         FileNameResolver resolvedFileName =  FileNameProvider.provideFileNameResolverForCourseScheduleFile(deleteTestParameter);
          
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -297,4 +266,48 @@ public class  CourseScheduleFileDeleteControllerTest {
 		 
 	 }
  
+     @Test
+     @WithMockUser(username = "DUSTIN79", password = "root" )
+	 public void TESTF_checkIfWeCanDeleteLectureScheduleWiInfBA() throws Exception {
+			
+        ObjectMapper mapper = new ObjectMapper();
+		 
+        
+        FileParameter deleteTestParameter = new FileParameter(testRequestParameter.createCourseScheduleParam().getCourse());
+        
+        FileNameResolver resolvedFileName =  FileNameProvider.provideFileNameResolverForCourseScheduleFile(deleteTestParameter);
+         
+		 try {
+			
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleParam());
+		 
+			 System.out.println(jsonInString);
+			 
+			 ResultMatcher ok  = MockMvcResultMatchers.status()
+	                   .isOk();
+
+			 MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/Delete/Schedule/Course")
+	                           .contentType(MediaType.APPLICATION_JSON_VALUE)
+	                           .content(jsonInString);
+	                           
+		  
+			 
+			  mockMvc.perform(builder)
+		      .andExpect( ok) 
+		      .andDo(MockMvcResultHandlers.print());
+			  
+			 
+			  final String deletedFileNameToCheck = resolvedFileName.getResolvedFileName().toString();
+
+			  resources.database.entities.File.Files deletedFile = filesRepo.read(deletedFileNameToCheck);
+		 
+		      assertThat("The file was not recognized as deleted", deletedFile.isFiledeleted(), is(true));
+	 
+			  
+		 } catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		 }
+		 
+	 }
 }

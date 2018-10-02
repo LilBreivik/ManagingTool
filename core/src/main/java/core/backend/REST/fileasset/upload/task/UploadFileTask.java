@@ -1,7 +1,7 @@
 package core.backend.REST.fileasset.upload.task;
   
 
-import core.backend.REST.fileasset.upload.parameter.UploadFileParameter;
+import core.backend.REST.fileasset.upload.parameter.UploadScheduleFileParameter;
 import core.backend.REST.general.response.result.successfully.SuccessResponse;
 import core.backend.REST.general.task.AbstractTaskImpl;
 import resources.components.filehandler.FileHandler;
@@ -10,7 +10,7 @@ import resources.components.filehandler.JSON.PersistentJSONFileHandler;
 import resources.utils.files.OrdinaryFileHandler;
 
 public class UploadFileTask 
-								extends AbstractTaskImpl<UploadFileParameter, String>{
+								extends AbstractTaskImpl<UploadScheduleFileParameter, String>{
 
 	private FileHandler m_UploadFileHandler; 
 	
@@ -29,7 +29,7 @@ public class UploadFileTask
 	}
 	
 	@Override
-	public void workOnTask(UploadFileParameter parameter) {
+	public void workOnTask(UploadScheduleFileParameter parameter) {
 		 	
 		m_UploadFileHandler.moveFile(parameter.getScheduleFile() , 
 				OrdinaryFileHandler.buildPath(m_pathManagerToLectureAssetsDirectory.getPathToOperateOn(),

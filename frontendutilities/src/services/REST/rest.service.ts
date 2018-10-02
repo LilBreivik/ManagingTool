@@ -31,9 +31,13 @@ export class RESTService<T> {
  
   }
  
-  protected postRESTObjectNonParsed<U> (postParameter: U ){ 
+  protected postRESTObjectNonParsed<U> (postParameter : U = null){ 
          
-    return this.p_RESTClient.post(this.serviceURL, postParameter, {responseType : 'blob'});
+    return this.p_RESTClient.post(this.serviceURL, postParameter, {responseType : 'blob'}).pipe(
+         
+        tap(_ => this.log(`fetched hero id=1`)),
+        catchError(this.handleError<T>(`getHero id=1`))
+    );
   
   } 
 
@@ -60,8 +64,8 @@ export class RESTService<T> {
       // TODO: send the error to remote logging infrastructure
       
       // we retrieve the error Response from the server 
-      let errorResponse = ErrorResponse.buildErrorResponse(error.error) as ErrorResponse
-
+ 
+      let errorResponse = ErrorResponse.buildErrorResponse(error.error)  
   
       setUpErrorModal(errorResponse)
       // TODO: better job of transforming error for user consumption 

@@ -1,4 +1,4 @@
-package core.controller.pages.model.views.greetings;
+package core.backend.NonREST.model.views.greetings;
 
 public class GreetingsPageView {
 

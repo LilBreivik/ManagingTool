@@ -3,8 +3,7 @@ package resources.database.repository;
 
 import java.io.Serializable;
 import java.util.List;
-
-import org.checkerframework.checker.units.qual.m;
+ 
 
 import resources.database.dao.GenericDaoImpl; 
 
@@ -16,10 +15,10 @@ public abstract class MasterRepository <Dao extends GenericDaoImpl, Entity>{
 		 
 		m_dao = dao;
 	}
-	
-	public Entity create(Entity obj) { 
+	  
+	public void create(Entity obj) { 
 		
-		return (Entity) m_dao.create(obj);
+		 m_dao.create(obj);
 	}
 	
 	public void  update(Entity obj) { 

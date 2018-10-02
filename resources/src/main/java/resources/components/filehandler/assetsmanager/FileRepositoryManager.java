@@ -58,7 +58,13 @@ public class FileRepositoryManager  extends FileAssetsManager {
 		fileStateToUpdate.setFileName(fileToBeDeleted.getName()); // we store the information to the row with the expected name
 		fileStateToUpdate.setFileUploaded(false);
 		fileStateToUpdate.setFiledeleted(true);
-		fileStateToUpdate.setFileDeleter("Rainer Winkler");
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		
+		final String deleterName = authentication.getName();
+		
+		fileStateToUpdate.setFileDeleter( deleterName);
 		fileStateToUpdate.setFileDeletedAt(new Date(System.currentTimeMillis()));
 		
 		 
@@ -93,6 +99,11 @@ public class FileRepositoryManager  extends FileAssetsManager {
 		fileStateToUpdate.setFiledeleted(false);
 		fileStateToUpdate.setFileUploadedAt(new Date(System.currentTimeMillis()));
 		  
+		
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		
 		final String uploaderName = authentication.getName();
         
 		fileStateToUpdate.setFileUploader(uploaderName);  

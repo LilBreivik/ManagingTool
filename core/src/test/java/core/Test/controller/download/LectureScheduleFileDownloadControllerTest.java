@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,11 +26,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.TestContext.ControllerTestApplicationContext; 
+import core.TestContext.ControllerTestApplicationContext;
+import core.TestContext.utils.ScheduleFileUploadParam;
 import resources.components.filehandler.PathManager; 
 import java.io.IOException;  
-import org.springframework.context.annotation.EnableAspectJAutoProxy; 
-import core.TestContext.ScheduleFileUploadParam;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
 import core.backend.REST.fileasset.download.controller.LectureScheduleFileDownloadController;
 import core.utils.names.FileNameResolver; 
 import resources.components.filehandler.JSON.PersistenceCourseScheduleJSONFileHandler; 
@@ -98,9 +100,19 @@ public class  LectureScheduleFileDownloadControllerTest {
 	   		  
 	    	 } 
 		 
-		 else if(testName.getMethodName().equals("TESTD_checkIfWeCanDownloadAFileWithCorrectRequestParameter")){
+		 else if(testName.getMethodName().equals("TESTD_checkIfWeCanDownloadAISEXLSFileAssetWithCorrectRequestParameter")){
    		  
 			 testRequestParameter.setCourseName( "Angewandte Informatik" );
+	    	 testRequestParameter.setCourseDegree( "Bachelor Of Science" );
+	    	 testRequestParameter.setCourseTerm( "Sommersemester" );
+			 
+			 
+    		// testRequestParameter.setScheduleFile(Paths.get(System.getProperty("user.dir"), "/src/test/resources/Files/".concat("LectureScheduleAISEBa") ).toFile());
+   		  
+    	 } 
+		 else if(testName.getMethodName().equals("TESTE_checkIfWeCanDownloadWiInfXLSFileAssetWithCorrectRequestParameter")){
+	   		  
+			 testRequestParameter.setCourseName( "Wirtschaftsinformatik" );
 	    	 testRequestParameter.setCourseDegree( "Bachelor Of Science" );
 	    	 testRequestParameter.setCourseTerm( "Sommersemester" );
 			 
@@ -112,13 +124,14 @@ public class  LectureScheduleFileDownloadControllerTest {
      }
      
      @Test
+     @WithMockUser(username = "DUSTIN79", password = "root" )
 	 public void TESTA_checkIfWeCanDownloadAFileWithInCorrectCourseNameInRequestParameter() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
 		 
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -150,13 +163,14 @@ public class  LectureScheduleFileDownloadControllerTest {
      
      
      @Test
+     @WithMockUser(username = "DUSTIN79", password = "root" )
 	 public void TESTB_checkIfWeCanDownloadAFileWithInCorrectDegreeInRequestParameter() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
 		 
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -187,13 +201,14 @@ public class  LectureScheduleFileDownloadControllerTest {
 	 }
      
      @Test
+     @WithMockUser(username = "DUSTIN79", password = "root" )
 	 public void TESTC_checkIfWeCanDownloadAFileWithInCorrectTermInRequestParameter() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
 		 
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -225,13 +240,14 @@ public class  LectureScheduleFileDownloadControllerTest {
 	 
       
      @Test
-	 public void TESTD_checkIfWeCanDownloadAFileWithCorrectRequestParameter() throws Exception {
+     @WithMockUser(username = "DUSTIN79", password = "root" )
+	 public void TESTD_checkIfWeCanDownloadAISEXLSFileAssetWithCorrectRequestParameter() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
 		 
 		 try {
 			
-			 String jsonInString = mapper.writeValueAsString(testRequestParameter);
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleParam());
 		 
 			 System.out.println(jsonInString);
 			 
@@ -262,5 +278,44 @@ public class  LectureScheduleFileDownloadControllerTest {
 		 
 	 }
       
+     
+     @Test
+     @WithMockUser(username = "DUSTIN79", password = "root" )
+	 public void TESTE_checkIfWeCanDownloadWiInfXLSFileAssetWithCorrectRequestParameter() throws Exception {
+			
+        ObjectMapper mapper = new ObjectMapper();
+		 
+		 try {
+			
+			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleParam());
+		 
+			 System.out.println(jsonInString);
+			 
+			 ResultMatcher ok = MockMvcResultMatchers.status()
+	                   .isOk();
+
+			 MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/Download/Schedule/Lecture")
+	                           .contentType(MediaType.APPLICATION_JSON_VALUE)
+	                           .content(jsonInString);
+	                           
+		 
+			 System.out.println(pathManagerToLecutreAssets.getPathOfFile( "AISEXLSFileAsset"));
+			 
+			 
+			 byte[] expectedDownloadedContent = Files.readAllBytes(pathManagerToLecutreAssets.getPathOfFile( "WiInfXLSFileAsset"));
+			 
+			 
+			  mockMvc.perform(builder)
+		      .andExpect(ok)
+		      .andExpect(content().bytes(expectedDownloadedContent ))
+		      .andDo(MockMvcResultHandlers.print());
+			  
+			 
+		 } catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		 }
+		 
+	 }
  
 }

@@ -1,7 +1,7 @@
 package core.backend.REST.assets.task;
  
-import org.springframework.dao.DataIntegrityViolationException; 
-import core.backend.REST.assets.parameter.request.AssetsStockParameter; 
+import org.springframework.dao.DataIntegrityViolationException;
+import core.backend.REST.general.request.schedule.RESTScheduleRequest;
 import core.backend.REST.general.response.result.successfully.SuccessResponse;
 import core.backend.REST.general.task.AbstractTaskImpl;
 import resources.components.elements.POJO.Assets.AssetsStockPOJO;
@@ -11,7 +11,7 @@ import resources.error.InternalError;
 
 
 public class AssetsStockTask 
-							extends AbstractTaskImpl<AssetsStockParameter,  AssetsStockPOJO>{
+							extends AbstractTaskImpl<RESTScheduleRequest,  AssetsStockPOJO>{
 
 	private Files retrievedAssetsStockFiles = null; 
 	 
@@ -25,7 +25,7 @@ public class AssetsStockTask
 	
 	
 	@Override
-	public void workOnTask(AssetsStockParameter parameter) {
+	public void workOnTask(RESTScheduleRequest parameter) {
 		 	
 		final String assetsStockFileName = parameter.getFileNameResolver().getResolvedFileName(); 
 		 

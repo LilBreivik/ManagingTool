@@ -10,9 +10,9 @@ import org.junit.Test;
 import org.junit.rules.TestName;
 import org.junit.runners.MethodSorters;
 
+import resources.components.elements.POJO.Scheduling.Timing.SchedulingDay;
+import resources.components.elements.POJO.Scheduling.Timing.TimeBlock;
 import resources.error.scheduling.CollisionError;
-import scheduling.SchedulingDay;
-import scheduling.timing.TimeBlock;
 
 import static  resources.utils.general.Constants.Days.Montag;
 import static  resources.utils.general.Constants.Days.Dienstag;

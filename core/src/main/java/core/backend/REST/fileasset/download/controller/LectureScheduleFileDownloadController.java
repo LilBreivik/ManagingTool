@@ -1,7 +1,7 @@
 package core.backend.REST.fileasset.download.controller;
 
 import javax.servlet.http.HttpServletResponse;
-import core.backend.REST.fileasset.download.parameter.request.DownloadCourseLectureFileParameter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -9,13 +9,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus; 
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import core.backend.REST.fileasset.download.parameter.DownloadCourseLectureFileParameter;
 import core.backend.REST.fileasset.download.task.DownloadFileTask;
+import core.backend.REST.general.controller.MasterRESTController;
 import core.backend.REST.general.response.result.successfully.SuccessResponse;
 
 @Controller
 public class LectureScheduleFileDownloadController 
-        extends DownloadScheduleFileController<  DownloadCourseLectureFileParameter, HttpServletResponse>{
+        extends MasterRESTController<  DownloadCourseLectureFileParameter, HttpServletResponse>{
 
 	@Autowired
 	public LectureScheduleFileDownloadController(@Qualifier("provide DownloadLectureScheduleFileTask") 

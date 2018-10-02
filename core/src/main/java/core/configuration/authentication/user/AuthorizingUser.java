@@ -1,15 +1,11 @@
 package core.configuration.authentication.user;
 
-
-import java.util.Arrays;
+ 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-
+import java.util.stream.Collectors; 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-
+import org.springframework.security.core.userdetails.User; 
 import core.configuration.authentication.utils.DelimeteredPassword;
 import resources.database.entities.Accounts.Accounts;
 import resources.database.entities.User.Users;

@@ -6,8 +6,7 @@ import core.backend.REST.general.response.result.faulty.failures.InternalErrorFa
 import core.backend.REST.general.response.result.faulty.failures.ParameterViolatedFailureResponse;
 import core.backend.advice.AdviceMessageFactory;
 import resources.error.FileIsMissingError;
-import resources.error.InternalError;
-import resources.error.download.AssetFileIsMissing;
+import resources.error.InternalError; 
 import resources.error.parameter.FileAssetParameterViolationError;
 import resources.error.parameter.ParameterViolationError;
 
@@ -26,7 +25,7 @@ public class FailureResponseFactory {
 			
 		}
 		
-		errorResponse.setErrorMessage(violatedParameter.getMessage());
+		errorResponse.setErrorMessage(violatedParameter.toString());
 		
 		return errorResponse;
 			
@@ -38,6 +37,8 @@ public class FailureResponseFactory {
 		  
 		internalServerError.setMoreInfo( AdviceMessageFactory.createInternalErrorAdviceMessage(internalError));
 		
+		
+		internalServerError.setErrorMessage(internalError.toString());
 		 
 		return internalServerError;
 	}

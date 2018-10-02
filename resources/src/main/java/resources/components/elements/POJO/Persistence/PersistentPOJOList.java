@@ -8,6 +8,11 @@ public class PersistentPOJOList<T extends PersistentLectureInformation>
 													extends ArrayList<T  >{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void removePOJO(String pojoName) {
 		
 		for(int itr = 0; itr < super.size(); itr += 1) {

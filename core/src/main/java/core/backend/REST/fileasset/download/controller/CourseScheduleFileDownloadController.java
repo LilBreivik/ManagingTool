@@ -5,16 +5,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.http.HttpStatus; 
-import core.backend.REST.fileasset.download.parameter.request.DownloadCourseScheduleFileParameter;
-import core.backend.REST.fileasset.download.task.DownloadFileTask; 
+import org.springframework.http.HttpStatus;
+
+import core.backend.REST.fileasset.download.parameter.DownloadCourseScheduleFileParameter;
+import core.backend.REST.fileasset.download.task.DownloadFileTask;
+import core.backend.REST.general.controller.MasterRESTController;
+
 import javax.servlet.http.HttpServletResponse; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier; 
 
 @Controller
 public class CourseScheduleFileDownloadController 
-		extends DownloadScheduleFileController<  DownloadCourseScheduleFileParameter, HttpServletResponse> {
+		extends  MasterRESTController<  DownloadCourseScheduleFileParameter, HttpServletResponse> {
     
 	@Autowired
 	public CourseScheduleFileDownloadController(@Qualifier("provide DownloadCourseScheduleFileTask") 

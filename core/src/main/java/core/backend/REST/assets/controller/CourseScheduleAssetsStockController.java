@@ -3,8 +3,10 @@ package core.backend.REST.assets.controller;
  
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import core.backend.REST.assets.parameter.request.CourseScheduleAssetsStockParameter;
-import core.backend.REST.assets.task.AssetsStockTask; 
+
+import core.backend.REST.assets.parameter.CourseScheduleAssetsStockParameter;
+import core.backend.REST.assets.task.AssetsStockTask;
+import core.backend.REST.general.controller.MasterRESTController;
 import core.backend.REST.general.response.result.successfully.SuccessResponse; 
 import resources.components.elements.POJO.Assets.AssetsStockPOJO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class CourseScheduleAssetsStockController 
-													extends  AssetsStockController {
+						extends MasterRESTController<CourseScheduleAssetsStockParameter,  AssetsStockPOJO> {
  	
 	@Autowired
 	public CourseScheduleAssetsStockController(@Qualifier("provide AssetsStockTask") AssetsStockTask  task) {
