@@ -27,8 +27,7 @@ public abstract class AssetStockContentView
 	 
     protected  boolean checkExistingComplementarySchedules() {
 		
-    	System.out.println("");
-    	
+    
     	
 		List<AssetStockView> assetCourseScheduleStockView = p_courseScheduleAssetStockViewer.getAssetsStockViews();
 		

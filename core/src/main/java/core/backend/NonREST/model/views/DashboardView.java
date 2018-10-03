@@ -101,7 +101,7 @@ public class DashboardView
 		model.addAttribute("COURSE_STOCK_ASSETS_VIEW", p_courseScheduleAssetStockViewer.getAssetsStockViews());
 		
 		model.addAttribute("LECTURE_STOCK_ASSETS_VIEW", p_lectureScheduleAssetStockViewer.getAssetsStockViews());
-		
+		 
 		
 		if(checkExistingComplementarySchedules()) {
 			

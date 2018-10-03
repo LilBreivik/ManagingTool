@@ -1,1 +1,0 @@
-function adjustDimensions(){var e=new Object;return e.width=document.getElementsByClassName("table_cell")[0].offsetWidth,e.height=document.getElementsByClassName("table_cell")[0].offsetHeight,e}

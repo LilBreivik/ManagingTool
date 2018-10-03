@@ -57,12 +57,24 @@ core/src/main/resources/application.properties
 core/src/main/resources/static/js/lecturescheduleassetsmanager/main.*
 core/src/main/resources/static/js/schedulemanager/scripts.*
 core/src/main/resources/static/js/schedulemanager/main.*
+
 core/src/main/resources/static/js/coursescheduleassetsmanager/main.*
 core/src/main/resources/static/js/coursescheduleassetsmanager/scripts.*
 core/src/main/resources/static/js/coursescheduleassetsmanager/scripts.*
 core/src/main/resources/static/js/lecturescheduleassetsmanager/scripts.*
+/Users/dustin/git/ManagingTool/core/src/main/resources/static/js/scheduleassets/main.*
+/Users/dustin/git/ManagingTool/core/src/main/resources/static/js/scheduleassets/scripts.*
 core/src/test/resources/Files/*
 core/src/main/java/core/backend/NonREST/IndexPageController.java.orig
 core/src/main/java/core/backend/NonREST/ScheduleManagerPageController.java.orig
 core/src/main/resources/static/templates/fragments/lecturescheduleassetsmanager.html.orig
 resources/src/main/java/resources/components/filehandler/assetsmanager/FileRepositoryManager.java.orig
+
+# private config files 
+core/src/main/resources/application.development.properties
+core/src/main/resources/application.release.properties
+core/src/main/resources/sslkeystore.jks
+core/src/main/resources/sslkeystore.p12
+
+# initializing tests 
+core/src/test/java/core/Test/database/Test/InitializeBaseAccountsTest.java

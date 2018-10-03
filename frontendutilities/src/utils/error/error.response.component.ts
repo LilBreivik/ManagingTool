@@ -21,11 +21,10 @@ export class ErrorResponse{
         let tempErrorResponse = new ErrorResponse()
    
         try { 
- 
 
-            if(((errorResponse.httpStatus == NOT_SET) && 
-                                    (errorResponse.moreInfo == NOT_SET) && 
-                                        (errorResponse.errorMessage == NOT_SET)) ) 
+            if(((errorResponse.httpStatus != NOT_SET) && 
+                                    (errorResponse.moreInfo != NOT_SET) && 
+                                        (errorResponse.errorMessage != NOT_SET)) ) 
             {
 
                 tempErrorResponse.httpStatus = errorResponse.httpStatus

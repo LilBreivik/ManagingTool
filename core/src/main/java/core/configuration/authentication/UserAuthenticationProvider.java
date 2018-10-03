@@ -65,8 +65,8 @@ public class UserAuthenticationProvider  implements AuthenticationProvider {
 					  int authorizedAccountId = GeneralPurpose.CollectionToList(authorizingUser.getAccountIds()).get(m_accountPasswords.indexOf(accountPassword));
 				 	    
 					  AuthorizedUserAccount authorizedAccount = new AuthorizedUserAccount(authorizingUser.getUsername(), accountPassword, authorizingUser.getLoginName(), authorityOfAccount, authorizedAccountId);
-					  
-					  Sessions newSession = m_sessionRepository.read(authorizedAccountId);
+					   
+					  Sessions newSession =  m_sessionRepository.createSession(authorizedAccountId);
 						
 					  newSession.handleLogin();
 						

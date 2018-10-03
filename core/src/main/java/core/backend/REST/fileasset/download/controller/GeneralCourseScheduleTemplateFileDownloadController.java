@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller; 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus; 
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import core.Application;
 import core.backend.REST.fileasset.download.task.DownloadGeneralCourseScheduleTemplateFileTask; 
 import core.backend.REST.general.controller.nonrequest.NonRequestController;
 

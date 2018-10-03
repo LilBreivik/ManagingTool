@@ -13,7 +13,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import core.Test.database.TestContext.DatabaseTestApplicationContext;
 import resources.components.filehandler.PathManager;
 import resources.configuration.PathManagerProvider;

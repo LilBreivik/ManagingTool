@@ -24,4 +24,21 @@ public class SessionsRepository extends MasterRepository<SessionsDao, Sessions>{
 		
 		m_dao.saveOrUpdate(sessionToLogOut);
 	}
+
+	public  Sessions createSession(int accountId) {
+		
+		Sessions session = m_dao.read(accountId);
+		
+		// if the first login happens, we have to create a new one 
+		
+		if(session == null) {
+			
+			return new Sessions(accountId);
+		}
+		else {
+			
+			return session; 
+		}
+		
+	}
 }

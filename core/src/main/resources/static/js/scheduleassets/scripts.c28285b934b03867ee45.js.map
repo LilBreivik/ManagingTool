@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack:///js/uploader.js"],"names":[],"mappings":";AACA;AACA,gC;AACA;;AAEA,gB;;AAEA,C","file":"scripts.c28285b934b03867ee45.js","sourcesContent":["\nfunction uploadAsset2(input) {\n  var reader = new FileReader();           \n  reader.readAsDataURL(input.files[0]);\n           \n  return reader;   \n             \n}\t\n"],"sourceRoot":""}

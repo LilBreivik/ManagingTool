@@ -33,16 +33,16 @@ public class Sessions {
 	 
 	 public Sessions() {}
 	 
+	 public Sessions(int loggedInAccountId) {
+			
+		 accountid = loggedInAccountId; 
+	 }
+	 
 	 public  Date getLastLogin() {
 		 
 		 return lastloggedInAt;
 	 }
-	 
-	 public Sessions(int loggedInAccountId) {
-	
-		 accountid = loggedInAccountId; 
-	 }
-
+	  
 	public void handleLogin() {
 		 
 		 loggedOutAt = null;
