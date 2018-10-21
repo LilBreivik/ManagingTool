@@ -20,28 +20,22 @@
     
       <body class="default_page">
         
-            <div>
-                 <div class="default_page_wrapper">
-                        <div class="animate form default_page_form">
-                          <section class="default_page_content">
-                                <div class="text-center text-center">
-                                        <h1 class="error-number" th:text="${ERRORCODE}">${STATUSCODE}</h1>
-                                        <h2>Die angeforderte Ressource existiert nicht</h2>
-                                        
-                                        <div class="mid_center">
-                                          <p>Möchten Sie uns dies&nbsp;<a href="#">mitteilen?</a>
-                                        </p>
-    
-                                          
-                                        </div>
-                                      </div>
-                            </section>
-                        </div>
-                    </div>
-            </div>
-    
-    
-    
+        <div>
+          <div class="default_page_wrapper">
+                 <div class="animate form default_page_form">
+                   <section class="default_page_content">
+                         <div class="text-center text-center">
+                                 <h1 class="error-number" th:text="${ERRORCODE}">${STATUSCODE}</h1>
+                                 <h2>Die angeforderte Ressource existiert nicht</h2>
+                                   <div class="mid_center">
+                                     <p>Möchten Sie uns dies&nbsp;<a th:href="${ERRORMESSAGEEMAIL}">mitteilen?</a>
+                                   </p>
+                                 </div>
+                               </div>
+                     </section>
+                 </div>
+             </div>
+        </div>
      
         <!-- jQuery -->
         <script src="../vendors/jquery/dist/jquery.min.js"></script>

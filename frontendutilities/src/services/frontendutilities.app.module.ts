@@ -1,6 +1,6 @@
-import { HttpClientModule, HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { NgModule , ModuleWithProviders, Injector } from '@angular/core';  
+import { NgModule   } from '@angular/core';  
 import { UniqueCourseNameFilterPipe} from "../pipes/coursenamepipe";
 import { UniqueCourseDegreeFilterPipe  } from "../pipes/coursedegreepipe";
 import { UniqueCourseTermFilterPipe } from "../pipes/coursetermpipe";  

@@ -14,4 +14,4 @@ public class UsersRepository  extends MasterRepository<UsersDao, Users>{
 		super( dao);
 	}
 }
- 
+  

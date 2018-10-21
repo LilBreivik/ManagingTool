@@ -1,8 +1,8 @@
 package core.utils.names;
     
-import resources.components.elements.POJO.Scheduling.Utils.IScheduleParam;
 import resources.utils.names.INameResolver;
-import resources.utils.names.NameResolver; 
+import resources.utils.names.NameResolver;
+import scheduling.Utils.IScheduleParam; 
  
 public  class FileNameResolver 
 								extends NameResolver<IScheduleParam >{

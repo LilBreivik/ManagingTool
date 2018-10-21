@@ -10,10 +10,9 @@
     <name>Aggregator for the Managing Tool</name>
 
     <modules>
-        <module>core</module>
-        <module>scheduling</module>
         <module>resources</module>
-        <module>bootstrapping</module>
+        <module>scheduling</module>
+        <module>core</module>
     </modules>
  
   <build> 

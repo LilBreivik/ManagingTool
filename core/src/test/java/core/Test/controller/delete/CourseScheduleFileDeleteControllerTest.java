@@ -28,14 +28,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import core.TestContext.ControllerTestApplicationContext;
 import core.TestContext.utils.FileParameter;
 import core.TestContext.utils.ScheduleFileUploadParam;
-import resources.components.filehandler.PathManager; 
+
 import java.io.IOException;  
 import org.springframework.context.annotation.EnableAspectJAutoProxy; 
 import core.backend.REST.fileasset.download.controller.LectureScheduleFileDownloadController;
 import core.provider.FileNameProvider;
-import core.utils.names.FileNameResolver; 
-import resources.components.filehandler.JSON.PersistenceCourseScheduleJSONFileHandler;
-import resources.database.repository.FilesRepository; 
+import core.utils.names.FileNameResolver;  
+import resources.database.repository.FilesRepository;
+import resources.utils.pathmanager.PathManager; 
 
 @ContextConfiguration( classes={ ControllerTestApplicationContext.class })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -49,9 +49,7 @@ public class  CourseScheduleFileDeleteControllerTest {
 	  
 	 @Autowired
 	 private MockMvc mockMvc;
- 	 
-	 @Autowired
-     public PersistenceCourseScheduleJSONFileHandler handler; 
+ 	  
 	 
 	 @Autowired 
 	 private FilesRepository filesRepo; 
@@ -117,7 +115,7 @@ public class  CourseScheduleFileDeleteControllerTest {
      
 
      @Test
-     @WithMockUser(username = "DUSTIN79", password = "root" )
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTA_checkIfWeCanDeleteAFileWithInCorrectCourseNameInRequestParameter() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
@@ -152,7 +150,7 @@ public class  CourseScheduleFileDeleteControllerTest {
      
 
      @Test
-     @WithMockUser(username = "DUSTIN79", password = "root" )
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTB_checkIfWeCanDeleteAFileWithInCorrectDegreeInRequestParameter() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
@@ -187,7 +185,7 @@ public class  CourseScheduleFileDeleteControllerTest {
      
 
      @Test
-     @WithMockUser(username = "DUSTIN79", password = "root" )
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTC_checkIfWeCanDeleteAFileWithInCorrectTermInRequestParameter() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
@@ -222,7 +220,7 @@ public class  CourseScheduleFileDeleteControllerTest {
       
  
      @Test
-     @WithMockUser(username = "DUSTIN79", password = "root" )
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTE_checkIfWeCanDeleteLectureScheduleAISEBa() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
@@ -267,7 +265,7 @@ public class  CourseScheduleFileDeleteControllerTest {
 	 }
  
      @Test
-     @WithMockUser(username = "DUSTIN79", password = "root" )
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTF_checkIfWeCanDeleteLectureScheduleWiInfBA() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();

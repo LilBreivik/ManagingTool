@@ -1,28 +1,22 @@
 package resources.database.entities.Accounts;
- 
-import javax.persistence.ForeignKey; 
-import java.nio.charset.StandardCharsets; 
+   
 
+import java.nio.charset.StandardCharsets;
+import javax.persistence.ForeignKey; 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.Entity; 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne; 
 import javax.persistence.Table; 
 import javax.validation.constraints.NotNull;
 import javax.persistence.DiscriminatorType; 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.DiscriminatorOptions;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.DiscriminatorOptions; 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
@@ -78,10 +72,8 @@ public abstract class  Accounts {
 	 protected int accountid;
 	
 	   
-	 @ManyToOne(targetEntity = Users.class ) 
-	 @Cascade({ CascadeType.REFRESH})
-	 @OnDelete(action = OnDeleteAction.CASCADE)
-	 @JoinColumn(name = "USER_EMAIL", foreignKey= @ForeignKey(name="USER_EMAIL_FK"))
+     @ManyToOne(targetEntity = Users.class )  
+	 @JoinColumn(name = "ACCOUNT_USER_ID" ,   foreignKey= @ForeignKey(name="USER_ID_FK"), referencedColumnName = "USER_ID" )
 	 protected Users acountOwner;
 
 	 @NotNull
@@ -108,6 +100,22 @@ public abstract class  Accounts {
 	 }
 		
 		 
+	 @Override
+	public boolean equals(Object obj) {
+		
+		 if(obj instanceof Accounts) {
+			 
+			 Accounts objToCheck = (Accounts) obj; 
+			 
+			 return (objToCheck.getAccountId() ==  accountid);
+		 }
+		 else {
+			 
+			 return false; 
+		 }
+	}
+	 
+	 
 	 private byte[] createsPasswordForUserAccount(String passwordUnhashed, String salt) {
 		 	
 		return  BCrypt.hashpw(passwordUnhashed, salt).getBytes(StandardCharsets.UTF_8);
@@ -125,7 +133,7 @@ public abstract class  Accounts {
 	 
      public void setAccountId(int accountId) {
 		 
-		 accountid = accountId; 
+		 this.accountid = accountId; 
 	 }
 	 
 	 public int getAccountId() {
@@ -147,8 +155,5 @@ public abstract class  Accounts {
 	 public AccountTypes getAccountType() {
 		 
 		 return accountType;
-	 }
-
- 
-	 
+	 }	 
 }

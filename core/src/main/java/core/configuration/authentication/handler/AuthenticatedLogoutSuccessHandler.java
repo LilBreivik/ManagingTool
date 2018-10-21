@@ -4,38 +4,41 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpServletResponse; 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-
-import core.configuration.authentication.user.AuthorizedUserAccount;
-import resources.database.entities.Accounts.Sessions;
+import org.springframework.stereotype.Component; 
+import core.utils.redirect.RedirectionHandler; 
+import resources.database.entities.Accounts.Sessions; 
 import resources.database.repository.SessionsRepository;
+import resources.utils.user.AuthorizedUserAccount;
 
-public class AuthenticatedLogoutSuccessHandler  extends  MasterAuthenticationResultHandler  implements LogoutSuccessHandler{
-
-	public AuthenticatedLogoutSuccessHandler(SessionsRepository sessionRepo) {
-		super(sessionRepo); 
+@Component
+public class AuthenticatedLogoutSuccessHandler  
+									implements LogoutSuccessHandler {
+ 
+	private final String landingUrl = "/login";
+	  
+	@Autowired 
+	private SessionsRepository m_sessionRepo;
+	 
+	
+	@Autowired
+	private RedirectionHandler  m_RedirectHandler; 
 		
-		landingUrl = "/login";
-	}
-
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
+		  
+		AuthorizedUserAccount authorizedAccount  =  (AuthorizedUserAccount)  authentication.getPrincipal();
 		
-		AuthorizedUserAccount account  =  (AuthorizedUserAccount)  authentication.getPrincipal();
+		Sessions newSession = m_sessionRepo.createSession(authorizedAccount.getAccount()); 
+		 
+		m_sessionRepo.unRegisterSession(newSession);
 		
-		Sessions newSession = p_sessionRepo.read(account.getLoggedInAccountId());
-		
-		newSession.handleLogout();
-		
-		p_sessionRepo.unRegisterSession(newSession);
-		
-		handle(request, response);
-		
-        clearAuthenticationAttributes(request);
+		m_RedirectHandler.handleRedirection(request, response, landingUrl);
+		 
 	}
 
 }

@@ -5,7 +5,7 @@ import core.backend.utils.upload.ParamVerifierJob;
 
 public abstract class MasterRESTRequest<Request> {
 
-	protected  Request p_request; 
+	private  Request p_request; 
 	
 	public MasterRESTRequest(Request request) {
 		

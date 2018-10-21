@@ -1,8 +1,10 @@
 package core.TestContext.utils;
 
 import java.util.List;
+
+import resources.components.elements.POJO.Lecture.LecturePOJO;
  
-import resources.components.elements.POJO.Scheduling.Lectures.LecturePOJO;
+
 public class LecturesListPOJO {
 
 	

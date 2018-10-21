@@ -35,14 +35,13 @@ import core.TestContext.utils.FileParameter;
 import core.TestContext.utils.ScheduleFileUploadParam;
 import core.backend.REST.fileasset.upload.controller.CourseScheduleUploadFileController;
 import core.provider.FileNameProvider;
-import core.utils.names.FileNameResolver;
-import resources.components.filehandler.JSON.PersistenceCourseScheduleJSONFileHandler;
+import core.utils.names.FileNameResolver; 
 import resources.database.repository.FilesRepository; 
 
 @ContextConfiguration( classes={ ControllerTestApplicationContext.class })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(SpringJUnit4ClassRunner.class)  
-@TestPropertySource("classpath:application.properties")
+//@TestPropertySource("classpath:application.properties")
 @WebMvcTest(CourseScheduleUploadFileController  .class)
 @EnableAspectJAutoProxy(proxyTargetClass=true)
 public class  CourseScheduleFileUploadControllerTest {
@@ -54,16 +53,14 @@ public class  CourseScheduleFileUploadControllerTest {
  
 	 @Autowired 
 	 private FilesRepository filesRepo; 
-	 
-	 @Autowired
-     public PersistenceCourseScheduleJSONFileHandler handler; 
+	  
 	 
 
   
      @Rule
      public TestName testName = new TestName();
 
-     @Before
+     @Before 
      public void setUpParameter() throws IOException {
     
 		 testRequestParameter = new ScheduleFileUploadParam();	  
@@ -132,13 +129,13 @@ public class  CourseScheduleFileUploadControllerTest {
      }
       
 	 
-     @Test
-     @WithMockUser(username = "DUSTIN79", password = "root" )
+     //@Test
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTA_handleInCorrectRequestWithWrongCourseName() throws Exception {
 	      
 	 
 		 ObjectMapper mapper = new ObjectMapper();
-		 
+		  
 		 try {
 			
 			 String jsonInString = mapper.writeValueAsString(testRequestParameter.createCourseScheduleFileParam());
@@ -168,8 +165,8 @@ public class  CourseScheduleFileUploadControllerTest {
 	 }
      
 	 
-     @Test
-	 @WithMockUser(username = "DUSTIN79", password = "root" )
+     //@Test
+	 @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTB_handleInCorrectRequestWithWrongCourseDegree() throws Exception {
 	      
 	 
@@ -204,8 +201,8 @@ public class  CourseScheduleFileUploadControllerTest {
 	 }
      
 	 
-	 @Test
-	 @WithMockUser(username = "DUSTIN79", password = "root" )
+	 //@Test
+	 @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTC_handleInCorrectRequestWithWrongCourseTerm() throws Exception {
 	      
 	 
@@ -242,7 +239,7 @@ public class  CourseScheduleFileUploadControllerTest {
      
     
 	 @Test 
-	 @WithMockUser(username = "DUSTIN79", password = "root" )
+	 @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTD_handleInCorrectFileRequest() throws Exception {
 	      
 	 
@@ -277,8 +274,8 @@ public class  CourseScheduleFileUploadControllerTest {
 	 }
 	
      
-     @Test
-     @WithMockUser(username = "DUSTIN79", password = "root" )
+     //@Test
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTE_handleCorrectFileRequestForAISEBa() throws Exception {
 	      
 	 
@@ -297,7 +294,7 @@ public class  CourseScheduleFileUploadControllerTest {
 			 System.out.println(jsonInString);
 			 
 			 ResultMatcher ok = MockMvcResultMatchers.status()
-	                   .isOk();
+	                   .isOk(); 
 
 			 MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/Upload/Schedule/Course")
 	                           .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -327,8 +324,8 @@ public class  CourseScheduleFileUploadControllerTest {
 	 }
      
      
-     @Test
-     @WithMockUser(username = "DUSTIN79", password = "root" )
+     //@Test
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTF_handleCorrectFileRequestForLectureScheduleWiInfBA() throws Exception {
 	      
 	 

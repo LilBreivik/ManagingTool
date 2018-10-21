@@ -7,14 +7,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
-import resources.components.elements.POJO.Scheduling.Lectures.LecturePOJO;
-import resources.components.elements.POJO.Scheduling.Lectures.ScheduledLecturePOJO;
-import resources.components.elements.POJO.Scheduling.Lectures.ScheduledLecturesPOJO;
-import resources.components.elements.POJO.Scheduling.Timing.ConflictsManager;
-import resources.components.elements.POJO.Scheduling.Timing.SchedulingDay;
-import resources.components.elements.POJO.Scheduling.Timing.TimeBlock;
-import resources.components.elements.corrections.CorrectionMessage;
-import resources.utils.general.Constants.Days; 
+import resources.components.elements.POJO.Lecture.LecturePOJO;
+import resources.components.elements.POJO.Lecture.Timing.TimeBlock;
+import resources.components.elements.POJO.Schedule.ScheduledLecturePOJO;
+import resources.utils.general.Constants.Days;
+import scheduling.Correction.CorrectionMessage; 
+import scheduling.POJO.ScheduledLecturesPOJO; 
+import scheduling.Timing.ConflictsManager;
+import scheduling.Timing.SchedulingDay; 
 
 @Component
 public class SchedulingCollisionManager {
@@ -28,7 +28,7 @@ public class SchedulingCollisionManager {
 	 * 	 * one Course that was actually changed, and the other "parallel one"
 	 * that needs to be monitored, if we do check the first one ...
 	 * 
-	 * */
+	 * */ 
 	
 	public void checkConflicts(List<LecturePOJO> lecturesList) {
 		 

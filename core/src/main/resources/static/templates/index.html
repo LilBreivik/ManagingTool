@@ -55,7 +55,7 @@
                    
 
                   <li class="">
-                      <a href="/ManagingTool" class=""><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                      <a href="/ManagingTool/Dashboard" class=""><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                     </li>
 
 
@@ -63,7 +63,6 @@
                     <ul class="nav child_menu" style="display: none;">
                       <li><a href="/ManagingTool/CourseScheduleManager">&nbsp;Studienverlaufsplan&nbsp;</a></li>
                       <li><a href="/ManagingTool/LectureScheduleManager">&nbsp;Vorlesungen&nbsp;</a></li>
-                       
                     </ul>
                   </li>
             
@@ -71,6 +70,15 @@
                   <li class="" sec:authorize="hasAuthority('COORDINATOR')"><a href="/ManagingTool/ScheduleManager"><i class="fa fa-table"></i>&nbsp;Stundenplan&nbsp;</a>
                   </li>
                   
+
+                  
+                  <li class=""><a><i class="fa fa-gear"></i>&nbsp;Einstellungen&nbsp;<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: none;">
+                      <li><a href="/ManagingTool/PasswordChange">&nbsp;Passwort ändern&nbsp;</a></li>
+                      <li><a href="/ManagingTool/ApplicationInformation">&nbsp;Managing-Tool Information&nbsp;</a></li>
+                    </ul>
+                  </li>
+
                   <li class=""><a href="/perform_logout"><i class="fa fa-sign-out"></i>&nbsp;Logout&nbsp;</a>
                   </li>
 
@@ -94,34 +102,8 @@
             <nav>
               <div class="nav toggle">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-
-              
-            <ul class="nav navbar-nav navbar-right">
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-bell-o"></i>
-                    <span class="badge">6</span>
-                  </a>
-                  
- 
-                </li><li class="">
-                  
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                  </ul>
-                </li>
-
-                
-              </ul></nav>
+              </div> 
+             </nav>
           </div>
         </div>
         <!-- /top navigation -->
@@ -191,102 +173,7 @@
               </div>
             </div>
         </div>
-
-
-
-
-    <!--    <div id="errorModal" class="modal fade bs-example-modal-sm " tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog modal-sm">
-              <div class="modal-content">
-                <div class="modal-header">
-                  
-                  <h4 class="modal-title" >ttt</h4>
-                </div>
-                
-                  <div class="modal-body" >
-
-                  <div class="container"> 
-                      <div class="gear" id="gear7"></div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="modal-body"   style="float: left;"></div>
-                   
-                </div>
-
-              </div>
-            </div>
-          </div> -->
-    <!--    <div class="modal-dialog modal-sm"> 
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel"></h4>
-                  </div>
-                  <div class="container"> 
-                      <div class="gear" id="gear7"></div>
-                  </div>
-                  <div class="modal-body" id="myModalContent"></div>
-                  <div class="modal-footer">
-                      <div class="modal-body" id="myModalFooter"></div>
-                    <button type="button" class="btn modalbtn btn-default" data-dismiss="modal">Schließen</button> 
-                  </div>
-  
-                </div> 
-          </div>
-
-
-
-        <div  id="errorModal" class="modal fade bs-example-modal-lg " tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                  </button>
-                  <h4 class="modal-title" id="myModalLabel"></h4>
-                </div>
-                <div class="container"> 
-                    <div class="gear" id="gear7"></div>
-                </div>
-                <div class="modal-body" id="myModalContent"></div>
-                <div class="modal-footer">
-                    <div class="modal-body" id="myModalFooter"></div>
-                  <button type="button" class="btn modalbtn btn-default" data-dismiss="modal">Schließen</button> 
-                </div>
-
-              </div>
-            </div>
-          </div>
-        -->
-
-
-        <!-- modal 
-   
-
-
-            <div  id="errorModal" class="modal fade bs-example-modal-lg " tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-                <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                      </button>
-                      <h4 class="modal-title" id="myModalLabel"></h4>
-                    </div>
-                    <div class="modal-body" id="myModalContent"></div>
-                    <div class="modal-footer">
-                        <div class="modal-body" id="myModalFooter"></div>
-                      <button type="button" class="btn modalbtn btn-default" data-dismiss="modal">Schließen</button> 
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-
-
-
-        /modal-->
-
+ 
         <!-- footer content -->
         <footer>
            

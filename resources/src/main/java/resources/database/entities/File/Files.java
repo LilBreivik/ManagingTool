@@ -1,12 +1,9 @@
 package resources.database.entities.File;
  
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
+ 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
+import javax.persistence.Column; 
 import javax.persistence.Entity; 
 import javax.persistence.Id; 
 import javax.persistence.Table;

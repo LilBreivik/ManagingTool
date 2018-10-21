@@ -1,10 +1,9 @@
 package core.backend.REST.nonfileasset.notice.parameter;
  
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonProperty; 
 import core.backend.REST.general.request.custom.nonschedule.RESTCustomNonScheduleRequest;
-import resources.components.elements.POJO.Notice.NoticesPOJO; 
+import resources.components.elements.POJO.Notices.NoticesPOJO;
 import resources.error.parameter.ParameterViolationError; 
 
 
@@ -13,18 +12,16 @@ public class NoticeParameter
  
 	protected final String NO_INPUT = ""; 
 	
-	protected final String NO_HEADLINE  = "Du hast keinen Namen für die Notiz angegeben"; 
+	protected final String NO_HEADLINE  = "Du hast keinen Titel für die Notiz angegeben"; 
 	
 	protected final String NO_NOTICE  = "Du hast keine Notiz angegeben"; 
-	
-	
 	
 	@JsonCreator
 	public NoticeParameter(@JsonProperty("notice") NoticesPOJO  request ) {
 		super(request ); 
 	}
 	 
-	@Override
+	@Override 
 	public void verifyParameter() { 
 		
 		if((getRequest().getNoticeHeadline().equals(NO_INPUT)) )  {

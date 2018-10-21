@@ -4,16 +4,19 @@ package core.backend.REST.general.controller;
 import core.backend.REST.general.request.MasterRESTRequest; 
 import core.backend.REST.general.response.result.successfully.SuccessResponse;
 import core.backend.REST.general.task.ITask;
+import core.backend.REST.general.task.general.GeneralAbstractTaskImpl;
 
-public abstract class MasterRESTController<Request extends  MasterRESTRequest, 
+public abstract class MasterRESTController<
+								Task extends GeneralAbstractTaskImpl, 
+											Request extends  MasterRESTRequest, 
 													ResponseType>	 {
 
-	protected ITask p_task; 
+	protected Task p_task; 
 	
     public MasterRESTController() {}
 	
-	public MasterRESTController(ITask task) {
-		
+	public MasterRESTController(Task task) {
+		 
 		p_task = task; 
 	} 
 	
@@ -27,7 +30,7 @@ public abstract class MasterRESTController<Request extends  MasterRESTRequest,
 	 * 
 	 * */
  
-	
+ 
 	protected SuccessResponse<ResponseType> handleRequest() {
 	  	
 		p_task.workOnTask();

@@ -4,29 +4,31 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse; 
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.stereotype.Component;
 
-import core.configuration.authentication.user.AuthorizedUserAccount;
-import resources.database.entities.Accounts.Sessions;
-import resources.database.repository.SessionsRepository;
+import core.utils.redirect.RedirectionHandler; 
 
-public class AuthenticatedFailureHandler extends  MasterAuthenticationResultHandler   implements  AuthenticationFailureHandler {
+
+@Component
+public class AuthenticatedFailureHandler 
+						implements  AuthenticationFailureHandler {
 
 	
-    public AuthenticatedFailureHandler(SessionsRepository sessionRepo) {
-		super(sessionRepo); 
-	}
 
+	@Autowired
+	private RedirectionHandler  m_RedirectHandler; 
 	
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
+		  
 		 
-		handle(request, response);
-		
-        clearAuthenticationAttributes(request);
+			m_RedirectHandler.handleRedirection(request, response);
 	}
 
 	 

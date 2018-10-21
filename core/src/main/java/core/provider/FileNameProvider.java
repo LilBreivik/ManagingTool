@@ -1,7 +1,7 @@
 package core.provider;
  
 import core.utils.names.FileNameResolver;
-import resources.components.elements.POJO.Scheduling.Utils.IScheduleParam;
+import scheduling.Utils.IScheduleParam;
 
 public class FileNameProvider 
 								extends MasterProvider<FileNameResolver>{

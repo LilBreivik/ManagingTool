@@ -44,7 +44,7 @@ production
 # ignore Assets 
 
 ScheduleFiles/
-
+core/Logging/
 
 # ignore files
 .vscode/
@@ -53,15 +53,12 @@ changelog.md
 LICENSE.txt
 README.md
 *.orig
-core/src/main/resources/application.properties
+core/src/main/resources/*.properties
 core/src/main/resources/static/js/lecturescheduleassetsmanager/main.*
 core/src/main/resources/static/js/schedulemanager/scripts.*
 core/src/main/resources/static/js/schedulemanager/main.*
-
-core/src/main/resources/static/js/coursescheduleassetsmanager/main.*
-core/src/main/resources/static/js/coursescheduleassetsmanager/scripts.*
-core/src/main/resources/static/js/coursescheduleassetsmanager/scripts.*
-core/src/main/resources/static/js/lecturescheduleassetsmanager/scripts.*
+resources/src/test/resources/
+core/src/main/resources/static/js/*
 /Users/dustin/git/ManagingTool/core/src/main/resources/static/js/scheduleassets/main.*
 /Users/dustin/git/ManagingTool/core/src/main/resources/static/js/scheduleassets/scripts.*
 core/src/test/resources/Files/*
@@ -75,6 +72,9 @@ core/src/main/resources/application.development.properties
 core/src/main/resources/application.release.properties
 core/src/main/resources/sslkeystore.jks
 core/src/main/resources/sslkeystore.p12
+core/src/test/resources/application.test.original.properties
+core/src/test/resources/application.test.properties
+core/src/test/resources/email.properties
 
 # initializing tests 
 core/src/test/java/core/Test/database/Test/InitializeBaseAccountsTest.java

@@ -1,38 +1,25 @@
 package core.backend.NonREST.model.views;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
-import core.backend.NonREST.model.configuration.IPageView;
-import core.backend.NonREST.model.views.utils.helper.AssetStockViewer;
-import resources.components.elements.POJO.Persistence.Course.PersistenceCourseSchedulePOJO; 
+import core.backend.NonREST.model.views.assets.AssetStockContentView; 
 
 @Component
 public class ScheduleManagerView  
-						extends  AssetStockContentView
-									implements IPageView{
-
-	
+						extends AssetStockContentView{
+ 
 	@Autowired	
-	public ScheduleManagerView(@Qualifier("provide AssetStockViewer for Course Schedule") AssetStockViewer<PersistenceCourseSchedulePOJO> courseScheduleAssetStockViewer, 
-			@Qualifier("provide AssetStockViewer for Lecture Schedule") AssetStockViewer<PersistenceCourseSchedulePOJO> lectureScheduleAssetStockViewer) {
-		
-		super(courseScheduleAssetStockViewer, lectureScheduleAssetStockViewer);
-		 
+	public ScheduleManagerView() {
+ 
 		HEADLINE_DISPLAY = true; 
 		HEADLINE = "Stundenplan";
 		
-		CONTENT_DISPLAY = true; 
-		
-		
+		CONTENT_DISPLAY = true; 		
 		FOOTER_DISPLAY = false;
-		
 	}
-	
-	
-	
+	 
 	@Override
 	public Model buildRequiredView(Model model) {
 		

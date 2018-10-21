@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import core.provider.FileNameProvider;
 import resources.components.elements.POJO.Schedule.CourseScheduleFilePOJO;
 import resources.error.ConnectionError;
-import resources.error.parameter.FileAssetParameterViolationError;
+import resources.error.parameter.fileasset.FileAssetParameterViolationError;
 import resources.fileconnection.XMLFileConnection;
 
 public class UploadCourseScheduleFileParameter 
@@ -24,7 +24,7 @@ public class UploadCourseScheduleFileParameter
 		    
 	    	try { 
 	    		
-				new XMLFileConnection(getScheduleFile());
+				new XMLFileConnection(getScheduleFile().toPath());
 			 
 			} catch (ConnectionError e) {
 				

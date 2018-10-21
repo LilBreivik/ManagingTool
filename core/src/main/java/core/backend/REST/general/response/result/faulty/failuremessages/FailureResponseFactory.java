@@ -3,15 +3,16 @@ package core.backend.REST.general.response.result.faulty.failuremessages;
 
 import core.backend.REST.general.response.result.faulty.failures.FileNotThereFailureResponse;
 import core.backend.REST.general.response.result.faulty.failures.InternalErrorFailureResponse;
-import core.backend.REST.general.response.result.faulty.failures.ParameterViolatedFailureResponse;
+import core.backend.REST.general.response.result.faulty.failures.ParameterViolatedFailureResponse; 
 import core.backend.advice.AdviceMessageFactory;
 import resources.error.FileIsMissingError;
-import resources.error.InternalError; 
-import resources.error.parameter.FileAssetParameterViolationError;
+import resources.error.InternalError;
 import resources.error.parameter.ParameterViolationError;
+import resources.error.parameter.fileasset.FileAssetParameterViolationError;
 
 public class FailureResponseFactory {
 
+	 
 	public static ParameterViolatedFailureResponse createParameterViolationErrorResponse(ParameterViolationError violatedParameter ) {
 		
 		ParameterViolatedFailureResponse errorResponse = new ParameterViolatedFailureResponse("Die Anfrage war falsch");

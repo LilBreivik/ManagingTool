@@ -16,8 +16,7 @@ export class CoursesScheduleService
 
         constructor(  ){
             super( environment.API_URL +  "/Synthesize/GeneralCourseSchedule" )
-
-        //    this.p_modal = modal; 
+ 
         }
 
         /** GET hero by id. Will 404 if id not found */

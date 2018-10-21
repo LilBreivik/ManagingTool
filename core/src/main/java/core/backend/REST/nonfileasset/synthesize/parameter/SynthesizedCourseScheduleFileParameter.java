@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import core.backend.REST.general.request.schedule.RESTScheduleRequest;
 import core.provider.FileNameProvider;
-import resources.components.elements.POJO.Schedule.CoursePOJO;
+import resources.components.elements.POJO.Course.CoursePOJO;
  
 
 public class SynthesizedCourseScheduleFileParameter 

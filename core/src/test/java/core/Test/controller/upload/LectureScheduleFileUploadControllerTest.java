@@ -35,8 +35,7 @@ import core.TestContext.utils.FileParameter;
 import core.TestContext.utils.ScheduleFileUploadParam;
 import core.backend.REST.fileasset.upload.controller.LectureScheduleUploadFileController;
 import core.provider.FileNameProvider;
-import core.utils.names.FileNameResolver;
-import resources.components.filehandler.JSON.PersistenceCourseScheduleJSONFileHandler;
+import core.utils.names.FileNameResolver; 
 import resources.database.repository.FilesRepository; 
 
 @ContextConfiguration( classes={ ControllerTestApplicationContext.class })
@@ -55,9 +54,7 @@ public class  LectureScheduleFileUploadControllerTest {
 
 	 @Autowired 
 	 private FilesRepository filesRepo; 
-	 
-	 @Autowired
-     public PersistenceCourseScheduleJSONFileHandler handler; 
+	  
 	 
  
 	  
@@ -138,7 +135,7 @@ public class  LectureScheduleFileUploadControllerTest {
       
 	 
      @Test
-     @WithMockUser(username = "DUSTIN79", password = "root" )
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTA_handleInCorrectRequestWithWrongCourseName() throws Exception {
 	      
 	 
@@ -174,7 +171,7 @@ public class  LectureScheduleFileUploadControllerTest {
      
 	 
 	 @Test
-     @WithMockUser(username = "DUSTIN79", password = "root" )
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTB_handleInCorrectRequestWithWrongCourseDegree() throws Exception {
 	      
 	 
@@ -209,7 +206,7 @@ public class  LectureScheduleFileUploadControllerTest {
 	 }
      
 	 @Test
-     @WithMockUser(username = "DUSTIN79", password = "root" )
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTC_handleInCorrectRequestWithWrongCourseTerm() throws Exception {
 	      
 	 
@@ -246,7 +243,7 @@ public class  LectureScheduleFileUploadControllerTest {
      
     
 	 @Test
-     @WithMockUser(username = "DUSTIN79", password = "root" )
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTD_handleInCorrectFileRequest() throws Exception {
 	      
 	 
@@ -282,7 +279,7 @@ public class  LectureScheduleFileUploadControllerTest {
 	
      
      @Test
-     @WithMockUser(username = "DUSTIN79", password = "root" )
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTE_handleCorrectFileRequest() throws Exception {
 	      
 	 
@@ -333,7 +330,7 @@ public class  LectureScheduleFileUploadControllerTest {
      
      
      @Test
-     @WithMockUser(username = "DUSTIN79", password = "root" )
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTF_handleCorrectFileRequest() throws Exception {
 	      
 	 

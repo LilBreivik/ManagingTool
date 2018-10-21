@@ -9,3 +9,4 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(CourseScheduleManagerApplicationModule)
   .catch(err => console.log(err));
+ 

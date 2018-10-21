@@ -7,9 +7,8 @@ import {DeleteLectureScheduleFileService } from "../services/files/delete/lectur
 import { DownloadLectureScheduleFileService } from "../services/files/download/lectureschedule.download.files.service"; 
 import {UploadAssetsFileRequestParameter} from "@scheduleassets/src/entities/parameter/assets/request/upload/assets.upload.request.parameter";
 import {UploadLectureScheduleFileService }  from "../services/files/upload/lectureschedule.upload.files.service";
- 
- 
-@Component({
+  
+@Component({ 
     selector: 'lectureschedulemanager-root',
     templateUrl: './lectureschedule.component.html',
     providers :[ LectureScheduleAssetsStockService , 
@@ -18,19 +17,19 @@ import {UploadLectureScheduleFileService }  from "../services/files/upload/lectu
                             DeleteLectureScheduleFileService, 
                                 DownloadLectureScheduleFileService, 
                                     UploadLectureScheduleFileService,
-                                        UploadAssetsFileRequestParameter]
+                                        UploadAssetsFileRequestParameter ]
 }) 
- 
+    
 export class LectureScheduleAssetsManager 
                                         extends AssetsManager {
-    
+     
         constructor(private coursesScheduleService :  CoursesScheduleService,
                         private lecturescheduleAssetsStockService :  LectureScheduleAssetsStockService , 
                             private lecturescheduleFileDeleteService : DeleteLectureScheduleFileService,
                                 private courseDownloadlecturescheduleFileService: DownloadLectureScheduleFileService,
                                     private courseUploadScheduleFileService : UploadLectureScheduleFileService,
                                         private courseAssetsFileRequestParameter : CourseAssetsFileRequestParameter, 
-                                            private courseAssetsFileUploadRequestParameter: UploadAssetsFileRequestParameter){
+                                            private courseAssetsFileUploadRequestParameter: UploadAssetsFileRequestParameter ){
        
             super(lecturescheduleAssetsStockService,
                       lecturescheduleFileDeleteService, 
@@ -40,7 +39,7 @@ export class LectureScheduleAssetsManager
                                 courseAssetsFileRequestParameter, 
                                   courseAssetsFileUploadRequestParameter, 
                                   ".xls");
-                        
+                         
               
         }
 }

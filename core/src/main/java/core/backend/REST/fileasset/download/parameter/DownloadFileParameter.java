@@ -3,7 +3,7 @@ package core.backend.REST.fileasset.download.parameter;
 import javax.servlet.http.HttpServletResponse;
 
 import core.backend.REST.general.request.schedule.RESTScheduleRequest;
-import resources.components.elements.POJO.Schedule.CoursePOJO;
+import resources.components.elements.POJO.Course.CoursePOJO;
 
 
 public abstract class DownloadFileParameter 

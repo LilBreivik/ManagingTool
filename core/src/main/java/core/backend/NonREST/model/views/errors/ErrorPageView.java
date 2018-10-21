@@ -4,7 +4,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 @Component
-public class ErrorPageView extends AbstractErrorView {
+public class ErrorPageView 
+
+extends AbstractErrorView {
 	
 	public  Model  buildErrorPageModel(int errorCode, Model model) {
 		

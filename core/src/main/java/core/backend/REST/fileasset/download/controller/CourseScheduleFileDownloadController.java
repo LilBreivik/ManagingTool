@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.http.HttpStatus;
 
 import core.backend.REST.fileasset.download.parameter.DownloadCourseScheduleFileParameter;
-import core.backend.REST.fileasset.download.task.DownloadFileTask;
-import core.backend.REST.general.controller.MasterRESTController;
+import core.backend.REST.fileasset.download.task.DownloadFileTask; 
+import core.backend.REST.general.controller.nonresponse.NonResponseController;
 
 import javax.servlet.http.HttpServletResponse; 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 @Controller
 public class CourseScheduleFileDownloadController 
-		extends  MasterRESTController<  DownloadCourseScheduleFileParameter, HttpServletResponse> {
+    extends  NonResponseController< DownloadFileTask,  DownloadCourseScheduleFileParameter >{
     
 	@Autowired
 	public CourseScheduleFileDownloadController(@Qualifier("provide DownloadCourseScheduleFileTask") 
@@ -38,3 +38,4 @@ public class CourseScheduleFileDownloadController
 	
 	 
 }
+ 

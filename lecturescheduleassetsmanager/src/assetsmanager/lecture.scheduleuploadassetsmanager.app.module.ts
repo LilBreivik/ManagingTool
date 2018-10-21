@@ -8,13 +8,13 @@ import {UploadAssetsManager } from "@scheduleassets/src/upload/upload.assetsmana
 @NgModule({
   declarations: [   
     LectureScheduleAssetsManager , 
-    UploadAssetsManager
-  ],
+    UploadAssetsManager 
+  ], 
   imports: [
     BrowserModule,    
     FrontendUtilitiesApplicationModule,
     FormsModule
-  ],
+  ],  
    bootstrap: [ LectureScheduleAssetsManager ]
 }) 
   

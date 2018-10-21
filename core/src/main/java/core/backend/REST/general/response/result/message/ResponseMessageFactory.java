@@ -3,7 +3,7 @@ package core.backend.REST.general.response.result.message;
 import java.io.File;
 import java.util.stream.Collectors;
 
-import resources.error.parameter.FileAssetParameterViolationError;
+import resources.error.parameter.fileasset.FileAssetParameterViolationError;
 import resources.utils.general.GeneralPurpose; 
 
 public class ResponseMessageFactory {

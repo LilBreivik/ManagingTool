@@ -18,7 +18,7 @@ public class Constants {
 		
 		ScheduleFiles, Properties, Greetings, Network,
 		JSONFiles, CoursesAssets, LecturesAssets, Database, Hibernate,
-		src, main, resources, core, test, Files , Users;
+		src, main, resources, core, test, Files , Users, Logging, ChangeLog;
 
 	}
 

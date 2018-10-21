@@ -6,9 +6,6 @@ import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell; 
 import org.apache.poi.ss.usermodel.Row;
-
-import resources.components.filehandler.XLS.DisAssembledXLSCell;
-import resources.components.filehandler.XLS.DisAssembledXLSRow;
  
 public class ConstraintRow extends DisAssembledXLSRow{
 	 

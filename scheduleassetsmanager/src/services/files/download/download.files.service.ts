@@ -14,4 +14,4 @@ export class DownloadFileService
         
        return  this.postRESTObjectNonParsed(courseRequestParameter);  
     }
-} 
+}  

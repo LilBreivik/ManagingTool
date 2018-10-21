@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import resources.components.elements.POJO.Lecture.LecturePOJOBuilderRecipe;
 import resources.components.elements.POJO.Persistence.LectureSchedulePOJO;
-import resources.components.filehandler.XLS.DisAssembledXLSCell;
 import resources.constraint.strategies.ConstraintStrategy;
 import resources.constraint.strategies.VDTypConstraintStrategy;
 import resources.constraint.strategies.VNameConstraintStrategy;
@@ -17,7 +16,6 @@ import resources.error.ConstraintViolationError;
  
  
 
-@Component
 
 /**
  * This class contains every constraint
@@ -28,6 +26,8 @@ import resources.error.ConstraintViolationError;
  * 
  * 
  * */
+
+@Component
 public class LectureConstraint {
   
 	private List<ConstraintStrategy<String>> m_constraints;

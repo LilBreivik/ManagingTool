@@ -3,7 +3,8 @@ import {CourseRequestParameter} from "@frontendutilities/src/services/entities/P
  
 
 export class DeleteFileService 
-                                            extends RESTService< Object > {
+                              extends RESTService< Object > {
+   
     constructor(deleteAssetsURL : string){
         super(deleteAssetsURL);
     } 

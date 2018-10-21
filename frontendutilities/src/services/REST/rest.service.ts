@@ -64,9 +64,10 @@ export class RESTService<T> {
       // TODO: send the error to remote logging infrastructure
       
       // we retrieve the error Response from the server 
- 
-      let errorResponse = ErrorResponse.buildErrorResponse(error.error)  
   
+      let errorResponse = ErrorResponse.buildErrorResponse(error.error)  
+   
+
       setUpErrorModal(errorResponse)
       // TODO: better job of transforming error for user consumption 
 

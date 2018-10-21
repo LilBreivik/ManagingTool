@@ -34,8 +34,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 public class StaticResourcesConfiguration 
 											implements WebMvcConfigurer{
 
-	
-	
+	 
 	@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
             
@@ -44,11 +43,7 @@ public class StaticResourcesConfiguration
         
     }
 	
-	
-	
-	  
-	
-	
+	 
 	@Bean
     @Description("Thymeleaf template resolver serving HTML 5")
     public ClassLoaderTemplateResolver templateResolver() {

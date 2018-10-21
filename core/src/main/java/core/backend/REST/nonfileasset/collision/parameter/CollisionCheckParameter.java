@@ -1,8 +1,8 @@
 package core.backend.REST.nonfileasset.collision.parameter;
-  
-import resources.components.elements.POJO.Schedule.CollisionCheckPOJO; 
-import resources.components.elements.POJO.Scheduling.Lectures.LecturePOJO;
+   
+import resources.components.elements.POJO.Lecture.LecturePOJO;
 import resources.error.parameter.ParameterViolationError;
+import scheduling.POJO.CollisionCheckPOJO;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonCreator;

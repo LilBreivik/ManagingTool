@@ -21,22 +21,21 @@
   </head>
 
   <body class="default_page">
-    
-    <div>
+
       <div class="default_page_wrapper">
         <div class="animate form default_page_form">
           <section class="default_page_content">
             <form method="POST" id="login_pageForm" action="/perform_login">
               <h1> Managing-Tool </h1>
               <div>
-                <input type="text" class="form-control" placeholder="Login-Name" name="loginname" required="">
+                <input type="text" class="form-control" placeholder="E-Mail" name="email" required>
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Passwort" name="password" required="">
+                <input type="password" class="form-control" placeholder="Passwort" name="password" required>
               </div>
               <div>
                  <button type="submit" form="login_pageForm" class="btn btn-success">&nbsp;login&nbsp;</button>
-                    <a class="reset_pass" href="#">&nbsp;Passwort vergessen&nbsp;</a>
+                    <a class="reset_pass" href="/passwordForgotten" target="_self">&nbsp;Passwort vergessen&nbsp;</a>
               </div>
               <div class="clearfix"></div>
               <div class="separator">
@@ -45,9 +44,13 @@
               </div>
             </form>
           </section>
+          <div class="container" th:if="${LOGIN_DISMISS == true}">
+            <div class="alert alert-danger">
+                <strong>&nbsp;Die angegebenen Zugangsdaten sind falsch&nbsp;</strong>
+            </div> 
+          </div>
         </div>
       </div>
-    </div>
-   
+  
    </body>
 </html>

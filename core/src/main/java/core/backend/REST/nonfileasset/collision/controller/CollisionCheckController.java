@@ -7,7 +7,7 @@ import core.backend.REST.general.controller.MasterRESTController;
 import core.backend.REST.general.response.result.successfully.SuccessResponse; 
 import core.backend.REST.nonfileasset.collision.parameter.CollisionCheckParameter;
 import core.backend.REST.nonfileasset.collision.task.CollisionCheckTask;
-import resources.components.elements.POJO.Scheduling.Lectures.ScheduledLecturesPOJO;
+import scheduling.POJO.ScheduledLecturesPOJO;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ import org.springframework.http.HttpStatus;
 @Controller
 public class CollisionCheckController < Request extends CollisionCheckParameter, 
 														ResponseType extends ScheduledLecturesPOJO>
-															extends MasterRESTController< Request,   ResponseType> {
+															extends MasterRESTController<CollisionCheckTask,  Request,   ResponseType> {
    
 	@Autowired
 	@Qualifier("provide CollisionCheckTask")

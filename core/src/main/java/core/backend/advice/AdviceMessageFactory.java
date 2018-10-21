@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.stream.Collectors;
 
 import resources.error.InternalError;
-import resources.error.parameter.FileAssetParameterViolationError;
+import resources.error.parameter.fileasset.FileAssetParameterViolationError;
 import resources.utils.general.GeneralPurpose; 
 
 public class AdviceMessageFactory {

@@ -5,3 +5,4 @@ export class AssetsStockPOJO {
  
 	public uploaderName : string;
 }
+ 

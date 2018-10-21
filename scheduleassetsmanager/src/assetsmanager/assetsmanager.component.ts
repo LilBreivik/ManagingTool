@@ -39,7 +39,7 @@ export class AssetsManager implements OnInit  {
     { }
 
     ngOnInit(): void {
-     
+      
          this. m_coursescheduleService .getCourseSchedule().subscribe(courseSchedule => {
            
             this.coursesSchedule = []

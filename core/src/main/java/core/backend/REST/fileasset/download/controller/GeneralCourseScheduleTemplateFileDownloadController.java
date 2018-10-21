@@ -1,39 +1,43 @@
 package core.backend.REST.fileasset.download.controller;
-
+ 
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller; 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import core.Application;
-import core.backend.REST.fileasset.download.task.DownloadGeneralCourseScheduleTemplateFileTask; 
-import core.backend.REST.general.controller.nonrequest.NonRequestController;
-
+import core.backend.REST.fileasset.download.parameter.DownloadCourseScheduleFileParameter;
+import core.backend.REST.fileasset.download.task.DownloadFileTask; 
+import core.backend.REST.general.controller.nonresponse.NonResponseController;
+ 
 @Controller
 public class GeneralCourseScheduleTemplateFileDownloadController 
-											extends NonRequestController<HttpServletResponse> {
+                            extends  NonResponseController< DownloadFileTask,  DownloadCourseScheduleFileParameter > {
     
-	private DownloadGeneralCourseScheduleTemplateFileTask m_downloadGeneralCourseScheduleTemplateFileTask;
-	
-	@Autowired
-	public GeneralCourseScheduleTemplateFileDownloadController(@Qualifier("provide DownloadGeneralCourseScheduleTemplateFileTask")
-																	DownloadGeneralCourseScheduleTemplateFileTask task) {
-							super(task);
-							
-		m_downloadGeneralCourseScheduleTemplateFileTask =  task; 
-	}
-		 
-	@ResponseStatus( HttpStatus.OK )
-	@RequestMapping(value = "/Download/General/Schedule/Course/Template", method = RequestMethod.POST )
-	protected void handleCourseScheduleFileDownloadRequest(HttpServletResponse fileToDownload) {
-		 
-		m_downloadGeneralCourseScheduleTemplateFileTask.setHTTPResponse(fileToDownload);
-	
-		super.handleRequest();
-	}
+  @Autowired
+  public GeneralCourseScheduleTemplateFileDownloadController (
+		  @Qualifier("provide DownloadGeneralCourseScheduleTemplateFileTask")  DownloadFileTask task) {
+			super(task);
+			
+  }
 
-}
+
+  @ResponseStatus( HttpStatus.OK )
+  @RequestMapping(value = "/Download/General/Schedule/Course/Template", method = RequestMethod.POST, consumes="application/json")
+
+  protected void handleCourseScheduleFileDownloadRequest(@RequestBody DownloadCourseScheduleFileParameter downloadCourseScheduleFileParam, 
+          		HttpServletResponse fileToDownload) {
+	
+	downloadCourseScheduleFileParam.setDownloadResponse(fileToDownload);
+	
+	super.handleRequest(downloadCourseScheduleFileParam);
+	
+  }
+
+
+} 

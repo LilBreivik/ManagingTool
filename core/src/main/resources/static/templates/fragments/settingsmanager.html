@@ -1,0 +1,75 @@
+<style>
+    .field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+
+.container{
+  padding-top:50px;
+  margin: auto;
+}
+</style>
+
+<div class="x_panel contents_view">
+        
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_title">
+              <h2>Passwortänderung</h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li> 
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content" style="display: block;">
+        
+              <!-- start form for validation -->
+              
+        <form id="demo-form" data-parsley-validate="" novalidate="">
+               
+          <label for="fullname">Bestehendes Passwort:&nbsp;</label>
+                <input type="text" id="fullname" class="form-control" name="fullname" required="">
+        
+             <br><label for="email">Neues Passwort:&nbsp;</label>
+                <input type="email" id="email" class="form-control" name="email" data-parsley-trigger="change" required="">
+             <br><label for="email">Neues Passwort: (wiederholt)&nbsp;</label>
+                <input type="email" id="email" class="form-control" name="email" data-parsley-trigger="change" required="">
+         
+       
+       
+                <label><input type="checkbox" > Passwörter sichtbar machen <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span></label>
+       
+      <div class="container">
+          
+          
+          
+          <div class="alert alert-warning">
+            <strong>&nbsp;Die neuen Passwörter wurden nicht ausgefüllt&nbsp;</strong></div>
+          <div class="alert alert-danger">
+            <strong>&nbsp;Die neuen Passwörter stimmen nicht überein&nbsp;</strong></div>
+        </div><button type="button" class="btn btn-primary">&nbsp;Passwort ändern&nbsp;</button>
+                  
+              </form>
+              <!-- end form for validations -->
+        
+            </div>
+          </div>
+        </div>
+
+
+<script type="text/javascript">
+            $(".toggle-password").click(function() {
+            
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+              input.attr("type", "text");
+            } else {
+              input.attr("type", "password");
+            }
+            });
+            
+</script>

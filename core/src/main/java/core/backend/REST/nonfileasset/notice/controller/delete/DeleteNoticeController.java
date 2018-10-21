@@ -13,11 +13,11 @@ import core.backend.REST.general.response.result.successfully.SuccessResponse;
 import core.backend.REST.nonfileasset.notice.parameter.NoticeParameter;
 import core.backend.REST.nonfileasset.notice.parameter.SpecficNoticeReadRequestParameter;
 import core.backend.REST.nonfileasset.notice.task.NoticeTask;
-import resources.components.elements.POJO.Notice.PersistenceNoticesPOJO;
+import notice.PersistenceNoticesPOJO;
 
 @Controller
 public class DeleteNoticeController 
-										extends MasterRESTController<NoticeParameter, PersistenceNoticesPOJO>{
+										extends MasterRESTController<NoticeTask ,NoticeParameter, PersistenceNoticesPOJO>{
   
 	@Autowired 
 	public DeleteNoticeController (@Qualifier("provide DeleteNoticeTask") NoticeTask task) {

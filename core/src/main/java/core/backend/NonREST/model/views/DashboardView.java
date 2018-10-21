@@ -1,45 +1,37 @@
 package core.backend.NonREST.model.views;
 
+import static com.google.common.collect.MoreCollectors.onlyElement;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import java.util.Collection; 
+import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
-import core.backend.NonREST.model.configuration.IPageView;
-import core.backend.NonREST.model.views.utils.helper.AssetStockView;
-import core.backend.NonREST.model.views.utils.helper.AssetStockViewer;
-import core.configuration.authentication.user.AuthorizedUserAccount;
-import resources.components.elements.POJO.Persistence.Course.PersistenceCourseSchedulePOJO;
-import resources.database.entities.Accounts.Accounts.AccountTypes;
-import resources.database.entities.Accounts.Sessions;
+
+import core.backend.NonREST.model.views.assets.AssetStockContentView;
+import resources.database.entities.Accounts.Sessions; 
 import resources.database.repository.SessionsRepository;
 import resources.utils.general.GeneralPurpose;
+import resources.utils.user.AuthorizedUserAccount;
  
 
 @Component
 public class DashboardView  
-						extends AssetStockContentView
-									implements IPageView{
+
+								extends   AssetStockContentView {
  
-	private SessionsRepository m_sessionRepo; 
-	 
+	private SessionsRepository m_sessionRepo;  
+	
 	
 	@Autowired	
-	public  DashboardView(SessionsRepository sessionRepo, 
-				@Qualifier("provide AssetStockViewer for Course Schedule") AssetStockViewer<PersistenceCourseSchedulePOJO> courseScheduleAssetStockViewer, 
-					@Qualifier("provide AssetStockViewer for Lecture Schedule") AssetStockViewer<PersistenceCourseSchedulePOJO> lectureScheduleAssetStockViewer) {
-					
+	public  DashboardView(SessionsRepository sessionRepo  ) {
+					 
 		
-		super(courseScheduleAssetStockViewer, lectureScheduleAssetStockViewer);
-		
-		m_sessionRepo = sessionRepo; 
+		m_sessionRepo = sessionRepo;  
 		
 		HEADLINE_DISPLAY = true; 
 		HEADLINE = "Dashboard";
@@ -68,18 +60,23 @@ public class DashboardView
 		model.addAttribute("USER_NAME", currentPrincipalName);
 		
 		Collection< GrantedAuthority> authorities =  (Collection<GrantedAuthority>) authentication.getAuthorities();
+		
+		model.addAttribute("USER_ROLE", GeneralPurpose.CollectionToList(authorities).stream().map(authority -> authority.toString()).collect(onlyElement()) );
 		 
-		model.addAttribute("USER_ROLE",  AccountTypes.valueOf(GeneralPurpose.CollectionToList(authorities).get(0).toString()).toString() );
-		
 		AuthorizedUserAccount authorizedAccount = (AuthorizedUserAccount) authentication.getPrincipal();
-		
+		  
 		 
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     
-		Sessions session = m_sessionRepo.read(authorizedAccount.getLoggedInAccountId());
+	//	Sessions session = null;
 		
+    	Sessions session = m_sessionRepo.read( authorizedAccount.getAccount() );
 		
-		if(session.getLastLogin() == null) {
+		// Sessions session = m_sessionRepo.createSession(account); 
+		  
+    	// @FixMe: after logout getLastLogin()  stays null 
+		  
+		if(session == null || session.getLastLogin() == null) {
 			
 			model.addAttribute("DISPLAY_FIRSTLOGIN", true );
 		}

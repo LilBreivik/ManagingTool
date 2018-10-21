@@ -6,7 +6,7 @@ import static core.utils.Constants.UploadFileName.AllLecturesSchedule;
 import core.provider.FileNameProvider;
 import resources.components.elements.POJO.Schedule.CourseScheduleFilePOJO;
 import resources.error.ConnectionError;
-import resources.error.parameter.FileAssetParameterViolationError;
+import resources.error.parameter.fileasset.FileAssetParameterViolationError;
 import resources.fileconnection.XLSFileConnection;
 
 public class UploadLectureScheduleFileParameter 
@@ -26,7 +26,7 @@ public class UploadLectureScheduleFileParameter
 			
 	    	try {
 				
-				new  XLSFileConnection(getScheduleFile());
+				new  XLSFileConnection(getScheduleFile().toPath());
 			 
 			} catch (ConnectionError e) {
 				

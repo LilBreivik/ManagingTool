@@ -1,45 +1,69 @@
 package core.backend.REST.fileasset.upload.task;
-  
+   
 
 import core.backend.REST.fileasset.upload.parameter.UploadScheduleFileParameter;
 import core.backend.REST.general.response.result.successfully.SuccessResponse;
-import core.backend.REST.general.task.AbstractTaskImpl;
-import resources.components.filehandler.FileHandler;
-import resources.components.filehandler.PathManager;
-import resources.components.filehandler.JSON.PersistentJSONFileHandler; 
+import core.backend.REST.general.task.response.AbstractFileHandlerTaskImpl;
+import core.backend.utils.upload.UploadHandler; 
+import resources.components.filehandler.JSON.general.GeneralPersistentJSONFileHandler;
+import resources.components.filehandler.general.FileRepositoryHandler; 
 import resources.utils.files.OrdinaryFileHandler;
+import resources.utils.pathmanager.PathManager;
 
-public class UploadFileTask 
-								extends AbstractTaskImpl<UploadScheduleFileParameter, String>{
-
-	private FileHandler m_UploadFileHandler; 
-	
+public class UploadFileTask<PersistentPOJO> 
+								extends AbstractFileHandlerTaskImpl<FileRepositoryHandler, UploadScheduleFileParameter, String>{
+ 
     private PathManager  m_pathManagerToLectureAssetsDirectory; 
 	
-    private PersistentJSONFileHandler<?, ?>  m_jsonFileHandler;
+    private GeneralPersistentJSONFileHandler<PersistentPOJO>  m_jsonFileHandler;
     
-	public UploadFileTask(FileHandler uploadFileHandler, 
-								 PersistentJSONFileHandler<?, ?> jsonFileHandler, 
-										PathManager pathManagerToLectureAssetsDirectory) {
-							
+    private UploadHandler<PersistentPOJO> m_uploadHandler; 
+    
+	public UploadFileTask(FileRepositoryHandler fileHandler, 
+							 GeneralPersistentJSONFileHandler<PersistentPOJO> jsonFileHandler, 
+							 	UploadHandler<PersistentPOJO> uploadHandler,
+									PathManager pathManagerToLectureAssetsDirectory) {
 		
+		super(fileHandler);
+	 
 		m_jsonFileHandler = jsonFileHandler; 
-		m_pathManagerToLectureAssetsDirectory = pathManagerToLectureAssetsDirectory; 
-		m_UploadFileHandler = uploadFileHandler; 
+		m_pathManagerToLectureAssetsDirectory = pathManagerToLectureAssetsDirectory;
+		m_uploadHandler = uploadHandler;
 	}
-	
-	@Override
+ 
+	@Override 
 	public void workOnTask(UploadScheduleFileParameter parameter) {
-		 	
-		m_UploadFileHandler.moveFile(parameter.getScheduleFile() , 
+	
+		// move temp file to target directoy 
+		 
+		p_fileHandler.moveFile(parameter.getScheduleFile() , 
 				OrdinaryFileHandler.buildPath(m_pathManagerToLectureAssetsDirectory.getPathToOperateOn(),
 						parameter.getFileNameResolver().getResolvedFileName()));
-	 
-			m_jsonFileHandler.createFile(parameter.getTargetFileName());
-			   
-			m_jsonFileHandler.writeToFile(parameter.getTargetFileName(), 
-					m_UploadFileHandler.readFile(parameter.getFileNameResolver().getResolvedFileName() ));
-    
+		 
+		
+		// first we will check if a persistent file does exist 
+		
+		if(!m_jsonFileHandler.checkIfFileDoesExist(parameter.getTargetFileName())) {
+			
+			// if not it must be created 
+			
+			m_jsonFileHandler.createJSONFile(parameter.getTargetFileName());
+			
+			PersistentPOJO pojo = m_uploadHandler.handleUploadedFile(parameter.getFileNameResolver().getResolvedFileName());
+			
+			m_jsonFileHandler.writeToJSONFile(parameter.getTargetFileName(), pojo); 
+		}
+		 
+		// after its creation, the new contents will be appended 
+		
+		else {
+			
+			
+			PersistentPOJO pojo = m_uploadHandler.handleUploadedFile(parameter.getFileNameResolver().getResolvedFileName());
+			
+			m_jsonFileHandler.appendToPersistence( parameter.getTargetFileName(), pojo); 
+		}
+		
 	}
 
 
@@ -48,5 +72,5 @@ public class UploadFileTask
     
     	return  new SuccessResponse<String>("Du hast die Datei erfolgreich hochgeladen") ;
     }
- 
+	 
 }

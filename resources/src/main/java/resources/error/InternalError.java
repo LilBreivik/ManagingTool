@@ -6,6 +6,12 @@ package resources.error;
  * */
 
 public class InternalError extends MasterError{
+ 
+	 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9000319903601896666L;
 
 	public InternalError(String errorMessage) {
 		super(errorMessage);

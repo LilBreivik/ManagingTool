@@ -13,10 +13,10 @@ import core.backend.REST.general.response.result.successfully.SuccessResponse;
 import core.backend.REST.nonfileasset.notice.parameter.NoticeParameter;
 import core.backend.REST.nonfileasset.notice.parameter.SpecficNoticeReadRequestParameter;
 import core.backend.REST.nonfileasset.notice.task.NoticeTask;
-import resources.components.elements.POJO.Notice.PersistenceNoticesPOJO;
+import notice.PersistenceNoticesPOJO;
 
 @Controller 
-public class ReadSpecificNoticeController 	extends MasterRESTController<NoticeParameter, PersistenceNoticesPOJO>{
+public class ReadSpecificNoticeController 	extends MasterRESTController<NoticeTask ,NoticeParameter, PersistenceNoticesPOJO>{
 	 
 		@Autowired 
 		public ReadSpecificNoticeController (@Qualifier("provide ReadSpecificNoticeTask") NoticeTask  task) {

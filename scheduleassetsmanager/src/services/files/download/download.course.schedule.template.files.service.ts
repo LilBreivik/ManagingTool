@@ -1,5 +1,4 @@
-import {RESTService} from "@frontendutilities/src/services/REST/rest.service";
-import {CourseRequestParameter} from "@frontendutilities/src/services/entities/Parameter/courserequestparameter"; 
+import {RESTService} from "@frontendutilities/src/services/REST/rest.service";  
 import { Observable } from 'rxjs';
 
 export class DownloadCourseScheduleTemplateFileService 

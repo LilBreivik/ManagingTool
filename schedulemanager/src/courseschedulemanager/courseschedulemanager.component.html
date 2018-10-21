@@ -3,47 +3,64 @@
         <div *ngIf="coursesSchedule">
  
            <label>&nbsp;Studienfach: </label>
-           <select id="selectedCourseName" class="form-control" (change)="removeCurrentSchedule()" [(ngModel)]="selectedCourseNameValue" >
-                  <option *ngFor="let course of coursesSchedule | coursenames"  > {{ course  }} </option>      
-            </select>
- 
+           <select id="selectedCourseName" class="form-control" (change)="removeCurrentSchedule()" [(ngModel)]="selectedCourseNameValue" >                
+                <option *ngFor="let course of coursesSchedule | coursenames"  > {{ course  }} </option>      
+           </select>
+             
             <label>&nbsp;Abschluss: </label>
             <select id="selectedCourseDegree" class="form-control" (change)="removeCurrentSchedule()" [(ngModel)]="selectedCourseDegreeValue">
                     <option *ngFor="let course of coursesSchedule | coursedegrees" > {{ course  }} </option>      
             </select>
-
+          
             <label>&nbsp;Startsemester: </label>
             <select id="selectedCourseTerm" class="form-control" (change)="removeCurrentSchedule()" [(ngModel)]="selectedCourseTermValue">
                     <option *ngFor="let course of coursesSchedule | courseterms" > {{ course  }} </option>      
             </select> 
-            <button type="button" class="btn btn-success" (click)="buildSchedule()"> Erstelle Stundenplan </button>
- 
+            <br>
+            <button  *ngIf="scheduleManager.lecturesList?.size() == 0" type="button" class="btn btn-success" (click)="buildSchedule()"> Erstelle Stundenplan </button>
+  
             <button *ngIf="scheduleManager.lecturesList?.size() > 0" class="btn btn-danger"  type="button" (click)="checkSchedule()"> Auf Überschneidungen prüfen </button>
 
+            <br>
             <div *ngIf="scheduleManager.lecturesList?.size() > 0">
- 
+                <br>
                 <div class="col-md-12 col-sm-12 col-xs-12">
  
+                <ul class="nav navbar-right panel_toolbox">
+                       <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a> 
+                       </li> 
+                </ul>
+                                                    
+
+
                     <label> Notizen abrufen: </label>
                    
                     <select id="noticesSeletions" class="form-control" (change)="readNotice()" [(ngModel)]="selectedNoticeHeadline" >
                             <option *ngFor="let notice of notices" > {{ notice }} </option>      
                     </select>
-
+                     
                     <label> Notizen hinzufügen: </label>
-                    
+                    <br>
                     <input type="text" id="noticeHeadline" size="50"  >
+                    <br>
+                    <br>
                     <textarea class="form-control" rows="5" placeholder="Notizen hinzufügen" id="noticeMessage" ></textarea>    
-                   
-                    <button type="button" class="btn btn-success" (click)="addNotice()">Notizen sichern</button> 
-                    <button    type="button" class="btn btn-danger" (click)="deleteNotice()">Notiz löschen</button> 
+                    <br>
+ 
+
+                    <div class="btn-toolbar">
+                                <button class="btn btn-success btn-primary" type="button">Notizen sichern</button><button class="btn btn-danger btn-secondary" type="button">Notiz löschen</button>      
+                    </div> 
                 </div>
 
-                
+             
                 <label> Parallelen Studiengang einblenden : </label>
+                <br>
                 <select  id="parallelCourseSelectedSelectbox" class="form-control" (change)="buildParallelSchedule($event.target.selectedIndex)"  [(ngModel)]="scheduleData.selectedParallelCourseChoice"  >
                      <option *ngFor="let choice of scheduleData.choices" [ngValue]="choice"> {{ choice }} </option>      
                 </select>
+                <br>
             </div> 
             
         </div>     

@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus; 
 import core.backend.REST.fileasset.upload.parameter.UploadLectureScheduleFileParameter;
-import core.backend.REST.fileasset.upload.task.UploadFileTask;
-import core.backend.REST.general.controller.MasterRESTController; 
+import core.backend.REST.fileasset.upload.task.UploadFileTask; 
+import core.backend.REST.general.controller.nonresponse.NonResponseController; 
 
 @Controller 
 public class LectureScheduleUploadFileController 
-						extends   MasterRESTController< UploadLectureScheduleFileParameter , String> {
+       extends  NonResponseController< UploadFileTask, UploadLectureScheduleFileParameter  > {
 
 	@Autowired 
 	public  LectureScheduleUploadFileController(@Qualifier("provide UploadLectureScheduleFileTask") UploadFileTask task) {

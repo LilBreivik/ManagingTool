@@ -59,6 +59,7 @@ public class UploadScheduleFileParameter extends RESTCustomScheduleRequest<Cours
 		catch(ParameterViolationError fileValidationError) {
 			
 			this.scheduleFile.delete();
+			
 			throw fileValidationError;
 		}
 	} 

@@ -1,9 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core'; 
 import {CoursePOJO} from "../../services/entities/REST/scheduling/coursepojo";
 import {RESTService} from "./rest.service";
-import { Observable, of } from 'rxjs';  
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';   
 import {CoursesRequestParameter} from '../../services/entities/Parameter/coursesrequestparameter';
 import {environment} from '../../environments/environment'; 
  

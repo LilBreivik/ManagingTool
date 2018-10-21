@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan; 
 
 @SpringBootApplication		  
-@ComponentScan(basePackages = { "core", "resources"})
+@ComponentScan(basePackages = {  "resources", "core"})
 
 public class ControllerTestApplicationContext {
 

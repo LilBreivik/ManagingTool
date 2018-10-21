@@ -1,3 +1,0 @@
-# If the application shall run on localhost, you can leave hostname empty
-Hostname:192.168.2.103
-Port:8080

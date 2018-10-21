@@ -3,47 +3,35 @@ package core.backend.REST.fileasset.delete.task;
    
 import core.backend.REST.general.request.schedule.RESTScheduleRequest;
 import core.backend.REST.general.response.result.successfully.SuccessResponse;
-import core.backend.REST.general.task.AbstractTaskImpl;
-import core.backend.utils.delete.DeleteFileAssetsHandler;
-import core.backend.utils.delete.DeleteHandler;
-import core.backend.utils.delete.DeleteProcessor;
-import resources.components.filehandler.PathManager; 
-import resources.components.filehandler.JSON.PersistentJSONFileHandler;
-import resources.error.FileIsMissingError;
-import resources.error.MissingAssetError; 
+import core.backend.REST.general.task.general.GeneralAbstractTaskImpl;
+import core.backend.REST.general.task.response.AbstractFileHandlerTaskImpl;
+import core.backend.utils.delete.DeleteHandler;  
+import resources.components.filehandler.JSON.general.GeneralPersistentJSONFileHandler; 
+import resources.error.FileIsMissingError;  
 
 public class DeleteFileTask 
-								extends AbstractTaskImpl<RESTScheduleRequest, String> {
+								extends AbstractFileHandlerTaskImpl<GeneralPersistentJSONFileHandler, RESTScheduleRequest, String> {
 
-	private PersistentJSONFileHandler<?, ?>  m_jsonFileHandler;
-	private PathManager m_pathManagerToOriginalFileAsset;
-	private DeleteFileAssetsHandler m_deleteFileAssetHandler;
 	private DeleteHandler m_deleteHandler; 
-	
-	protected DeleteProcessor p_delegatedDeletionProcessor;
-	protected DeleteHandler p_delegatedDeletionHandler;
- 
-	
-	public DeleteFileTask( PersistentJSONFileHandler<?, ?> jsonFileHandler, 
-												PathManager pathManagerToOriginalFileAsset,
-													DeleteFileAssetsHandler deleteFileAssetHandler, 
-														DeleteHandler deleteHandler) {
+	   
+	public DeleteFileTask( GeneralPersistentJSONFileHandler<?> jsonFileHandler, 
+												 DeleteHandler deleteHandler) {
+		  
+		super(jsonFileHandler);
 		 
-		
-		m_deleteHandler = deleteHandler; 
-		m_deleteFileAssetHandler = deleteFileAssetHandler ; 
-		m_jsonFileHandler = jsonFileHandler;  
-		m_pathManagerToOriginalFileAsset = pathManagerToOriginalFileAsset;
+		m_deleteHandler = deleteHandler;  
 		
 	}
- 
+  
 
 	@Override
 	public void workOnTask(RESTScheduleRequest parameter) {
 		
+		 
 		try {
 			
-			m_deleteHandler.handleDeletion(m_jsonFileHandler, 
+		 	
+			m_deleteHandler.handleDeletion(p_fileHandler, 
 					parameter);
 		} 
 		catch(Exception ex) {

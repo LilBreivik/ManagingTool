@@ -1,0 +1,35 @@
+<style>
+    .changelog{
+
+        width: 100%;
+    }
+</style>
+
+
+<div class="x_panel contents_view">                                 
+   <div class="col-md-12 col-sm-12 col-xs-12">
+        <h2 th:text="${TITLE}"> </h2>   
+        <div class="">
+            <div class="x_title">
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <p> Version der Software  : <span><strong th:text="${VERSION}">  </strong></span> </p>
+        <br>
+        <p> Administrator der Software  : <span><strong th:text="${ADMINISTRATOR}">   </strong></span> </p>
+        <br>
+        <p> Administrator-Email  : <span><strong >  <a th:href="${MESSAGETOADMINISTARTOR}" target="_top" th:text="${ADMINISTRATOREMAIL}"></a> </strong></span> </p>
+        <br>
+        <p> Autor der Software  : <span><strong th:text="${AUTHOR}"> </strong></span> </p>
+        <br>
+        <p> Autoren-Email  : <span><strong> <a th:href="${MESSAGETOAUTHOR}" target="_top" th:text="${AUTHOREMAIL}"></a> </strong></span> </p>
+        <br>
+
+        <p> <span> <strong>  Changelog: </strong> </span></p>
+        <br>
+        <textarea class="changelog" rows="10" cols="100"  th:inline="text" readonly>
+            [[${CHANGELOGMESSAGE}]]
+        </textarea>
+  </div>                        
+</div>

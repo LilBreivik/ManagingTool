@@ -1,12 +1,9 @@
 package resources.database.entities.User;
 
- 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
 import javax.persistence.Column;
-import javax.persistence.Entity; 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id; 
 import javax.persistence.Table; 
 import javax.validation.constraints.NotNull; 
@@ -19,6 +16,10 @@ import javax.validation.constraints.NotNull;
  * There will be a ONE User MANY Accounts Relationship
  * 
  * uniqueConstraints={@UniqueConstraint(columnNames={"USER_EMAIL"})}
+ * 
+ * @Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	protected int userid;
  * */
 
 
@@ -26,18 +27,19 @@ import javax.validation.constraints.NotNull;
 @Table(name = "users" ) 
 public class Users {
   
+
 	@Id
-	@NotNull
-	@Column(name = "USER_EMAIL" , length = 50)
+	@Column(name = "USER_ID",  length = 11) 
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private  int userId;
+	
+	@NotNull 
+	@Column(name = "USER_EMAIL" , columnDefinition = "VARCHAR(50) UNIQUE ")
 	private String userEmail;
 	 	
 	@NotNull
 	@Column(name = "USER_NAME" , length = 50)
-	private String userName;
-  
-	@NotNull
-	@Column(name = "LOGIN_NAME" , columnDefinition = "VARCHAR(50) UNIQUE " )
-	private String loginName;
+	private String userName; 
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -55,30 +57,17 @@ public class Users {
 		}
 		 
 	}
- 
-	public void createLoginName(String userName) {
+ 	
+	public void setUserId(int userId) {
 		
-		// here we create a l33t nane 
-		
-		
-		String userNameUpperCase = userName.toUpperCase();
-		 
-		Random rand = new Random();
-		
-		this.loginName = userNameUpperCase.toString().concat(rand.nextInt(100) + "");
-		
-	}
-	
-	public void setLoginName(String loginName) {
-		
-		this.loginName = loginName;
+		this.userId = userId;
 	}
 
-	public String  getLoginName() {
+	public int  getUserId() {
 		
-		return this.loginName;
+		return this.userId;
 	}
-	
+	 
 	public String getUserName() {
 		return userName;
 	}
@@ -94,6 +83,5 @@ public class Users {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-	  
-	  
+  
 }

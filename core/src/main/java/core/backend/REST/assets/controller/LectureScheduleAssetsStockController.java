@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 public class LectureScheduleAssetsStockController 
-					extends MasterRESTController< LectureScheduleAssetsStockParameter ,  AssetsStockPOJO>{
+					extends MasterRESTController< AssetsStockTask , LectureScheduleAssetsStockParameter ,  AssetsStockPOJO>{
 	 
 	@Autowired
 	public LectureScheduleAssetsStockController(@Qualifier("provide AssetsStockTask") AssetsStockTask  task) {

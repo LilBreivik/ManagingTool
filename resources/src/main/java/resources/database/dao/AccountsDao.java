@@ -3,9 +3,7 @@ package resources.database.dao;
 
 import java.io.Serializable;
 
-import org.springframework.stereotype.Component;
-import resources.components.filehandler.FileHandler;
-import resources.configuration.NoticesJSONFileHandlerProvider;
+import org.springframework.stereotype.Component; 
 import resources.database.entities.Accounts.Accounts;
 import resources.database.entities.Accounts.Accounts.AccountTypes;
 import resources.error.InternalError;

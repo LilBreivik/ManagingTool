@@ -2,7 +2,7 @@ package core.backend.REST.general.request.custom.schedule;
  
  
 import core.backend.REST.general.request.schedule.RESTScheduleRequest;
-import resources.components.elements.POJO.Schedule.CoursePOJO;
+import resources.components.elements.POJO.Course.CoursePOJO;
 import resources.error.InternalError;
 import resources.error.parameter.ParameterViolationError;
 
@@ -18,6 +18,7 @@ public abstract class RESTCustomScheduleRequest<ScheduleRequest extends CoursePO
 	@Override
 	public void verifyParameter() throws ParameterViolationError {
 		
+		// at first we will verify the schedule dependent parameter 
 		
 		super.verifyParameter();
 		

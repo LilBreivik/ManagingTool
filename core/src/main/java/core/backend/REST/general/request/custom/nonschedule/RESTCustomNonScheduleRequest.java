@@ -9,5 +9,5 @@ public abstract class RESTCustomNonScheduleRequest<NonSchedulePOJO>
 		super(request);
 	 
 	}
-
+ 
 }

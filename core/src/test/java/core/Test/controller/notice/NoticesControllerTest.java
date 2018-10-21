@@ -13,9 +13,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.MediaType;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.http.MediaType; 
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ContextConfiguration;
@@ -31,19 +29,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.TestContext.ControllerTestApplicationContext;
 import core.TestContext.utils.LecturesListPOJO;
-import core.TestContext.utils.NoticeParam;
-import resources.components.elements.POJO.Notice.NoticesPOJO;
-import resources.components.filehandler.PathManager;
+import core.TestContext.utils.NoticeTestParameter;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-import java.io.IOException;
-
-import org.springframework.context.annotation.Bean;
+import java.io.IOException; 
 import org.springframework.context.annotation.EnableAspectJAutoProxy; 
 import core.backend.REST.nonfileasset.notice.controller.add.AddNoticeController;
-import core.configuration.authentication.user.AuthorizedUserAccount;
-import resources.components.filehandler.JSON.PersistenceCourseScheduleJSONFileHandler; 
+import resources.components.elements.POJO.Notices.NoticesPOJO;
+import resources.utils.pathmanager.PathManager; 
 
 @ContextConfiguration( classes={ ControllerTestApplicationContext.class })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -53,13 +47,11 @@ import resources.components.filehandler.JSON.PersistenceCourseScheduleJSONFileHa
 @EnableAspectJAutoProxy(proxyTargetClass=true)
 public class  NoticesControllerTest {
    
-	 private static NoticeParam testNotice; 
+	 private static NoticeTestParameter testNotice; 
 	  
 	 @Autowired
 	 private MockMvc mockMvc;
- 	 
-	 @Autowired
-     public PersistenceCourseScheduleJSONFileHandler handler; 
+ 	  
 	 
 	 @Autowired
 	 @Qualifier("Path to Test Resources")
@@ -69,24 +61,7 @@ public class  NoticesControllerTest {
      @Rule
      public TestName testName = new TestName();
 
-     
-     
-     public UserDetailsService userDetailsService(){
-    	 
-    	 SimpleGrantedAuthority authority = new SimpleGrantedAuthority("COORDINATOR");
-     	
-     	AuthorizedUserAccount authorizedAccount = new AuthorizedUserAccount("dustin", "root",
-     															"DUSTIN79", 
-     															authority,
-     													80);
-     	
-     	return (UserDetailsService) authorizedAccount;
-     } 
-     
-     
-     
-     
-     
+      
      @Before
      public void setUpParameter() throws IOException {
     
@@ -104,7 +79,7 @@ public class  NoticesControllerTest {
 			 
 			 pojo.setNoticeHeadline("This is a Headline ");
 			 
-			 testNotice = new NoticeParam(pojo);
+			 testNotice = new NoticeTestParameter(pojo);
     	 } 
 		 
 		 else if(testName.getMethodName().equals("TESTC_checkIfWeCanDeleteNotice")){
@@ -117,17 +92,17 @@ public class  NoticesControllerTest {
 				 
 				 pojo.setNoticeHeadline("This is a Headline ");
 				 
-				 testNotice = new NoticeParam(pojo);
+				 testNotice = new NoticeTestParameter(pojo);
 		} 
       
      }
     
      
      @Test
-     @WithUserDetails("dustin") 
+     @WithUserDetails("rudi") 
 	 public void TESTA_checkIfWeCanAddANewNotice() throws Exception {
 		
-    	userDetailsService();
+   
         ObjectMapper mapper = new ObjectMapper();
 		  
 		 try {
@@ -161,7 +136,7 @@ public class  NoticesControllerTest {
     
       
      @Test
-     @WithMockUser(username = "DUSTIN79", password = "root" )
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTB_checkIfWeCanReadNotice() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
@@ -196,7 +171,7 @@ public class  NoticesControllerTest {
      
      
      @Test
-     @WithMockUser(username = "DUSTIN79", password = "root" )
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTC_checkIfWeCanDeleteNotice() throws Exception {
 			
     	  ObjectMapper mapper = new ObjectMapper();

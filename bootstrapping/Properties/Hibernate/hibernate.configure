@@ -1,5 +1,0 @@
-# Hibernate
-HibernateJpaddl:create
-ShowSQL:true
-HBM2DDL:create
-EntityManager:test

@@ -1,24 +1,17 @@
 package resources.components.elements.POJO.Course;
  
-
-import resources.components.elements.XML.XMLCourseElement;
-
+ 
+import resources.components.elements.XML.XMLCourseElement; 
 /**
  * This Class describes the POJO 
  * that is needed to handle 
  * a the Schedule of all Courses.. 
  * */
 
-public class CourseSchedulePOJO {
+public class CourseSchedulePOJO 
+									extends CoursePOJO{
 
-	// Course Name
-	private String courseName;
 	
-	// Course Term
-	private String courseTerm;
-	
-	// Course Degree 
-	private String courseDegree;
 	
 	// user name that changed a COurse XLS File
 	private String changedBy;
@@ -49,29 +42,26 @@ public class CourseSchedulePOJO {
 	}
 	
 	
-	public String getCourseDegree() {
-		return courseDegree;
+
+	@Override
+	public boolean equals(Object obj) {
+		
+
+		if(obj instanceof CourseSchedulePOJO) {
+			
+			CourseSchedulePOJO pojo = (CourseSchedulePOJO) obj; 
+			
+			return ((pojo.getCourseName().equals(getCourseName())) && 
+									(pojo.getCourseTerm().equals(getCourseTerm())) && 
+										(pojo.getCourseDegree().equals(getCourseDegree())));
+		}
+		else {
+			
+			return false; 
+		}
 	}
 	
-	public void setCourseDegree(String courseDegree) {
-		this.courseDegree = courseDegree;
-	}
-	
-	public String getCourseTerm() {
-		return courseTerm;
-	}
-	
-	public void setCourseTerm(String courseTerm) {
-		this.courseTerm = courseTerm;
-	}
-	
-	public String getCourseName() {
-		return courseName;
-	}
-	
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
+
 
 	public String getChangedBy() {
 		return changedBy;
@@ -88,7 +78,5 @@ public class CourseSchedulePOJO {
 	public void setChangedAt(long changedAt) {
 		this.changedAt = changedAt;
 	}
- 
 	
-	 
 }

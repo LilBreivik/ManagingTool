@@ -5,7 +5,7 @@ import { CourseScheduleManager } from './courseschedulemanager.component';
 import {UniqueCourseNameFilterPipe} from "@frontendutilities/src/pipes/coursenamepipe";
 import { UniqueCourseDegreeFilterPipe  } from "@frontendutilities/src/pipes/coursedegreepipe";
 import {UniqueCourseTermFilterPipe } from "@frontendutilities/src/pipes/coursetermpipe";
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule  } from '@angular/forms';
 import{ScheduleManager} from "./courseschedule/schedulemanager.component";  
 import {Schedule} from "./schedule/schedule.component"; 
 import { NgDragDropModule } from 'ng-drag-drop';
@@ -23,8 +23,8 @@ import {ScheduleData} from "@frontendutilities/src/services/Data/schedule.data.s
     CourseScheduleManager, 
     UniqueCourseNameFilterPipe, 
     UniqueCourseDegreeFilterPipe, 
-    UniqueCourseTermFilterPipe
-  ], 
+    UniqueCourseTermFilterPipe 
+  ],   
   imports: [     
     BrowserModule, 
     HttpClientModule, 

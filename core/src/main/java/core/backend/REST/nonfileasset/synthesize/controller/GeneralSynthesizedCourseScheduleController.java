@@ -17,7 +17,7 @@ import resources.components.elements.POJO.Persistence.Course.PersistenceCourseSc
 
 @Controller
 public class GeneralSynthesizedCourseScheduleController 
-							extends MasterRESTController<SynthesizedCourseScheduleFileParameter,PersistenceCourseSchedulePOJO >{
+							extends MasterRESTController<SynthesizedTask, SynthesizedCourseScheduleFileParameter,PersistenceCourseSchedulePOJO >{
 
 	@Autowired
 	public GeneralSynthesizedCourseScheduleController(@Qualifier("provide GeneralSynthesizedCourseScheduleTask") SynthesizedTask task) {

@@ -12,16 +12,16 @@ import core.backend.REST.general.controller.MasterRESTController;
 import core.backend.REST.general.response.result.successfully.SuccessResponse;
 import core.backend.REST.nonfileasset.notice.parameter.NoticeParameter;
 import core.backend.REST.nonfileasset.notice.task.NoticeTask;
-import resources.components.elements.POJO.Notice.PersistenceNoticesPOJO;
+import notice.PersistenceNoticesPOJO;
  
 @Controller
 public class AddNoticeController 
-									extends MasterRESTController<NoticeParameter, PersistenceNoticesPOJO>{
+									extends MasterRESTController<NoticeTask , NoticeParameter, PersistenceNoticesPOJO>{
 	@Autowired 
 	public AddNoticeController(@Qualifier("provide AddNoticeTask") NoticeTask  task) {
 		super(task); 
 	}
-
+ 
 	@ResponseStatus( HttpStatus.OK )
 	@RequestMapping(value = "/Notice/Add", method = RequestMethod.POST, consumes="application/json", produces="application/json")
 	protected  SuccessResponse<PersistenceNoticesPOJO> handleNoticeAddition(@RequestBody  NoticeParameter addNoticeRequest )  

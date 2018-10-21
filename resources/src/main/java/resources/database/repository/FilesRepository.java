@@ -16,10 +16,9 @@ public class FilesRepository  extends MasterRepository<FilesDao, Files>{
 	}
 
 	public void addNewFile(Files fileToUpdate) {
-		
-		
+		 
 		m_dao.saveOrUpdate(fileToUpdate);
-		
+ 
 	}
 
 }

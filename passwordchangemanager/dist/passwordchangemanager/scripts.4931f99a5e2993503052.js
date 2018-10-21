@@ -1,0 +1,1 @@
+function setUpErrorModal(e){document.getElementById("errorModalLabel").textContent=e.httpStatus,document.getElementById("errorModalContent").textContent=e.moreInfo,document.getElementById("errorModalFooter").textContent=e.errorMessage,$("#errorModal").modal()}function setUpProgressModal(){$("#progressModal").modal("toggle")}

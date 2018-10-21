@@ -5,12 +5,12 @@ import java.util.stream.Collectors;
 import core.backend.REST.general.request.MasterRESTRequest;
 import core.backend.utils.verifier.CourseVerifier;
 import core.utils.names.FileNameResolver;
-import resources.components.elements.POJO.Schedule.CoursePOJO;
-import resources.components.elements.POJO.Scheduling.Utils.IScheduleParam;
-import resources.components.filehandler.ComponentsManufactory;
-import resources.components.filehandler.JSON.PersistenceCourseScheduleJSONFileHandler;
+import resources.components.elements.POJO.Course.CoursePOJO;
+import resources.components.filehandler.JSON.provider.nonpersistent.NonPersistentJSONFileHandlerProvider;
+import resources.components.utils.ComponentsManufactory;
 import resources.error.parameter.ParameterViolationError;
 import resources.utils.names.INameResolver;
+import scheduling.Utils.IScheduleParam;
 
 
 /**
@@ -39,7 +39,9 @@ public abstract class RESTScheduleRequest <CourseSchedule extends CoursePOJO>
 	{
 		super(pojo);
 		 
-		p_verifier =  new CourseVerifier(ComponentsManufactory.createComponent("persistenceCourseScheduleJSONFileHandler", PersistenceCourseScheduleJSONFileHandler.class));	
+		NonPersistentJSONFileHandlerProvider provider = (NonPersistentJSONFileHandlerProvider) ComponentsManufactory.createComponent("nonPersistentJSONFileHandlerProvider", NonPersistentJSONFileHandlerProvider.class);
+		 
+		p_verifier =  new CourseVerifier(provider.providePersistenceCourseScheduleJSONFileHandler());	
 	}
 	 
 	

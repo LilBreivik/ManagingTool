@@ -2,14 +2,11 @@ package core.TestContext.utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import javax.xml.bind.DatatypeConverter;
-
-import resources.components.elements.POJO.Schedule.CoursePOJO;
+import java.nio.file.Files;  
+import javax.xml.bind.DatatypeConverter; 
+import resources.components.elements.POJO.Course.CoursePOJO;
 import resources.components.elements.POJO.Schedule.CourseScheduleFilePOJO;
-import resources.components.elements.POJO.Scheduling.Utils.IScheduleParam; 
+import scheduling.Utils.IScheduleParam; 
 
 public class ScheduleFileUploadParam 	implements IScheduleParam {
 	
@@ -25,20 +22,20 @@ public class ScheduleFileUploadParam 	implements IScheduleParam {
 	protected String scheduleFile; 
 	
 	
-	public CourseScheduleParam createCourseScheduleParam() {
+	public CourseScheduleTestParameter createCourseScheduleParam() {
 		
 		CoursePOJO  pojo = new CoursePOJO ();
 			
 		pojo.setCourseDegree(courseDegree);
 		pojo.setCourseName(courseName);
 	    pojo.setCourseTerm(courseTerm);
-	    
-		return new CourseScheduleParam(pojo);
+	     
+		return new CourseScheduleTestParameter(pojo);
 	}
 
 	
 	
-	public CourseScheduleFileParam createCourseScheduleFileParam() {
+	public CourseScheduleFileTestParameter createCourseScheduleFileParam() {
 		
 		 CourseScheduleFilePOJO  pojo = new  CourseScheduleFilePOJO ();
 		
@@ -47,7 +44,7 @@ public class ScheduleFileUploadParam 	implements IScheduleParam {
 		pojo.setCourseTerm(courseTerm);
 		pojo.setScheduleFile(scheduleFile);
 		
-		return new CourseScheduleFileParam(pojo);
+		return new CourseScheduleFileTestParameter(pojo);
 		
 	}
 	
@@ -78,9 +75,7 @@ public class ScheduleFileUploadParam 	implements IScheduleParam {
 			
 			throw e;
 		}
-		
-		
-		
+		 
 	}
 
 

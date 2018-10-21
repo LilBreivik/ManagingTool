@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 public class OrdinaryFileHandler {
 
 	/**
-	 * General Method to move a file 
+	 * Ordinary Method to move a file 
 	 * 
 	 * A moved File, will overwrite any existing file
 	 * 
@@ -38,7 +38,7 @@ public class OrdinaryFileHandler {
 
 	
 	/**
-	 * General Method to move a file 
+	 * Ordinary Method to move a file 
 	 * 
 	 * A moved File, will overwrite any existing file
 	 * 
@@ -61,7 +61,7 @@ public class OrdinaryFileHandler {
 	
 	
 	/**
-	 * General Method to move a file 
+	 * Ordinary Method to move a file 
 	 * 
 	 * A moved File, will overwrite any existing file
 	 * 
@@ -85,7 +85,7 @@ public class OrdinaryFileHandler {
 	
 
 	/**
-	 * General Method to create a file 
+	 * Ordinary Method to create a file 
 	 * 
 	 * This function creates a file
 	 * 
@@ -116,11 +116,41 @@ public class OrdinaryFileHandler {
 			e.printStackTrace();
 		}
 	}
-	
+
 	
 	
 	/**
-	 * General Method to delete a file 
+	 * Ordinary Method to read a file 
+	 * 
+	 * This method will just return the RAW Content 
+	 * of a file. 
+	 * 
+	 * If you want to read a file, with a certain format, 
+	 * you have to use/inherit the GeneralFileHandler
+	 * 
+	 * @param (File) file, File that shall be read
+	 * 
+	 * @return (byte[]), File read as byte array 
+	 * (unchecked)
+	 * @throws InternalError
+	 * */
+	
+	public static byte[]  readFile(File file) {
+		
+		try {
+		
+			return Files.readAllBytes(file.toPath());
+		
+		} catch (IOException e) {
+			
+			throw  new InternalError("Cannnot read file at " + file.toPath().toString());
+		}
+
+	}
+	
+	
+	/**
+	 * Ordinary Method to delete a file 
 	 * 
 	 * This function deletes a file, if it does exist.... 
 	 * 

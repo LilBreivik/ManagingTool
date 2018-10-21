@@ -20,7 +20,7 @@ public abstract class MasterRepository <Dao extends GenericDaoImpl, Entity>{
 		
 		 m_dao.create(obj);
 	}
-	
+	 
 	public void  update(Entity obj) { 
 		 
 		 m_dao.update(obj);

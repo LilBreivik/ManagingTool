@@ -1,7 +1,7 @@
 package core.backend.utils.upload;
 
 @FunctionalInterface
-public interface UploadHandler {
+public interface UploadHandler<PersistentPOJO> {
 
-	public void handleUploadedFile();
+	public PersistentPOJO handleUploadedFile(String fileName);
 }

@@ -11,7 +11,7 @@ import core.backend.REST.general.controller.MasterRESTController;
 import core.backend.REST.general.response.result.successfully.SuccessResponse;
 import core.backend.REST.nonfileasset.notice.parameter.NoticeParameter; 
 import core.backend.REST.nonfileasset.notice.task.NoticeTask;
-import resources.components.elements.POJO.Notice.PersistenceNoticesPOJO;
+import notice.PersistenceNoticesPOJO;
 
 /**
  * @FIXME: we have to keep in ming, that 
@@ -22,7 +22,7 @@ import resources.components.elements.POJO.Notice.PersistenceNoticesPOJO;
 
 
 @Controller
-public class ReadGeneralNoticeController extends MasterRESTController<NoticeParameter, PersistenceNoticesPOJO>{
+public class ReadGeneralNoticeController extends MasterRESTController<NoticeTask ,NoticeParameter, PersistenceNoticesPOJO>{
 	 
 		@Autowired 
 		public ReadGeneralNoticeController(@Qualifier("provide ReadGeneralNoticeTask") NoticeTask  task) {

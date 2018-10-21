@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class CourseScheduleAssetsStockController 
-						extends MasterRESTController<CourseScheduleAssetsStockParameter,  AssetsStockPOJO> {
+						extends MasterRESTController<AssetsStockTask, 
+						                         CourseScheduleAssetsStockParameter, 
+						                     AssetsStockPOJO> {
  	
 	@Autowired
 	public CourseScheduleAssetsStockController(@Qualifier("provide AssetsStockTask") AssetsStockTask  task) {

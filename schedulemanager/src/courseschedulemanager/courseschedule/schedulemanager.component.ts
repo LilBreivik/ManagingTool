@@ -16,7 +16,7 @@ import {LectureSchedulePOJOList} from "@frontendutilities/src/utils/lists/Lectur
 export class ScheduleManager  {
   
     private rootViewContainer = null; 
-
+ 
     private component : any; 
 
     public course : string; 
@@ -83,6 +83,8 @@ export class ScheduleManager  {
 
     buildLectures(course: CoursePOJO){
    
+        let id : number = 0; 
+
         course.semesters.forEach (semester => {
   
             let lectures = semester.lecturesInSemester;
@@ -97,8 +99,8 @@ export class ScheduleManager  {
                                timing.vTimings.forEach(time => {
                                         
                                         let pojo = new LectureSchedulePOJO();
- 
-                                        pojo.lectureId = LectureSchedulePOJO.makeid(); 
+  
+                                        pojo.lectureId = id + "";
                                         pojo.semesterNo[0] = semester.semesterNr;
                                         pojo.courses[0] =   course.courseName;
                                         pojo.lectureName = lecture.lectureName
@@ -111,7 +113,7 @@ export class ScheduleManager  {
                                         pojo.lectureNameShortcut = lecture.lectureNameShortcut
                                 
                                         this.lecturesList.addUniquely(pojo);
-                                      
+                                        id += 1 
                                     }) 
                                 });
  

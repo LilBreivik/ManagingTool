@@ -1,73 +1,59 @@
 package resources.fileconnection;
 
-import java.io.File; 
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook; 
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-
 import resources.error.ConnectionError;
-import resources.error.parameter.FileAssetNotCommitedError;
+import resources.error.parameter.fileasset.FileAssetNotCommitedError;
  
+public class XLSFileConnection 
+									extends GeneralFileConnection{
 
-public class XLSFileConnection {
-
-	private POIFSFileSystem fs = null;
-    private Workbook wb = null;
-    private Sheet sheet = null; 
-    private File m_XMLFile; 
-    
-	public XLSFileConnection(File XLS_File) throws ConnectionError {
+	private Workbook m_wb;
+    private Sheet m_sheet;
+	
+	public XLSFileConnection(Path path) {
+		super(path);
+	}
+ 
+	@Override
+	public void buildConnectionToAFile(File file) {
 		
 		try {
+			
+			m_wb  = WorkbookFactory.create( file);
 			 
-			setM_XMLFile(XLS_File);
+			m_sheet = m_wb.getSheetAt(0);
 			
-			setWb(WorkbookFactory.create(XLS_File)); 
-			
-			setSheet(this.getWb());
+			setConnectedFile(file);
+		 
 		}
 		catch (NullPointerException noFileCommitted) {
-			 
+			  
 			throw new FileAssetNotCommitedError ();
+		} 
+		catch (InvalidFormatException e) {
+			
+			throw new ConnectionError("Cannot build connection to the invalid XLS File " +  file.getName() + " at " +  file.getAbsolutePath());
+			
+		} catch (IOException e) {
+			
+			throw new ConnectionError("Cannot build connection to the XLS File " +  file.getName() + " at " +  file.getAbsolutePath());
 		}
-		catch(Exception ioe) {
-		   
-			throw new ConnectionError("Cannot build connection to the XLS File " + XLS_File.getName() + " at " + XLS_File.getAbsolutePath());
-		}
-	}
- 
-
-	public POIFSFileSystem getFs() {
-		return fs;
-	}
- 
-	
+	} 
+    
 	public Workbook getWb() {
-		return this.wb;
-	}
-
-	public void  setWb(Workbook wb) {
 		
-		this.wb = wb;
+		return m_wb;
 	}
- 
-	public Sheet getSheet() {
-		return this.sheet;
-	}
-
-	private void setSheet(Workbook wb) {
 	
-		this.sheet = wb.getSheetAt(0);
-	}
-
-
-	public File getM_XMLFile() {
-		return m_XMLFile;
-	}
-
-
-	public void setM_XMLFile(File m_XMLFile) {
-		this.m_XMLFile = m_XMLFile;
+	public Sheet getSheet() {
+		
+		return m_sheet;
 	}
 }
