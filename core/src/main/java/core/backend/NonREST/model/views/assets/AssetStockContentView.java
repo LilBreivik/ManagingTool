@@ -15,7 +15,7 @@ public abstract class AssetStockContentView
 
 											extends   IndexPageView{
 
-	
+	 
 	@Autowired
 	@Qualifier("provide AssetStockViewer for Course Schedule") 
 	protected AssetStockViewer<PersistenceCourseSchedulePOJO> p_courseScheduleAssetStockViewer;
@@ -27,7 +27,12 @@ public abstract class AssetStockContentView
 	  
     protected  boolean checkExistingComplementarySchedules() {
 		 
+    	p_courseScheduleAssetStockViewer.loadAssetStockView("CourseSchedule");
+    	
 		List<AssetStockView> assetCourseScheduleStockView = p_courseScheduleAssetStockViewer.getAssetsStockViews();
+		
+		
+		p_lectureScheduleAssetStockViewer.loadAssetStockView("CourseSchedule");
 		
 		List<AssetStockView> assetLectureScheduleStockView =  p_lectureScheduleAssetStockViewer.getAssetsStockViews();
 		

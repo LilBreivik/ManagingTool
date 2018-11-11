@@ -24,15 +24,13 @@ public class DashboardView
 
 								extends   AssetStockContentView {
  
+	@Autowired
 	private SessionsRepository m_sessionRepo;  
 	
-	
+	 
 	@Autowired	
-	public  DashboardView(SessionsRepository sessionRepo  ) {
+	public  DashboardView(   ) {
 					 
-		
-		m_sessionRepo = sessionRepo;  
-		
 		HEADLINE_DISPLAY = true; 
 		HEADLINE = "Dashboard";
 		
@@ -55,24 +53,22 @@ public class DashboardView
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
-		String currentPrincipalName = authentication.getName();
-		
-		model.addAttribute("USER_NAME", currentPrincipalName);
-		
 		Collection< GrantedAuthority> authorities =  (Collection<GrantedAuthority>) authentication.getAuthorities();
 		
 		model.addAttribute("USER_ROLE", GeneralPurpose.CollectionToList(authorities).stream().map(authority -> authority.toString()).collect(onlyElement()) );
 		 
 		AuthorizedUserAccount authorizedAccount = (AuthorizedUserAccount) authentication.getPrincipal();
-		  
+		   
+		String currentPrincipalName = authorizedAccount.getAccount().getAccountOwners().getUserName();
+		
+		model.addAttribute("USER_NAME", currentPrincipalName);
+		 
 		 
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    
-	//	Sessions session = null;
+     
 		
     	Sessions session = m_sessionRepo.read( authorizedAccount.getAccount() );
-		
-		// Sessions session = m_sessionRepo.createSession(account); 
+		 
 		  
     	// @FixMe: after logout getLastLogin()  stays null 
 		  
@@ -91,7 +87,11 @@ public class DashboardView
 			model.addAttribute("LAST_LOGIN_AT", reportDate );
 		}
 		
+		p_courseScheduleAssetStockViewer.loadAssetStockView("CourseSchedule");
+		
 		p_courseScheduleAssetStockViewer.createAssetStockView();
+		
+		p_lectureScheduleAssetStockViewer.loadAssetStockView("CourseSchedule");
 		
 		p_lectureScheduleAssetStockViewer.createAssetStockView();
 		

@@ -1,36 +1,46 @@
 package core.backend.REST.nonfileasset.notice.controller.read;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import core.backend.REST.general.controller.MasterRESTController;
-import core.backend.REST.general.response.result.successfully.SuccessResponse;
-import core.backend.REST.nonfileasset.notice.parameter.NoticeParameter;
-import core.backend.REST.nonfileasset.notice.parameter.SpecficNoticeReadRequestParameter;
-import core.backend.REST.nonfileasset.notice.task.NoticeTask;
-import notice.PersistenceNoticesPOJO;
+import org.springframework.web.bind.annotation.ResponseStatus; 
+import core.backend.REST.general.controller.REST.ResponseController;
+import core.backend.REST.general.response.result.successfully.SuccessResponse; 
+import core.backend.REST.nonfileasset.notice.parameter.SpecficNoticeParameter; 
+import core.backend.REST.nonfileasset.notice.task.read.ReadSpecificNoticeTask; 
+import resources.components.elements.POJO.Notices.NoticesPOJO;
 
 @Controller 
-public class ReadSpecificNoticeController 	extends MasterRESTController<NoticeTask ,NoticeParameter, PersistenceNoticesPOJO>{
+public class ReadSpecificNoticeController 	
+											extends  ResponseController<SpecficNoticeParameter , NoticesPOJO, ReadSpecificNoticeTask>{
 	 
-		@Autowired 
-		public ReadSpecificNoticeController (@Qualifier("provide ReadSpecificNoticeTask") NoticeTask  task) {
-			super(task); 
-		}
- 
-		@ResponseStatus( HttpStatus.OK )
-		@RequestMapping(value = "/Notice/Read/Specific", method = RequestMethod.POST, consumes="application/json", produces="application/json")
-		protected  SuccessResponse<PersistenceNoticesPOJO> handleNoticeAddition( @RequestBody SpecficNoticeReadRequestParameter readNoticeRequest)  
-		{
-			System.out.println("hä");
-			
-			return super.handleRequest(readNoticeRequest);
-		}
+	public static final String ReadSpecificNoticeURL = "/Notice/Read/Specific";
+
+	@Override
+	@ResponseStatus( HttpStatus.OK )
+	@RequestMapping(value = ReadSpecificNoticeURL, method = RequestMethod.POST, consumes="application/json")
+	public SuccessResponse<NoticesPOJO> handleRequest( @RequestBody SpecficNoticeParameter  noticeParameter ) {
+  
+		return super.handleRequest(  noticeParameter );
 	}
+	
+	
+	/**
+	 * Configuration 
+	 * Area 
+	 * */
+	 
+ 
+	@Override 
+	@Autowired
+	public void setTask( ReadSpecificNoticeTask task) {
+		
+		p_task = task;
+	}
+	 
+}
 
  

@@ -40,12 +40,11 @@ public class LectureScheduleSynthesizer  {
      
 	  
 	public Object synthesizeAssets(String lectureScheduleFileName){
-	  
-		System.out.println();
+	   
 		
-		m_allLectures = (AllLecturesPOJO) m_jsonAllLecturesHandler.readJSONFile("AllLecturesSchedule"); 
+		m_allLectures = (AllLecturesPOJO) m_jsonAllLecturesHandler.readFile("AllLecturesSchedule"); 
 		
-		m_lectureSchedule = (LectureScheduleOfCoursePOJO) m_jsonSynthesizedCourseScheduleHandler.readJSONFile(lectureScheduleFileName); 
+		m_lectureSchedule = (LectureScheduleOfCoursePOJO) m_jsonSynthesizedCourseScheduleHandler.readFile(lectureScheduleFileName); 
 		
 		
 		m_coursePOJO = new CoursePOJO();
@@ -64,52 +63,52 @@ public class LectureScheduleSynthesizer  {
 			// here we iterate through the letures in a specific semester 
 
 			SemesterPOJO semesterPOJO = new SemesterPOJO(); 
-			
+			 
 			semesterPOJO.setSemesterNr(schedule.getSemesterNr());
 			
 			for(LectureInformationPOJO lectureInSemester  : schedule.getM_CollectionOfLecturesInSemester()) 
-			{	
+			{	 
 				// here we check for any lecture in a specific semester, if there is any scheduling infornation 
 				// available 
 		 		
 				for(LectureSchedulePOJO lectureFromAllAvailable : m_allLectures.getAllLectures())
 				{
 					 
-					StringBuilder lectureInSemesterStringBuilder = new StringBuilder(lectureInSemester.getName().toLowerCase().replace(" ", "")); 
-					
-					StringBuilder lectureFromAllAvailableStringBuilder = new StringBuilder(lectureFromAllAvailable.getvName().toLowerCase().replace(" ", "")); 
-					
-					// We collect a LecturePOJO, if its the s
-					 
-					
-					if(  lectureInSemesterStringBuilder.reverse().toString().equals(lectureFromAllAvailableStringBuilder.reverse().toString())
-					           || 
-					           
-					           lectureFromAllAvailableStringBuilder.reverse().toString().contains(lectureInSemesterStringBuilder.reverse().toString()) 
-					           		&& 
-					           	 lectureFromAllAvailable.getvDTyp().equals("Übung")
-							 ) {
+					// at first we check if the term matches the expecting one 
+					if(m_coursePOJO.getCourseTerm().equals(lectureFromAllAvailable.getvTerm())) {
 						
-						LectureSchedulePOJOalt  lecturePOJO = new LectureSchedulePOJOalt ();
+
 						
-						lecturePOJO.setLectureName(lectureFromAllAvailable.getvName());
-						
-						lecturePOJO.setLectureNameShortcut(!lectureFromAllAvailable.getvDTyp().equals("Übung")
-														? lectureInSemester.getShortcut() : 
-														lectureInSemester.getShortcut()
-																		 .concat(" ")
-																		 .concat(lectureFromAllAvailable.getvName().replace(lectureInSemester.getName(), "")));
-						
+						// We collect a LecturePOJO, if its the s
 						 
-				
+						if(  lectureInSemester.getName().equals(lectureFromAllAvailable.getvName())
+						           || 
+						           lectureInSemester.getName().concat(" (Übung)").equals(lectureFromAllAvailable.getvName()) 
+								 ) {
+							
+							 
+							LectureSchedulePOJOalt  lecturePOJO = new LectureSchedulePOJOalt ();
+							
+							lecturePOJO.setLectureName(lectureFromAllAvailable.getvName());
+							
+							lecturePOJO.setLectureNameShortcut(!lectureFromAllAvailable.getvDTyp().equals("Übung")
+															? lectureInSemester.getShortcut() : 
+															lectureInSemester.getShortcut()
+																			 .concat(" ")
+																			 .concat(lectureFromAllAvailable.getvName().replace(lectureInSemester.getName(), "")));
+							
+							 
+					
+							
+							lecturePOJO.setPractice(lectureFromAllAvailable.isPratice());
+							 			
+							lecturePOJO.setTimingsForALecture(lectureFromAllAvailable.getvTimings());
 						
-						lecturePOJO.setPractice(lectureFromAllAvailable.isPratice());
-						 			
-						lecturePOJO.setTimingsForALecture(lectureFromAllAvailable.getvTimings());
-					
-					
-						semesterPOJO.addLectureToSemester(lecturePOJO);
+						
+							semesterPOJO.addLectureToSemester(lecturePOJO);
+						}	
 					}
+					
 				}
 				
 			}

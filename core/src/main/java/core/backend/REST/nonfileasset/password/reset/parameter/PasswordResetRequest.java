@@ -4,7 +4,7 @@ import static com.google.common.collect.MoreCollectors.onlyElement;
 
 import java.util.Date;
 
-import core.backend.REST.general.request.custom.nonschedule.RESTCustomNonScheduleRequest; 
+import core.backend.REST.general.request.RESTRequest; 
 import resources.components.elements.POJO.Password.reset.PasswordResetPOJO;
 import resources.components.utils.ComponentsManufactory;
 import resources.database.entities.Accounts.ResetURLs;
@@ -12,8 +12,8 @@ import resources.database.repository.ResetUrlsRepository;
 import resources.error.password.PasswordResetError; 
 
 public class PasswordResetRequest 
-
-							extends RESTCustomNonScheduleRequest<PasswordResetPOJO> {
+ 
+							extends RESTRequest<PasswordResetPOJO> {
 
 	private ResetURLs m_resetURL;
 	

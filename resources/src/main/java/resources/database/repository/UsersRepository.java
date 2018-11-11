@@ -7,7 +7,8 @@ import resources.database.dao.UsersDao;
 import resources.database.entities.User.Users; 
 
 @Component
-public class UsersRepository  extends MasterRepository<UsersDao, Users>{
+public class UsersRepository 
+							extends MasterRepository<UsersDao, Users>{
 
 	@Autowired
 	public UsersRepository( UsersDao  dao) {

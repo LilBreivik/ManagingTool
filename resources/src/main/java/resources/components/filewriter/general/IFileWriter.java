@@ -9,4 +9,5 @@ import org.codehaus.jackson.map.JsonMappingException;
 public interface IFileWriter<WrittenObjectType> {
 
 	void writeToFile(File file, WrittenObjectType contentToBeWritten) throws JsonGenerationException, JsonMappingException, IOException;
+ 
 }

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration; 
 import resources.components.filehandler.JSON.general.GeneralJSONFileHandler;
+import resources.components.filereader.JSON.GeneralJSONFileReader;
+import resources.components.filewriter.JSON.GeneralJSONFileWriter;
 import resources.utils.pathmanager.PathManager; 
 
 @Configuration
@@ -21,25 +23,30 @@ public class NonPersistentJSONFileHandlerProvider {
 	@Qualifier("JSONFileHandler for PersistenceCourseScheduleJSONFile")
 	public GeneralJSONFileHandler<PersistenceCourseSchedulePOJO> providePersistenceCourseScheduleJSONFileHandler( ){
 		
-		return new GeneralJSONFileHandler<PersistenceCourseSchedulePOJO>(PersistenceCourseSchedulePOJO.class, 
-				pathManagerToJSONFiles);    
+		return new GeneralJSONFileHandler<PersistenceCourseSchedulePOJO >( 
+				
+				pathManagerToJSONFiles, 
+					new GeneralJSONFileReader<PersistenceCourseSchedulePOJO>(PersistenceCourseSchedulePOJO.class) , 
+						new  GeneralJSONFileWriter<PersistenceCourseSchedulePOJO>());    
 	}
 	  
 	@Bean
 	@Qualifier("JSONFileHandler for CourseScheduleJSONFile")
-	public GeneralJSONFileHandler<CoursePOJO> provideCourseScheduleJSONFileHandler( ){
+	public GeneralJSONFileHandler<  CoursePOJO> provideCourseScheduleJSONFileHandler( ){
 		
-		return new GeneralJSONFileHandler<CoursePOJO>(CoursePOJO.class, 
-				pathManagerToJSONFiles);    
+		return new GeneralJSONFileHandler<CoursePOJO >( pathManagerToJSONFiles,
+					new GeneralJSONFileReader<CoursePOJO>(CoursePOJO.class), 
+						new  GeneralJSONFileWriter<CoursePOJO>());    
 	}
 	 
 	@Bean
 	@Qualifier("JSONFileHandler for SynthesizedCourseScheduleJSONFile")
-	public GeneralJSONFileHandler<LectureScheduleOfCoursePOJO> provideSynthesizedCourseScheduleJSONFileHandler( ){
+	public GeneralJSONFileHandler<LectureScheduleOfCoursePOJO > provideSynthesizedCourseScheduleJSONFileHandler( ){
 		
-		return new GeneralJSONFileHandler<LectureScheduleOfCoursePOJO>(LectureScheduleOfCoursePOJO.class, 
-				pathManagerToJSONFiles);  
+		return new GeneralJSONFileHandler<LectureScheduleOfCoursePOJO >( pathManagerToJSONFiles, 
+				new GeneralJSONFileReader<LectureScheduleOfCoursePOJO>(LectureScheduleOfCoursePOJO.class), 
+					new  GeneralJSONFileWriter<LectureScheduleOfCoursePOJO>());  
 	   
 	}
-	 
+	  
 }

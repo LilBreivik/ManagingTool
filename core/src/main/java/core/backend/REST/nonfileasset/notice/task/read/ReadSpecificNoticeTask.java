@@ -1,59 +1,54 @@
 package core.backend.REST.nonfileasset.notice.task.read;
    
-import java.io.File; 
-import java.util.List;
-import java.util.stream.Collectors;
-import core.backend.REST.general.response.result.successfully.SuccessResponse;
-import core.backend.REST.nonfileasset.notice.parameter.NoticeParameter;
+
+import static com.google.common.collect.MoreCollectors.onlyElement;
+
+import java.io.File;  
+import java.util.NoSuchElementException;
+import org.springframework.stereotype.Component;
+import core.backend.REST.general.response.result.successfully.SuccessResponse; 
+import core.backend.REST.nonfileasset.notice.parameter.SpecficNoticeParameter;
 import core.backend.REST.nonfileasset.notice.task.NoticeTask;
-import resources.components.elements.POJO.Notices.NoticesPOJO;
-import resources.components.filehandler.JSON.general.GeneralJSONFileHandler;
-import resources.database.repository.AccountsRepository;
+import notice.PersistenceNoticesPOJO;
+import resources.components.elements.POJO.Notices.NoticesPOJO; 
 import resources.error.InternalError; 
 
-
+@Component
 public class ReadSpecificNoticeTask 
-							extends NoticeTask<NoticesPOJO>{
+							extends NoticeTask<NoticesPOJO, SpecficNoticeParameter>{
 
-
-	public ReadSpecificNoticeTask( GeneralJSONFileHandler<NoticesPOJO> fileHandler, 
-			AccountsRepository accountsRepo){
-		super(fileHandler, accountsRepo);
-		 
-	}
-
-	private NoticesPOJO statusPOJO; 
-	
+	private NoticesPOJO m_statusPOJO;
+	 
+ 
 	@Override
-	public void workOnTask(NoticeParameter param) {
-	 
+	public void workOnTask(SpecficNoticeParameter param) {
 		
-		List<File> noticeFiles = getAllNoticesFiles().stream()
-				.filter(notice -> ((NoticesPOJO)  p_fileHandler.readJSONFile(notice.getName())).getNoticeHeadline().equals(param.getRequest().getNoticeHeadline()))
-			.collect(Collectors.toList());
-
-	 
-		if(noticeFiles.size() == 1) {
+		final String requestedNoticeWithHealdine = param.getRequest().getNoticeHeadline();
+		
+		try {
 			
-			statusPOJO =   p_fileHandler.readJSONFile(noticeFiles.get(0).getName());
+			// there cannot be 2 or more notices with the same headline, cause, 
+			// new notices, that match a certain headline, will overwirte the persistent one 
+		
+			File noticeFile = getAllNoticesFiles().stream()
+					.filter(notice -> ((NoticesPOJO)  p_fileHandler.readFile(notice.getName())).getNoticeHeadline().equals(requestedNoticeWithHealdine))
+				.collect(onlyElement());
 			
+			
+			m_statusPOJO =   p_fileHandler.readFile(noticeFile.getName());
 			
 		}
-		else {
-			 
+		catch(NoSuchElementException noticeIsMissing) {
 			
-			throw new InternalError("Die Notiz " + param.getRequest().getNoticeHeadline() + " existiert nicht ");
-		}		 
-	}
+			throw new InternalError("Die Notiz " + requestedNoticeWithHealdine + " existiert nicht ");
+		}
 
+	}
+	
 	@Override
 	public SuccessResponse<NoticesPOJO> getResultsFromTask() {
-		 
-		System.out.println(statusPOJO);
-		System.out.println();
-		
-		
-		return  new SuccessResponse<NoticesPOJO>(statusPOJO);
-	}
 	 
+		return  new SuccessResponse< NoticesPOJO >(m_statusPOJO);
+ 
+	}
 }

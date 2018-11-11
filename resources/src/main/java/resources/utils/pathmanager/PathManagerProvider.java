@@ -27,12 +27,12 @@ import org.springframework.context.annotation.Configuration;
  
 
 /**
- * Class that globalls 
+ * Class that globally
  * contains Bean methods to supply 
  * PathManger Objects, to build Components
  * 
  * */
-
+ 
 @Configuration
 public class PathManagerProvider {
 

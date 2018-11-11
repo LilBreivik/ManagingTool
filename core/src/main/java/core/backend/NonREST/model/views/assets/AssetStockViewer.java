@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors; 
 import resources.components.elements.POJO.Course.CourseSchedulePOJO;
-import resources.components.elements.POJO.Persistence.LectureScheduleOfCoursePOJO;
 import resources.components.elements.POJO.Persistence.Course.PersistenceCourseSchedulePOJO; 
-import resources.components.filehandler.XML.general.GeneralXMLFileHandler;
 import resources.components.filehandler.XML.general.RawXMLFileHandler;
 import resources.database.entities.File.Files;
 import resources.database.repository.FilesRepository;
@@ -38,7 +36,7 @@ public class AssetStockViewer<PersistencePOJOType extends PersistenceCourseSched
 	private FilesRepository m_filesRepo; 
 	
 	private List<AssetStockView> m_assetsStockViews; 
-	
+	 
 	private  INameResolver  m_INameResolver; 
 	
 	public AssetStockViewer(RawXMLFileHandler<PersistencePOJOType>  xmlFileHandler , 
@@ -55,7 +53,7 @@ public class AssetStockViewer<PersistencePOJOType extends PersistenceCourseSched
 
 	public  void loadAssetStockView(String courseScheduleFileName){
  
-		 m_persistentCourseSchedulePOJO = (PersistencePOJOType)  m_xmlFileHandler.readXMLFile(courseScheduleFileName);
+		 m_persistentCourseSchedulePOJO = (PersistencePOJOType)  m_xmlFileHandler.readFile(courseScheduleFileName);
 	}
 	
 	 
@@ -91,6 +89,7 @@ public class AssetStockViewer<PersistencePOJOType extends PersistenceCourseSched
 									  
 											
 								   }).collect(Collectors.toList());
+		 
 	}
 
 	

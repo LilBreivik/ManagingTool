@@ -54,10 +54,11 @@ export class Lecture implements  AfterViewChecked ,AfterContentChecked {
   @Input() day : string; 
   @Input() time : string;  
   @Input() practiceChoice : boolean;
+  @Input() parallelCourseChoice : boolean;
   @Input() lectureProperties: LectureSchedulePOJOList;
   @Input() lectureProperty: LectureSchedulePOJO; 
  
-
+ 
   @Output() delete:EventEmitter<Lecture> = new EventEmitter();
 
   @HostBinding('style.height.px') height: Number;
@@ -168,31 +169,42 @@ export class Lecture implements  AfterViewChecked ,AfterContentChecked {
   }
  
   public selectLecturesObject(){
-
+ 
     this. selectedLectures = new LectureSchedulePOJOList();
    
     this.lectureProperties.forEach(lecture => {
-    
+  
           if((lecture.day == this.day) && 
                 (lecture.startTime == this.time) &&  
-                     (( lecture.semesterNo.indexOf(this.semester) > -1) || 
-                     ( lecture.semesterNo.indexOf(this.parallelSemester) > -1) )
-                    )
-          {   
+                     (( lecture.semesterNo.indexOf(this.semester) > -1))
+            )
+          {    
               
-            if(true === this.practiceChoice){
+             if( lecture.isPractice === this.practiceChoice){
   
               this.updateLectureInformation(lecture);
               this.selectedLectures.add(lecture); 
-            }
-
-            else if ( lecture.isPractice === this.practiceChoice) {
- 
+            }  
+          }
+          else if((lecture.day == this.day) && 
+                    (lecture.startTime == this.time) &&  
+                      (
+                        (this.parallelCourseChoice === true)
+                        &&
+                          (  
+                            ( lecture.semesterNo.indexOf(this.semester) > -1) || 
+                            ( lecture.semesterNo.indexOf(this.parallelSemester) > -1) )
+                          )
+                      ) 
+          {    
+              
+            if( lecture.isPractice === this.practiceChoice){
+  
               this.updateLectureInformation(lecture);
               this.selectedLectures.add(lecture); 
-            }
-             
-          }
+            } 
+          } 
+
     });
 
     if(this.selectedLectures.size() === 0){

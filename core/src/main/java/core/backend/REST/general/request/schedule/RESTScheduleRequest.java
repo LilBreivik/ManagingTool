@@ -1,86 +1,42 @@
 package core.backend.REST.general.request.schedule;
- 
-import java.util.stream.Collectors;
 
-import core.backend.REST.general.request.MasterRESTRequest;
-import core.backend.utils.verifier.CourseVerifier;
-import core.utils.names.FileNameResolver;
+import java.util.stream.Collectors;
+import core.backend.REST.general.request.RESTRequest;
+import core.backend.utils.verifier.CourseVerifier; 
 import resources.components.elements.POJO.Course.CoursePOJO;
 import resources.components.filehandler.JSON.provider.nonpersistent.NonPersistentJSONFileHandlerProvider;
 import resources.components.utils.ComponentsManufactory;
-import resources.error.parameter.ParameterViolationError;
-import resources.utils.names.INameResolver;
-import scheduling.Utils.IScheduleParam;
+import resources.error.parameter.ParameterViolationError; 
 
 
 /**
  * Class that describes 
- * a REST request that invloves a certain schedule 
+ * a REST request that invloves a certain schedule , 
+ * that is represented by a certain CoursePOJO 
+ * 
  * */
 
-public abstract class RESTScheduleRequest <CourseSchedule extends CoursePOJO>
+public abstract class RESTScheduleRequest <Request extends CoursePOJO>
 
-									extends  MasterRESTRequest<CourseSchedule>
-
-													implements IScheduleParam{
+									extends  RESTRequest<Request> {
 	
-	private CourseVerifier p_verifier;
+	protected  CourseVerifier p_verifier; 
+ 
 	
-    protected INameResolver p_scheduleFileNameResolver;
-
-    
-	private FileNameResolver p_FileNameResolver;
+	public RESTScheduleRequest(){}
 	
-	// Name of the finally processed file
-	
-	private String p_targetFileName; 
-	
-	public RESTScheduleRequest(CourseSchedule pojo)
-	{
-		super(pojo);
-		 
+	public RESTScheduleRequest(Request request)
+	{ 
+		
+		super(request);
+		
 		NonPersistentJSONFileHandlerProvider provider = (NonPersistentJSONFileHandlerProvider) ComponentsManufactory.createComponent("nonPersistentJSONFileHandlerProvider", NonPersistentJSONFileHandlerProvider.class);
 		 
 		p_verifier =  new CourseVerifier(provider.providePersistenceCourseScheduleJSONFileHandler());	
+		
+		 
 	}
 	 
-	
-	@Override
-	public String getCourseName() {
-	
-		return getRequest().getCourseName();
-	}
-
-	@Override
-	public void setCourseName(String courseName) {
-		
-		getRequest().setCourseName(courseName);
-	}
-
-	@Override
-	public String getCourseDegree() {
-
-		return getRequest().getCourseDegree();
-	}
-
-	@Override
-	public void setCourseDegree(String courseDegree) {
-	
-	    getRequest().setCourseDegree(courseDegree);	
-	}
-
-	@Override
-	public String getCourseTerm() {
-		
-		return getRequest().getCourseTerm();
-	}
-
-	@Override
-	public void setCourseTerm(String courseTerm) {
-		
-		getRequest().setCourseTerm(courseTerm);	
-	}
-
 	
 	 /**
 	 * We check , if the Parameter 
@@ -104,13 +60,14 @@ public abstract class RESTScheduleRequest <CourseSchedule extends CoursePOJO>
 			 * if the param, got a tripel of valid information...
 			 * 
 			 * */
-			
+		
+	 	
 		    if(p_verifier.getVerifier().getCoursesSchedulePOJO().stream()
-			    						   .filter(pojo -> (getCourseName().equals(pojo.getCourseName())
+			    						   .filter(pojo -> (getRequest().getCourseName().equals(pojo.getCourseName())
 				    								 &&
-				    							     getCourseTerm().equals(pojo.getCourseTerm())
+				    								 getRequest().getCourseTerm().equals(pojo.getCourseTerm())
 				    								    && 
-				    								    getCourseDegree().equals(pojo.getCourseDegree())))
+				    								    getRequest().getCourseDegree().equals(pojo.getCourseDegree())))
 			    						   .collect(Collectors.toList())
 			    						   
 			    						   // there can be just one Tripel of parameter values 
@@ -120,28 +77,5 @@ public abstract class RESTScheduleRequest <CourseSchedule extends CoursePOJO>
 		    	throw new  ParameterViolationError(parameterErrorMessageInvalidParameter);
 		    }
 	}
-	
-	
-	
-    public FileNameResolver getFileNameResolver()  {
-		
-		return p_FileNameResolver;
-	}
-
-
-	public void setFileNameResolver(FileNameResolver p_FileNameResolver) {
-		this.p_FileNameResolver = p_FileNameResolver;
-		
-	}
- 
-	
-	public String getTargetFileName() {
-		return p_targetFileName;
-	}
-
-
-	public void setTargetFileName(String p_targetFileName) {
-		this.p_targetFileName = p_targetFileName;
-	}
-
+	 
 }

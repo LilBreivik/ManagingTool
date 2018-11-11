@@ -1,16 +1,15 @@
 package core.backend.REST.nonfileasset.notice.controller.read;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller; 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import core.backend.REST.general.controller.MasterRESTController;
+import org.springframework.web.bind.annotation.ResponseStatus; 
+import core.backend.REST.general.controller.REST.ResponseController;
 import core.backend.REST.general.response.result.successfully.SuccessResponse;
-import core.backend.REST.nonfileasset.notice.parameter.NoticeParameter; 
-import core.backend.REST.nonfileasset.notice.task.NoticeTask;
+import core.backend.REST.nonfileasset.notice.parameter.NoticeParameter;  
+import core.backend.REST.nonfileasset.notice.task.read.ReadGeneralNoticeTask;
 import notice.PersistenceNoticesPOJO;
 
 /**
@@ -21,20 +20,33 @@ import notice.PersistenceNoticesPOJO;
  * */
 
 
-@Controller
-public class ReadGeneralNoticeController extends MasterRESTController<NoticeTask ,NoticeParameter, PersistenceNoticesPOJO>{
+@Controller 
+public class ReadGeneralNoticeController 
+									extends  ResponseController<NoticeParameter, PersistenceNoticesPOJO, ReadGeneralNoticeTask >{
 	 
-		@Autowired 
-		public ReadGeneralNoticeController(@Qualifier("provide ReadGeneralNoticeTask") NoticeTask  task) {
-			super(task); 
-		}
+	public static final String ReadGeneralNoticeURL = "/Notice/Read/General";
 
-		@ResponseStatus( HttpStatus.OK )
-		@RequestMapping(value = "/Notice/Read/General", method = RequestMethod.POST, consumes="application/json", produces="application/json")
-		protected  SuccessResponse<PersistenceNoticesPOJO> handleNoticeAddition()  
-		{ 
-			
-			return super.handleResponse();
-		}
+	@Override
+	@ResponseStatus( HttpStatus.OK ) 
+	@RequestMapping(value = ReadGeneralNoticeURL, method = RequestMethod.POST, consumes="application/json")
+	public SuccessResponse<PersistenceNoticesPOJO> handleRequest( ) {
+ 
+		return super.handleRequest();
 	}
+	
+	
+	/**
+	 * Configuration 
+	 * Area 
+	 * */
+	 
+
+	@Override 
+	@Autowired
+	public void setTask(ReadGeneralNoticeTask  task) {
+		
+		p_task = task;
+	}
+	
+}
 

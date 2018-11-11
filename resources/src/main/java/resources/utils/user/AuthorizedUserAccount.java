@@ -1,30 +1,27 @@
 package resources.utils.user;
 
-import java.util.Arrays;
-import java.util.Collection;
-
-import org.springframework.security.core.GrantedAuthority;
+import java.util.Arrays; 
 import org.springframework.security.core.userdetails.User;
 
-import resources.database.entities.Accounts.Accounts;
-
+import resources.database.entities.Accounts.Accounts; 
 public class AuthorizedUserAccount 
 									extends User{
 
 	/**
 	 *  
-	 */
+	 */ 
 	private static final long serialVersionUID = 1L;
 
 	private Accounts m_account;  
-	
-	public AuthorizedUserAccount(String username, String password,  
-		  Accounts account	, GrantedAuthority authorities) {
-		super(username, password, Arrays.asList(authorities) );
-	 
+ 
+	public AuthorizedUserAccount(String userName, 
+							String password, 
+						Accounts account) {
+		
+		super(userName, password, Arrays.asList(account.getAccountType() ) );
 		this.m_account =  account;
 	}
-  
+ 
 
 	public Accounts getAccount() {
 		return m_account;

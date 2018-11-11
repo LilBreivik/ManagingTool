@@ -8,7 +8,7 @@ public class CourseVerifier extends Verifier<PersistenceCourseSchedulePOJO>  {
   
 	public CourseVerifier (GeneralJSONFileHandler<PersistenceCourseSchedulePOJO> jsonFileHandler) {
 		 
-		verifier = (PersistenceCourseSchedulePOJO)  jsonFileHandler.readJSONFile("CourseSchedule");
+		verifier = (PersistenceCourseSchedulePOJO)  jsonFileHandler.readFile("CourseSchedule");
 	}
  
 }

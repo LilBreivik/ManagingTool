@@ -1,45 +1,53 @@
 package core.backend.REST.nonfileasset.notice.task.delete;
  
+
+import static com.google.common.collect.MoreCollectors.onlyElement;
+
 import java.io.File;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Component;
+
 import core.backend.REST.general.response.result.successfully.SuccessResponse;
 import core.backend.REST.nonfileasset.notice.parameter.NoticeParameter;
 import core.backend.REST.nonfileasset.notice.task.NoticeTask;
 import notice.NoticeStatusPOJO;
 import notice.PersistenceNoticesPOJO;
-import resources.components.elements.POJO.Notices.NoticesPOJO;
-import resources.components.filehandler.JSON.general.GeneralJSONFileHandler;
-import resources.database.repository.AccountsRepository; 
+import resources.components.elements.POJO.Notices.NoticesPOJO; 
 
+@Component
 public class DeleteNoticeTask 
-								extends NoticeTask < PersistenceNoticesPOJO>{
-
-	public DeleteNoticeTask(GeneralJSONFileHandler<NoticesPOJO> fileHandler, 
-			AccountsRepository accountsRepo) {
-		super(fileHandler, accountsRepo);
-	}
+								extends NoticeTask < PersistenceNoticesPOJO,  NoticeParameter>{
  
 	@Override
-	public void workOnTask(NoticeParameter param) {
-	 
+	public void workOnTask( NoticeParameter  param) {
+		 
+		final String requestedNoticeWithHealdine = param.getRequest(). getNoticeHeadline();
 		
-		List<File> noticeFiles = getAllNoticesFiles().stream()
-				.filter(notice -> ( p_fileHandler.readJSONFile(notice.getName())).getNoticeHeadline().equals(param.getRequest().getNoticeHeadline()))
-			.collect(Collectors.toList());
+		final List<NoticesPOJO> allNoticesPOJO = getAllNoticesPOJOs(); 
 		
-		if(noticeFiles.size() == 1) {
+		try {
 			
+			NoticesPOJO pojo = allNoticesPOJO
+										.stream().filter(notice -> notice.getNoticeHeadline().equals(requestedNoticeWithHealdine))
+											.collect(onlyElement());
 			
-			p_fileHandler.deleteFile(noticeFiles.get(0).getName());
+		
+			p_fileHandler.deleteFile(getAllNoticesFiles().get(allNoticesPOJO.indexOf(pojo)).getName());
 		}
-		else {
+		
+		
+		
+		catch(NoSuchElementException noticDoesNotExist) {
 			
-			throw new InternalError("Die Notiz " + param.getRequest().getNoticeHeadline() + " existiert nicht ");
+			throw new InternalError("Die Notiz " + requestedNoticeWithHealdine+ " existiert nicht ");
 		}
-	 
+		 
 		 
 	}
+	
 	
 	@Override
 	public SuccessResponse<PersistenceNoticesPOJO> getResultsFromTask() {

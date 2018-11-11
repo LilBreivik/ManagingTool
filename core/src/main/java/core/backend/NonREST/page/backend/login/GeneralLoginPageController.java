@@ -6,7 +6,7 @@ import core.backend.NonREST.page.general.IndexPageController;
 public abstract class GeneralLoginPageController <loginView extends LoginPageView>
 
 												extends IndexPageController< loginView > {
-
+ 
 
 	public static final String basePageURL = "/"; 
 													

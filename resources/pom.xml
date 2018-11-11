@@ -121,7 +121,7 @@
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
          	<artifactId>mariadb-java-client</artifactId> 
-        </dependency>
+        </dependency> 
         <dependency>
           <groupId>javax.validation</groupId>
           <artifactId>validation-api</artifactId> 

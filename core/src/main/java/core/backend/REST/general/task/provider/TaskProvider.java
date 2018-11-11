@@ -6,40 +6,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration; 
 import core.backend.REST.assets.task.AssetsStockTask;
 import core.backend.REST.fileasset.delete.task.DeleteFileTask;
-import core.backend.REST.fileasset.download.task.DownloadFileTask; 
-import core.backend.REST.fileasset.upload.task.UploadFileTask;
-import core.backend.REST.nonfileasset.synthesize.task.SpecificSynthesizedCourseScheduleTask; 
-import core.backend.REST.nonfileasset.collision.task.CollisionCheckTask;
-import core.backend.REST.nonfileasset.notice.task.NoticeTask;
-import core.backend.REST.nonfileasset.notice.task.add.AddNoticeTask;
-import core.backend.REST.nonfileasset.notice.task.delete.DeleteNoticeTask;
-import core.backend.REST.nonfileasset.notice.task.read.ReadGeneralNoticeTask;
-import core.backend.REST.nonfileasset.notice.task.read.ReadSpecificNoticeTask;
-import core.backend.REST.nonfileasset.synthesize.task.GeneralSynthesizedCourseScheduleTask;
-import core.backend.REST.nonfileasset.synthesize.task.SynthesizedTask;
+import core.backend.REST.fileasset.download.task.DownloadFileTask;  
 import core.backend.utils.delete.DeleteHandler;
-import core.backend.utils.download.handler.DownloadHandler;
-import core.backend.utils.upload.UploadHandler; 
+import core.backend.utils.download.handler.DownloadHandler; 
 import resources.components.elements.POJO.Notices.NoticesPOJO;
 import resources.components.elements.POJO.Persistence.AllLecturesPOJO;
-import resources.components.elements.POJO.Persistence.LectureScheduleOfCoursePOJO;
-import resources.components.elements.POJO.Persistence.Course.PersistenceCourseSchedulePOJO;
+import resources.components.elements.POJO.Persistence.LectureScheduleOfCoursePOJO; 
 import resources.components.filehandler.JSON.general.GeneralJSONFileHandler;
-import resources.components.filehandler.JSON.general.GeneralPersistentJSONFileHandler;
-import resources.components.filehandler.XLS.general.GeneralXLSFileHandler;
+import resources.components.filehandler.JSON.general.GeneralPersistentJSONFileHandler; 
 import resources.components.filehandler.XML.general.GeneralXMLFileHandler;
-import resources.components.filehandler.XML.general.RawXMLFileHandler; 
-import resources.components.filesynthesizer.LectureScheduleSynthesizer;
-import resources.database.repository.AccountsRepository;
+import resources.components.filehandler.XML.general.RawXMLFileHandler;   
 import resources.database.repository.FilesRepository; 
-import resources.utils.pathmanager.PathManager;
-import scheduling.SchedulingCollisionManager;
+import resources.utils.pathmanager.PathManager; 
 
 @Configuration 
 public class TaskProvider {
-	 
-	@Autowired 
-	private AccountsRepository accountsRepo;
+	  
 	
 	@Autowired 
 	@Qualifier("XMLFileHandler for LectureScheduleXMLFiles")
@@ -64,7 +46,7 @@ public class TaskProvider {
 	@Bean
 	@Qualifier("provide DownloadGeneralCourseScheduleTemplateFileTask")
 	public DownloadFileTask  provideDownloadGeneralCourseScheduleTemplateFileTask(
-			
+			 
     @Qualifier("XMLFileHandler for GeneralCourseScheduleTemplateXMLFile") RawXMLFileHandler<LectureScheduleOfCoursePOJO>  generalCourseScheduleTemplateXMLFile,
 			
 			@Qualifier("provide DownloadHandler for GeneralCourseScheduleTemplateFile")  DownloadHandler processor  ) {
@@ -89,116 +71,36 @@ public class TaskProvider {
 	 
 	}
 	 
-	@Bean
-	@Qualifier("provide UploadCourseScheduleFileTask")
-	public UploadFileTask<LectureScheduleOfCoursePOJO> provideCourseScheduleFileUploadTask(
-			@Qualifier("provide UploadHandler for LectureScheduleXMLFile") UploadHandler<LectureScheduleOfCoursePOJO> pojo
-			) {
-		
-		
-		return new UploadFileTask<LectureScheduleOfCoursePOJO> (lectureScheduleXMLFileHandler, 
-													lectureScheduleJSONFileHandler, 
-												pojo, 
-											lectureAssetsPathManager);
-	}  
-	
-
-	@Bean
-	@Qualifier("provide UploadLectureScheduleFileTask")
-	public UploadFileTask<AllLecturesPOJO> provideLectureScheduleFileUploadTask(
-			@Qualifier("XLSFileHandler for LectureScheduleXLSFiles")  GeneralXLSFileHandler xlsFileHandler, 
-					@Qualifier("provide UploadHandler for LectureScheduleFile") UploadHandler<AllLecturesPOJO>	pojo) {
-		
-		return new UploadFileTask<AllLecturesPOJO> (xlsFileHandler, 
-							  		  allLecturesScheduleJSONFileHandler, 
-									pojo,
-								lectureAssetsPathManager);
-	}
-	
-	@Bean
-	@Qualifier("provide GeneralSynthesizedCourseScheduleTask")
-	public SynthesizedTask provideGeneralSynthesizedCourseScheduleTask(
-	@Qualifier("JSONFileHandler for PersistenceCourseScheduleJSONFile")  GeneralJSONFileHandler<PersistenceCourseSchedulePOJO>  jsonFileHandler) {
-		
-		return new GeneralSynthesizedCourseScheduleTask( jsonFileHandler );
-	} 
-	 
-	@Bean
-	@Qualifier("provide SpecificSynthesizedCourseScheduleTask")
-	public SynthesizedTask provideCourseSynthesizedCourseScheduleTask(LectureScheduleSynthesizer synthesizer) {
-		 
-		return new SpecificSynthesizedCourseScheduleTask(  synthesizer);
-	}
-	
+	  
 	 
 	@Bean
 	@Qualifier("provide DeleteCourseScheduleTask")
-	public DeleteFileTask provideDeleteCourseScheduleTask(
-			
+	public DeleteFileTask provideDeleteCourseScheduleTask( 
+		@Qualifier("JSONFileHandler for LectureScheduleJSONFile") GeneralPersistentJSONFileHandler<LectureScheduleOfCoursePOJO>  jsonFileHandler,
 			@Qualifier("provide DeleteHandler for CourseScheduleFile") DeleteHandler deleteHandlerForCourseScheduleFile ) {
 		
-		return new DeleteFileTask(null,  deleteHandlerForCourseScheduleFile ); 	
+		return new DeleteFileTask( jsonFileHandler,  deleteHandlerForCourseScheduleFile ); 	
 	}
-	 
+	  
 	@Bean
 	@Qualifier("provide DeleteLectureScheduleTask")
 	public DeleteFileTask provideDeleteLectureScheduleTask( 
+			 
+		@Qualifier("JSONFileHandler for AllLecturesScheduleJSONFile")  GeneralPersistentJSONFileHandler<AllLecturesPOJO> jsonFileHandler,
 			@Qualifier("provide DeleteHandler for LectureScheduleFile") DeleteHandler deleteHandlerForLectureScheduleFile ) {
 		 
 		
-		return new DeleteFileTask(allLecturesScheduleJSONFileHandler,  
+		return new DeleteFileTask(jsonFileHandler,  
 											deleteHandlerForLectureScheduleFile);
 		 
 	} 
 	 
-	
-	@Bean 
-	@Qualifier("provide CollisionCheckTask")
-	public CollisionCheckTask provideCollisionCheckTask(SchedulingCollisionManager m_collisionManager){
-		
-		return new CollisionCheckTask(m_collisionManager); 
-	}
-	
+
 	@Bean 
 	@Qualifier("provide AssetsStockTask")
 	public AssetsStockTask provideAssetsStockTask(FilesRepository filesRepo){
 		
 		return new AssetsStockTask(filesRepo); 
 	}
-	
-	
-	@Bean 
-	@Qualifier("provide AddNoticeTask")
-	public NoticeTask provideAddNoticeTask(){
-		 
-		return new AddNoticeTask(noticeNoticeJSONfileHandler, 
-				accountsRepo ); 
-	}
-	
-	
-	@Bean 
-	@Qualifier("provide DeleteNoticeTask")
-	public NoticeTask provideDeleteNoticeTask(){
-		
-		return new DeleteNoticeTask( noticeNoticeJSONfileHandler, 
-				accountsRepo); 
-	}
-	
-	
-	@Bean 
-	@Qualifier("provide ReadSpecificNoticeTask")
-	public NoticeTask provideReadSpecificNoticeTask(){
-		 
-		return new ReadSpecificNoticeTask(noticeNoticeJSONfileHandler, 
-				accountsRepo ); 
-	}
-	
-	
-	@Bean 
-	@Qualifier("provide ReadGeneralNoticeTask")
-	public NoticeTask provideReadGeneralNoticeTask( ){
-		 
-		return new ReadGeneralNoticeTask( noticeNoticeJSONfileHandler , 
-				accountsRepo); 
-	}
+	 
 }

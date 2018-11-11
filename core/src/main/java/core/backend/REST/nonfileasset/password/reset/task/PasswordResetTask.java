@@ -3,21 +3,18 @@ package core.backend.REST.nonfileasset.password.reset.task;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import core.backend.REST.general.task.nonresponse.NonResponseAbstractTaskImpl; 
-import core.backend.REST.nonfileasset.password.reset.parameter.PasswordResetRequest;
-import core.configuration.email.EMailConfiguration;
-import core.utils.email.handler.EmailHandler;
-import core.utils.email.template.PasswordForgottenEMailTemplate;
+import org.springframework.stereotype.Component; 
+import core.backend.REST.general.task.AbstractTaskImpl; 
+import core.backend.REST.nonfileasset.password.reset.parameter.PasswordResetRequest; 
+import core.utils.email.handler.EmailHandler; 
 import core.utils.email.template.PasswordResetEMailTemplate;
-import resources.database.entities.Accounts.Accounts;
-import resources.database.entities.Accounts.ResetURLs;
+import resources.database.entities.Accounts.Accounts; 
 import resources.database.entities.factory.UserAccountsManager;
 import resources.database.repository.ResetUrlsRepository;
 
 @Component
 public class PasswordResetTask 
-                                extends NonResponseAbstractTaskImpl<PasswordResetRequest>{
+                                extends  AbstractTaskImpl<PasswordResetRequest>{
 
 	@Autowired 
 	private UserAccountsManager m_UserAccountsManager; 
@@ -29,11 +26,11 @@ public class PasswordResetTask
 	private EmailHandler m_EmailHandler; 
 	
 	@Autowired 
-	private EMailConfiguration m_EMailConfiguration;
-	
-	
+	private PasswordResetEMailTemplate m_PasswordResetEmail; 
+	  
+	 
 	@Override
-	public void workOnTask(PasswordResetRequest  param) {
+	public void workOnTask( PasswordResetRequest  param) {
 		   
 		final String newPasswordSource = UUID.randomUUID().toString().replace("-", "");
 			
@@ -55,17 +52,14 @@ public class PasswordResetTask
 		final String recipientName =  accountThatGetsUpadated.getAccountOwners().getUserName();
 		 
 		final String recipientEMail =  accountThatGetsUpadated.getAccountOwners().getUserEmail();		
-				
-		final PasswordResetEMailTemplate passwordResetEmail = new PasswordResetEMailTemplate( m_EMailConfiguration);
-		
-		 
-		passwordResetEmail.buildPasswordResetMessage ( recipientName, newPassword);
+				 
+		m_PasswordResetEmail.buildPasswordResetMessage ( recipientName, newPassword);
 		
 		/**
 		 * Send Email
 		 * */
 		
-		m_EmailHandler.sendMessage(recipientEMail, passwordResetEmail);
+		m_EmailHandler.sendMessage(recipientEMail, m_PasswordResetEmail);
 		 
 	}
 }

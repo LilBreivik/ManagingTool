@@ -6,7 +6,7 @@ import {LectureListStack} from "../../utils/stacks/LectureListStack";
 
 @Component({
 
-    template: `<p> Meddl </p>`
+    template: `<p>  </p>`
 })
 
 @Injectable()
@@ -35,7 +35,7 @@ export class ScheduleData{
     public choisesDict = new Collections.Dictionary<string, boolean>();
  
     public selectedPracticeChoice: string = this.choices[0];
-
+ 
     public selectedParallelCourseChoice: string = this.choices[1];
 
     public semesterNr : string[] = ["1. Fachsemester", 
@@ -72,8 +72,15 @@ export class ScheduleData{
         this.choisesDict.setValue(this.choices[1], false);
     }
  
-    public getParallelSemester(){
+    public getParallelSemester(semester : string ){
 
-        return this.semesterNr[(this.semesterNr.indexOf(this.semester) + 2 ) % this.semesterNr.length];
+        if(semester != undefined){
+
+            return this.semesterNr[(this.semesterNr.indexOf(semester) + 2 ) % this.semesterNr.length];
+        }
+        else{
+
+            return undefined;
+        }
     }
 }

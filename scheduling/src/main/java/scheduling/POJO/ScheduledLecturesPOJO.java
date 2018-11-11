@@ -12,10 +12,11 @@ public class ScheduledLecturesPOJO {
 	private List<ScheduledLecturePOJO> scheduledLectures;
  
 	private List<CorrectionPOJO> correctionMessages; 
-	
+	 
 	public ScheduledLecturesPOJO(List<ScheduledLecturePOJO> lectures, List<String> messages) {
 		 
 		 setCorrectionMessages(messages);
+	 
 		 setScheduledLectures(lectures);
 	}
   

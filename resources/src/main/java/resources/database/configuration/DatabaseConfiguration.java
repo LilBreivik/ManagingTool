@@ -1,4 +1,4 @@
-package resources.database.configuration;
+package resources.database.configuration; 
 
 import java.util.Properties;
 
@@ -6,12 +6,13 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Configuration; 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
+ 
+ 
 @Configuration
 @EnableTransactionManagement()
 public class DatabaseConfiguration {
@@ -41,6 +42,10 @@ public class DatabaseConfiguration {
   private String ENTITYMANAGER_PACKAGES_TO_SCAN;
     
   
+  @Value("${spring.jpa.properties.hibernate.hbm2ddl.import_files}")
+  private String IMPORT_FILE; 
+  
+  
   @Bean
   public DataSource dataSource() {
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -61,6 +66,9 @@ public class DatabaseConfiguration {
     hibernateProperties.put("hibernate.dialect", HIBERNATE_DIALECT);
     hibernateProperties.put("hibernate.show_sql", HIBERNATE_SHOW_SQL);
     hibernateProperties.put("hibernate.hbm2ddl.auto", HIBERNATE_HBM2DDL_AUTO);
+    hibernateProperties.put("hibernate.hbm2ddl.import_files", IMPORT_FILE);
+    
+    
     sessionFactoryBean.setHibernateProperties(hibernateProperties);
     
     return sessionFactoryBean;

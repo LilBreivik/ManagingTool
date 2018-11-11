@@ -13,10 +13,10 @@ import org.junit.Test;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.context.annotation.EnableAspectJAutoProxy; 
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -27,30 +27,25 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers; 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import core.TestContext.ControllerTestApplicationContext;
-import core.TestContext.utils.ScheduleFileUploadParam;
+import core.TestContext.ControllerTestApplicationContext; 
 import core.backend.REST.nonfileasset.password.forgotten.controller.PasswordForgottenController;
-import core.backend.REST.nonfileasset.password.forgotten.parameter.PasswordForgottenRequest; 
+import core.backend.REST.nonfileasset.password.forgotten.parameter.PasswordForgottenParameter; 
 import resources.database.entities.Accounts.Accounts;
 import resources.database.entities.Accounts.Accounts.AccountTypes;
 import resources.database.entities.Accounts.ResetURLs;
 import resources.database.entities.User.Users;
 import resources.database.entities.factory.UserAccountsManager;
-import resources.database.entities.factory.account.ContributorAccount;
-import resources.database.repository.AccountsRepository;
-import resources.database.repository.ResetUrlsRepository;
-import resources.utils.pathmanager.PathManager;
+import resources.database.entities.factory.account.ContributorAccount; 
+import resources.database.repository.ResetUrlsRepository; 
 
 @ContextConfiguration( classes={ ControllerTestApplicationContext.class })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(SpringJUnit4ClassRunner.class)  
-@TestPropertySource({"classpath:application.test.properties", "classpath:email.properties"})
+@TestPropertySource({"classpath:application.development.properties", "classpath:email.properties"})
 @WebMvcTest(PasswordForgottenController  .class)
 @EnableAspectJAutoProxy(proxyTargetClass=true)
 public class PasswordForgottenControllerTest {
-
-	 private static ScheduleFileUploadParam testRequestParameter; 
+ 
 	  
 	 @Autowired
 	 private MockMvc mockMvc;
@@ -88,17 +83,14 @@ public class PasswordForgottenControllerTest {
 			  
 			 m_UserAccountsManager.addUser(testUser);
 
-			 m_UserAccountsManager.createAccount(testUser, new ContributorAccount(testUser, "root"));
-			 
-			 testAcount =  m_UserAccountsManager.getAccountsByType(testUser, AccountTypes.CONTRIBUTOR).get(0);
-			 
+			 testAcount =  m_UserAccountsManager.createAccount(testUser, new ContributorAccount(testUser, "root"));
 			 
     	 }  
         
      }
      
      @Test
- //    @WithMockUser(username = "RUDI", password = "root" )
+     @WithMockUser(username = "RUDI", password = "root" )
 	 public void TESTA_checkIfWeCanAcquireAResetURL() throws Exception {
 			
         ObjectMapper mapper = new ObjectMapper();
@@ -108,8 +100,8 @@ public class PasswordForgottenControllerTest {
                 .is3xxRedirection(); 
  
 		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post( PasswordForgottenController.PasswordForgottenControllerURL)
-                        .param(PasswordForgottenRequest.USER_E_MAIL_PARAMETER, testUserEmail)
-                        .param(PasswordForgottenRequest. ACCOUNT_TYPE_PARAMETER, testUserAcconutType.toString());
+                        .param(PasswordForgottenParameter.USER_E_MAIL_PARAMETER, testUserEmail)
+                        .param(PasswordForgottenParameter. ACCOUNT_TYPE_PARAMETER, testUserAcconutType.toString());
                         
 		   
 		mockMvc.perform(builder)
@@ -143,8 +135,8 @@ public class PasswordForgottenControllerTest {
                     .is3xxRedirection();
     	 
     	 MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post( PasswordForgottenController.PasswordForgottenControllerURL)
-                            .param(PasswordForgottenRequest.USER_E_MAIL_PARAMETER, "drachenlord1510@gmail.com")
-                            .param(PasswordForgottenRequest. ACCOUNT_TYPE_PARAMETER, testUserAcconutType.toString());
+                            .param(PasswordForgottenParameter.USER_E_MAIL_PARAMETER, "drachenlord1510@gmail.com")
+                            .param(PasswordForgottenParameter. ACCOUNT_TYPE_PARAMETER, testUserAcconutType.toString());
                             
     		  
     		mockMvc.perform(builder)
@@ -161,6 +153,7 @@ public class PasswordForgottenControllerTest {
      
      
      @Test 
+     @WithMockUser(username = "RUDI", password = "root" )
      public void TESTC_SubtestA_checkIfWeCannotAcquireAResetURLIfAccountTypeIsUnknown() throws Exception {
     			
    
@@ -170,8 +163,8 @@ public class PasswordForgottenControllerTest {
                     .is3xxRedirection();
     	 
     	 MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post( PasswordForgottenController.PasswordForgottenControllerURL)
-                            .param(PasswordForgottenRequest.USER_E_MAIL_PARAMETER, testUserEmail)
-                            .param(PasswordForgottenRequest. ACCOUNT_TYPE_PARAMETER, "operator");
+                            .param(PasswordForgottenParameter.USER_E_MAIL_PARAMETER, testUserEmail)
+                            .param(PasswordForgottenParameter. ACCOUNT_TYPE_PARAMETER, "operator");
                             
     		  
     		mockMvc.perform(builder)
@@ -186,8 +179,9 @@ public class PasswordForgottenControllerTest {
     		  
       }
      
-     @Test 
-     public void TESTC_SubtestB_checkIfWeCannotAcquireAResetURLIfAccountTypeIsrong() throws Exception {
+     @Test
+     @WithMockUser(username = "RUDI", password = "root" )
+     public void TESTC_SubtestB_checkIfWeCannotAcquireAResetURLIfAccountTypeIsWrong() throws Exception {
     			
    
     	 ObjectMapper mapper = new ObjectMapper();
@@ -196,8 +190,8 @@ public class PasswordForgottenControllerTest {
                     .is3xxRedirection();
     	 
     	 MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post( PasswordForgottenController.PasswordForgottenControllerURL)
-                            .param(PasswordForgottenRequest.USER_E_MAIL_PARAMETER, testUserEmail)
-                            .param(PasswordForgottenRequest. ACCOUNT_TYPE_PARAMETER, AccountTypes.ADMIN.toString());
+                            .param(PasswordForgottenParameter.USER_E_MAIL_PARAMETER, testUserEmail)
+                            .param(PasswordForgottenParameter. ACCOUNT_TYPE_PARAMETER, AccountTypes.ADMIN.toString());
                             
     		  
     		mockMvc.perform(builder)

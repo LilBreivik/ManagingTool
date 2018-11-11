@@ -8,7 +8,7 @@ public class PersistentPOJOList<T extends PersistentLectureInformation>
 													extends ArrayList<T  >{
 
 	
-	/**
+	/** 
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -25,7 +25,7 @@ public class PersistentPOJOList<T extends PersistentLectureInformation>
 		}
 	}
 	
-	
+	 
 	@Override
 	public boolean addAll(Collection<? extends T> listOfPOJOs) {
 

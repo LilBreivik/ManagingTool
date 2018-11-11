@@ -8,7 +8,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths; 
 import java.util.Collection;
 import java.util.List;
-import org.apache.commons.io.FileUtils;
+import java.util.stream.Collectors; 
+import org.apache.commons.io.FileUtils; 
 import com.jayway.jsonpath.InvalidPathException;
 import resources.utils.general.GeneralPurpose;
 import resources.utils.general.Constants.Directory; 
@@ -21,7 +22,7 @@ import resources.error.InternalError;
 
 public class PathManager {
  
-	private Path m_pathToOperateOn;
+	protected Path p_pathToOperateOn;
 	
 	
 	/**
@@ -61,7 +62,7 @@ public class PathManager {
 		
 		if(subdirectories.size() == 0) {
 					
-				m_pathToOperateOn = Paths.get(System.getProperty("user.dir"));
+				p_pathToOperateOn = Paths.get(System.getProperty("user.dir"));
 		}
 			
 		else {
@@ -69,9 +70,13 @@ public class PathManager {
 			/**
 			 * At this point we have to guarantee that the directories 
 			 * were set ... 
+			 * 
+			 * If the path was successfully created he will be safed 
+			 * to pathToOperateOn
 			 * */
 			  
-			createPath(subdirectories);
+			p_pathToOperateOn = createPath(subdirectories);
+			
 		}
 	}
 	
@@ -83,25 +88,27 @@ public class PathManager {
 	 * 
 	 * 
 	 * @param (Collection<String>) subdirectoriesAsString
+	 * 
+	 * @return  (Path), path that shall be build 
 	 * */
 	
-	protected void createPath(Collection<String> subdirectoriesAsString) {
+	protected Path createPath(Collection<String> subdirectoriesAsString) {
 		
 		try {
 				
-			Path pathThatShallBeCreated = Paths.get(System.getProperty("user.dir"), GeneralPurpose. CollectionToArray( subdirectoriesAsString ));
+			Path pathThatShallBeCreated  = Paths.get(System.getProperty("user.dir"), GeneralPurpose. CollectionToArray( subdirectoriesAsString ));
 			
 			Files.createDirectories(pathThatShallBeCreated );
 			
-			// the demanded Path , callable via its getter 
-			
-			m_pathToOperateOn =  pathThatShallBeCreated; 
+			return pathThatShallBeCreated; 
 		}
 		
 		catch(InvalidPathException | IOException pathCreationError) {
 			
 			throw new InternalError("@Fixme path creation Error");
 		} 
+		
+		
 	}
 	
 	
@@ -112,14 +119,15 @@ public class PathManager {
 	
 	public void deletePath() {
 		 		
-		try {
-
+		try { 
+			
 			FileUtils.deleteDirectory(getPathToOperateOn().toFile());
 
 		} catch (IOException e) {
 			
-			new InternalError("Could not delete Path " + m_pathToOperateOn.toAbsolutePath());
+			new InternalError("Could not delete Path " + p_pathToOperateOn.toAbsolutePath());
 		}
+		 
 	}
 	
 	/**
@@ -136,7 +144,7 @@ public class PathManager {
 		
 		if(!fileToCheckWhereItExists.getAbsoluteFile().exists()){
 			
-    		throw new InternalError("Cannot build path to " + fileName + " on " + m_pathToOperateOn.toAbsolutePath().toString());
+    		throw new InternalError("Cannot build path to " + fileName + " on " + p_pathToOperateOn.toAbsolutePath().toString());
     	}
 		
 		return fileToCheckWhereItExists.toPath();
@@ -200,6 +208,28 @@ public class PathManager {
 	
 	
 	/**
+	 * Method hat returns every 
+	 * file on a certain path 
+	 * 
+	 * The method will return an 
+	 * empty List, if there are no files either 
+	 * 
+	 * @return (List<File>), list of files, in that certain path 
+	 * */
+	
+	
+	public List<File> getAllFilesOnPath(){
+		 
+		
+		return GeneralPurpose.ArrayToList(getPathToOperateOn().toFile().listFiles())
+								.stream()
+									.filter(file -> file.isFile())
+									.collect(Collectors.toList());
+		
+	}
+	
+	
+	/**
 	 * Method that checks if 
 	 * a certain file , does 
 	 * exist on the path 
@@ -237,7 +267,9 @@ public class PathManager {
 	
 	public  Path getPathToOperateOn() {
 		
-		return m_pathToOperateOn; 
+		System.out.println("path " + p_pathToOperateOn.toString());
+		
+		return p_pathToOperateOn; 
 	}
 	
 }

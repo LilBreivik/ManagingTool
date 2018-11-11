@@ -4,6 +4,6 @@ public class Constants {
  
 	public static enum UploadFileName {
 		
-		CourseSchedule, LectureSchedule, AllLecturesSchedule
+		CourseSchedule, LectureSchedule, AllLecturesSchedule, GeneralCourseScheduleTemplateFile
 	}
 }

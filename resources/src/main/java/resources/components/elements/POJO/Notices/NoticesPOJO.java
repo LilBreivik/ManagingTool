@@ -33,6 +33,24 @@ public class NoticesPOJO
 		this.notice = notice;
 	}
 
+	
+	@Override
+	public boolean equals(Object obj) {
+		
+		if(obj instanceof NoticesPOJO) {
+			
+		    NoticesPOJO pojo = (NoticesPOJO) obj;
+		    
+		    return pojo.getNoticeHeadline().equals(this.noticeHeadline);
+		    
+		}
+		else {
+			
+			return false; 
+		}
+	}
+	
+	
 	@Override
 	public List<LecturePOJO> getScheduledLectures() {
 		

@@ -1,25 +1,27 @@
 package core.utils.names;
     
+import resources.components.elements.POJO.Course.CoursePOJO;
 import resources.utils.names.INameResolver;
-import resources.utils.names.NameResolver;
-import scheduling.Utils.IScheduleParam; 
- 
+import resources.utils.names.NameResolver; 
+
 public  class FileNameResolver 
-								extends NameResolver<IScheduleParam >{
+								extends NameResolver< CoursePOJO >{
+
+
+	public FileNameResolver( INameResolver nameResolver) {
+		 
+		p_nameResolver = nameResolver;
+	} 
 
 	
-    public FileNameResolver(INameResolver nameResolver) {
-	
-		p_nameResolver = nameResolver;
-	}
- 
 	 
-	public FileNameResolver(IScheduleParam parameter, INameResolver nameResolver) {
+	public FileNameResolver(CoursePOJO parameter, INameResolver nameResolver) {
 		
 		p_resolvingSource = parameter;
 		p_nameResolver = nameResolver;
 	} 
 
+	 
 	public String getResolvedFileName() {
 		 
 		 

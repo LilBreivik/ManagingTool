@@ -36,7 +36,7 @@ public class LectureDayTimingsPOJO {
 		this.day = day;
 	} 
 	
-	
+	 
 	
 	public static List<LectureDayTimingsPOJO> createLectureDayTimingsPOJOList (String lectureString){
 		

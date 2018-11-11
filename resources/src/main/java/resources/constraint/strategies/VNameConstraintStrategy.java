@@ -22,7 +22,7 @@ public class VNameConstraintStrategy  extends ConstraintStrategy<String>{
 		super(GeneralPurpose.CollectionToArray(Arrays.asList("VName"))); 
 	}
 
-	 
+	  
 	@Override
 	public void applyConstraint(String constraintValue){
 		 	

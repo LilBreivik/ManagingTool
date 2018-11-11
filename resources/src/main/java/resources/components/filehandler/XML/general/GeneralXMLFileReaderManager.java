@@ -2,7 +2,7 @@ package resources.components.filehandler.XML.general;
  
 import java.util.Collection;
 import resources.components.elements.XML.XMLElement;
-import resources.components.filereader.XML.XMLFileReaderManager;
+import resources.components.filereader.XML.readermanager.XMLFileReaderManager;
 
 public abstract class GeneralXMLFileReaderManager<POJOClass>
 											implements XMLFileReaderManager<POJOClass>{

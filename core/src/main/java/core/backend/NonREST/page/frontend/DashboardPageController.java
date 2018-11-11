@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping; 
 import core.backend.NonREST.model.views.DashboardView;
-import core.backend.NonREST.page.general.GeneralIndexPageController;   
+import core.backend.NonREST.page.general.GeneralIndexPageController;    
 
 @Controller
 public class DashboardPageController 

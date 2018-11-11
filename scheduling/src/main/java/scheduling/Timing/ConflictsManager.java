@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import resources.components.elements.POJO.Lecture.LecturePOJO;
-import resources.components.elements.POJO.Lecture.Timing.TimeBlock;
+import resources.components.elements.POJO.Lecture.LecturePOJO; 
 import resources.error.scheduling.CollisionError;
 import resources.utils.general.Constants;
 import resources.utils.general.GeneralPurpose;
@@ -24,68 +23,43 @@ public class ConflictsManager {
 	
 	private List<ScheduleLectureTimeBlock> collidedLectures; 
 	 
-    private List<ScheduleLectureTimingPOJO> scheduledCourseSemester;
+  //  private List<ScheduleLectureTimingPOJO> scheduledCourseSemester;
 	
-	private List<ScheduleLectureTimingPOJO> paralledCourseFirstSemester;
+	// lectures of the choosen course and semester 
 	
-	private List<ScheduleLectureTimingPOJO> paralledCourseSecondSemester;
+    public List<ScheduleLectureTimingPOJO> courseLecturesInFirstSemester;
 	
+    // practices of the choosen course and semester 
+    
+    public List<ScheduleLectureTimingPOJO> coursePracticesInFirstSemester;
+    
+    // lectures of the choosen course and next semester 
+    
+    public List<ScheduleLectureTimingPOJO> courseLecturesInSecondSemester;
 	
-	public ConflictsManager(){
-		
-		scheduleDays =  new SchedulingWeek(GeneralPurpose.ArrayToList(Constants.Days.values())
-				.stream()
-				.map(scheduleDay -> new SchedulingDay(scheduleDay))
-				.collect(Collectors.toList())); 
-		 
-	}
+    // practices of the choosen course and next semester 
+    
+    public List<ScheduleLectureTimingPOJO> coursePracticesInSecondSemester;
 	
+    // lectures of the parallel course and semester 
+	
+	private List<ScheduleLectureTimingPOJO> paralledCourseLecturesInFirstSemester;
+	
+	// practices of the parallel course and next semester 
+	
+	private List<ScheduleLectureTimingPOJO> paralledCoursePracticesInFirstSemester;
+	 
+	// practices of the parallel course and next semester 
+	
+	private List<ScheduleLectureTimingPOJO> paralledCourseLecturesInSecondSemester;
+	
+	// practices of the parallel course and next semester 
+	
+	private List<ScheduleLectureTimingPOJO> paralledCoursePracticesInSecondSemester;
+	
+	 
 
-	public void overrideLectures() {
-		 
-		for(int itr = 0; itr < collidedLectures.size(); itr += 1) {
-			
-			// [This TimeBlock null expands between 08:00 : 12:00, This TimeBlock null expands between 14:00 : 20:00]
-			ScheduleLectureTimeBlock conflict = collidedLectures.get(itr);
-			
-			List<Days> days = GeneralPurpose.ArrayToList(Days.values());
-			 
-			Collections.shuffle( days);
-					
-			for(Days day : days ) {
-				
-				SchedulingDay scheduledDay = scheduleDays.get(GeneralPurpose.ArrayToList(Days.values()).indexOf(day));
-
-				for(int timeBlockCtr = 0 ; timeBlockCtr < scheduledDay.getOccupiedTimeBlocksOfTheDay().size(); timeBlockCtr +=1) {
-			
-					TimeBlock block =  scheduledDay.getOccupiedTimeBlocksOfTheDay().get(timeBlockCtr);
-			  
-					if(block.doesBlockFit( conflict )) {
-						
-						if(!(scheduledCourseSemester.indexOf(block) > -1
-									&&
-									scheduledCourseSemester.indexOf(conflict)  > -1)
-									||
-									(paralledCourseFirstSemester.indexOf(block) > -1
-											&&
-											paralledCourseFirstSemester.indexOf(conflict)  > -1)
-											||
-											(paralledCourseSecondSemester.indexOf(block) > -1
-													&&
-													paralledCourseSecondSemester.indexOf(conflict)  > -1))
-						{
-						
-							scheduledDay.getOccupiedTimeBlocksOfTheDay().add(conflict);
-						}
-						
-					}
-					
-				} 
-			}
-			
-		}
-	}
-	
+	 
 	public void permutateLectures() {
 		 
 		List<Days> days = GeneralPurpose.ArrayToList(Days.values());
@@ -151,7 +125,7 @@ public class ConflictsManager {
 		List<String> semesters = new ArrayList<String>(new HashSet<String>(lecturesList.stream().map(lecture -> lecture.currentSemester()).collect(Collectors.toList())));
 		
 		 
-		this.scheduledCourseSemester =  lecturesList.stream().filter(lecture ->  
+		this.courseLecturesInFirstSemester =  lecturesList.stream().filter(lecture ->  
 														 lecture.currentCourse().equals(courses.get(0)) && lecture.currentSemester().equals(semesters.get(0)) )
 															    .collect(Collectors.toList())
 															    	.stream()
@@ -168,7 +142,7 @@ public class ConflictsManager {
 		
 		
 		
-		List<ScheduleLectureTimingPOJO> scheduledPracticeCourseSemester =  lecturesList.stream().filter(lecture ->  
+		this.coursePracticesInFirstSemester =  lecturesList.stream().filter(lecture ->  
 														 lecture.currentCourse().equals(courses.get(0)) && lecture.currentSemester().equals(semesters.get(0)) )
 															    .collect(Collectors.toList())
 															    	.stream()
@@ -186,13 +160,47 @@ public class ConflictsManager {
 															    	.collect(Collectors.toList());
   
 		
-		this.scheduledCourseSemester.addAll(scheduledPracticeCourseSemester);
 		
+		
+		this.courseLecturesInSecondSemester =  lecturesList.stream().filter(lecture ->  
+														 lecture.currentCourse().equals(courses.get(0)) && lecture.currentSemester().equals(semesters.get(1)) )
+															    .collect(Collectors.toList())
+															    	.stream()
+															    	.filter(lecture -> lecture.getisPractice() == false)
+															    	.map(lecture -> {
+															    		 
+															    	return	new ScheduleLectureTimingPOJO(lecture.getLectureName(), 
+																						    			lecture.getLectureId(),
+													    											lecture.getDay(), 
+													    										lecture.getStartTime(), 
+													    									lecture.getEndTime());})
+																						    	
+															    	.collect(Collectors.toList());
+
+
+
+		this.coursePracticesInSecondSemester =  lecturesList.stream().filter(lecture ->  
+														 lecture.currentCourse().equals(courses.get(0)) && lecture.currentSemester().equals(semesters.get(1)) )
+															    .collect(Collectors.toList())
+															    	.stream()
+															    	.filter(lecture -> lecture.getisPractice() == true)
+															    	.filter(UniqueFilter.distinctByKey(lecture ->   (lecturesList.stream().filter(subLecture -> subLecture.getLectureName().equals(lecture.getLectureName())).collect(Collectors.toList())).size() == 1)
+															    							)
+															    	.map(lecture -> {
+															    		 
+															    	return	new ScheduleLectureTimingPOJO(lecture.getLectureName(), 
+															    										lecture.getLectureId(),
+															    									lecture.getDay(), 
+															    								lecture.getStartTime(), 
+																							lecture.getEndTime());})
+															    	
+															    	.collect(Collectors.toList());
+														
+			 
 		 
-		
 		try {
 			
-			this.paralledCourseFirstSemester =  lecturesList.stream().filter(lecture ->  
+			this.paralledCourseLecturesInFirstSemester =  lecturesList.stream().filter(lecture ->  
 																	 lecture.currentCourse().equals(courses.get(1)) && lecture.currentSemester().equals(semesters.get(0)) )
 																		    .collect(Collectors.toList())
 																		    	.stream()
@@ -208,7 +216,7 @@ public class ConflictsManager {
 
 			
 
-			List<ScheduleLectureTimingPOJO> scheduledParalledCourseFirstSemester =  lecturesList.stream().filter(lecture ->  
+			this.paralledCoursePracticesInFirstSemester =  lecturesList.stream().filter(lecture ->  
 													
 																										lecture.currentCourse().equals(courses.get(1)) && lecture.currentSemester().equals(semesters.get(0)) )
 																										    .collect(Collectors.toList())
@@ -225,13 +233,10 @@ public class ConflictsManager {
 																										    						lecture.getEndTime());})
 																										    	
 																										    	.collect(Collectors.toList());
-											 
-			
-			 this.scheduledCourseSemester.addAll(scheduledParalledCourseFirstSemester);
+											  
 			
 			
-			
-             this.paralledCourseSecondSemester =  lecturesList.stream().filter(lecture ->  
+             this.paralledCourseLecturesInSecondSemester =  lecturesList.stream().filter(lecture ->  
 																	 lecture.currentCourse().equals(courses.get(1)) && lecture.currentSemester().equals(semesters.get(1)) )
 																		    .collect(Collectors.toList())
 																		    	.stream()
@@ -244,7 +249,7 @@ public class ConflictsManager {
 																		    	
 																		    	.collect(Collectors.toList());
 
-             List<ScheduleLectureTimingPOJO> scheduledParalledCourseSecondSemester =  lecturesList.stream().filter(lecture ->  
+             this.paralledCoursePracticesInSecondSemester =  lecturesList.stream().filter(lecture ->  
 				
 																							lecture.currentCourse().equals(courses.get(1)) && lecture.currentSemester().equals(semesters.get(1)) )
 																							    .collect(Collectors.toList())
@@ -260,31 +265,73 @@ public class ConflictsManager {
 																							    							lecture.getStartTime(), 
 																							    						lecture.getEndTime());})
 																							    	.collect(Collectors.toList());
-             
-             this.scheduledCourseSemester.addAll(scheduledParalledCourseSecondSemester);
-             
+              
 
 		}
 		// if the parallel lecture was not defined ... 
 		catch(IndexOutOfBoundsException noParallelLectures) {
 			
-			  this.paralledCourseFirstSemester =  new ArrayList<>();
+			System.out.println();
+			
+			
+			noParallelLectures.printStackTrace();
+			
+			  this.paralledCourseLecturesInFirstSemester  =  new ArrayList<>();
 
+			  this.paralledCoursePracticesInFirstSemester  =  new ArrayList<>();
 
-              this.paralledCourseSecondSemester =  new ArrayList<>(); 
+			  this.paralledCourseLecturesInSecondSemester  =  new ArrayList<>(); 
+			  
+			  this.paralledCoursePracticesInSecondSemester  =  new ArrayList<>();
 		}
 		
-		this.scheduledCourseSemester.forEach(lecture -> System.out.println(lecture.toString()));
-		 
-		 
+		  
 	}  
+	 
 	
-	/**
+	public void checkConflicts(List<ScheduleLectureTimingPOJO> lecturesInChoosenCourseAndSemester, 
+			 List<ScheduleLectureTimingPOJO>  praticesInChoosenCourseAndSemester ){ 
+
+
+		scheduleDays =  new SchedulingWeek(GeneralPurpose.ArrayToList(Constants.Days.values())
+					.stream()
+					.map(scheduleDay -> new SchedulingDay(scheduleDay))
+					.collect(Collectors.toList())); 
+	       
+		findConflicts( lecturesInChoosenCourseAndSemester,  praticesInChoosenCourseAndSemester );
+		
+		if(conflictsThere()) {
+			
+			permutateLectures();
+			// conflicts still there ? 
+			if(conflictsThere()) {
+	
+				//@FIXME: Error Message 			
+				
+				//m_ConflictsManager.overrideLectures();
+			} 
+		} 
+	}
+	
+	
+	
+	/**x
+	 * @return 
 	 * @return (List<ScheduleLectureTimeBlock>) list of TimeBlocks , that led to a collision
 	 * */
 	
-	public void findConflicts( ){
+	private void findConflicts(List<ScheduleLectureTimingPOJO> lecturesInChoosenCourseAndSemester, 
+			 List<ScheduleLectureTimingPOJO>  praticesInChoosenCourseAndSemester ){
 		  
+		
+		 List<ScheduleLectureTimingPOJO> paralledEventsInFirstSemester = Stream.concat(paralledCourseLecturesInFirstSemester.stream(), paralledCoursePracticesInFirstSemester.stream()).collect(Collectors.toList());
+		
+		 List<ScheduleLectureTimingPOJO> paralledEventsInSecondSemester = Stream.concat(paralledCourseLecturesInSecondSemester.stream(), paralledCoursePracticesInSecondSemester.stream()).collect(Collectors.toList());
+		
+		
+	 	 List<ScheduleLectureTimingPOJO> paralledEvents = Stream.concat(paralledEventsInFirstSemester.stream(), paralledEventsInSecondSemester.stream()).collect(Collectors.toList());
+		
+		
 		 // test purposes we do just check the first tripel 
 		
 		 /// ScheduledLectures scheduledLectures = Arrays.asList(scheduledCourseSemester.buildScheduledLectures(),  paralledlCourseFirstSemester.buildScheduledLectures(),  paralledlCourseSecondSemester.buildScheduledLectures());
@@ -294,13 +341,10 @@ public class ConflictsManager {
 	     collidedLectures = new ArrayList<ScheduleLectureTimeBlock>();
 		  
 	     
-	     List<ScheduleLectureTimingPOJO> lecturesList = new ArrayList<ScheduleLectureTimingPOJO>(new HashSet<ScheduleLectureTimingPOJO>(Stream.concat(Stream.concat(scheduledCourseSemester.stream(), paralledCourseFirstSemester.stream())
-															               .collect(Collectors.toList()).stream(), paralledCourseSecondSemester.stream())
+	     List<ScheduleLectureTimingPOJO> lecturesList = new ArrayList<ScheduleLectureTimingPOJO>(new HashSet<ScheduleLectureTimingPOJO>(Stream.concat(Stream.concat(lecturesInChoosenCourseAndSemester.stream(), praticesInChoosenCourseAndSemester.stream())
+															               .collect(Collectors.toList()).stream(), paralledEvents.stream())
 															               .collect(Collectors.toList())));
 	     
-	      
-	     System.out.println(scheduleDays);
-	      
 		
 	     for( ScheduleLectureTimingPOJO singleLecture:  lecturesList ) {
 			 

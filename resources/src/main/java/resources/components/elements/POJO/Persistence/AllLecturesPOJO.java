@@ -23,10 +23,11 @@ public class AllLecturesPOJO  {
 	public void setAllLectures(PersistentPOJOList<LectureSchedulePOJO> allLectures) {
 		this.allLectures = allLectures;
 	}
- 
+  
 	public void addNewLecture(LectureSchedulePOJO lecture) {
-		
+		 
 		try {
+			 
 			
 			allLectures.add(lecture);
 		}
@@ -69,7 +70,7 @@ public class AllLecturesPOJO  {
 			allLectures.addAll(manyLectures);
 		}
 		
-	}
+	} 
     
 
     public void substractManyLectures( List<LectureSchedulePOJO> manyLectures) {

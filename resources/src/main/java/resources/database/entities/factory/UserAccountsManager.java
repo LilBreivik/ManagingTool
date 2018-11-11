@@ -30,7 +30,7 @@ public class UserAccountsManager {
 	  
 	@Autowired 
 	@Qualifier("JSONFileHandler for NoticesJSONFile")
-	public GeneralJSONFileHandler<NoticesPOJO>  noticeJSONFileHandler;
+	public GeneralJSONFileHandler<NoticesPOJO >  noticeJSONFileHandler;
 	 
 	
 	public Users createUser(String userEmail, String userName) {
@@ -73,13 +73,20 @@ public class UserAccountsManager {
 		
 		  try {
 			  
+			  	// we will manually delete all accounts, to ensue, 
+			    // that the user directorires will be deleted too
+			  
+			  
+			  	accountsRepo.read(user).forEach(acc -> {deleteAccount(acc);});
+			  
 		    	usersRepo.delete(user );
+		    	
 		  }
 		  catch(Exception databaseException) {
 			   
 			  if(databaseException instanceof DataIntegrityViolationException) {
 				  
-				  throw new InternalError("Account does exist");
+				  throw new InternalError("User does not exist");
 			  }
 			  
 			  else {
@@ -151,25 +158,28 @@ public class UserAccountsManager {
     }
 	
     
-    public void createAccount(Users user, Accounts newCreatedAccount) {
+    public Accounts createAccount(Users user, Accounts newCreatedAccount) {
     	
     	  try {
     		  
     		    newCreatedAccount.setAccountOwners(user);
-    	    	accountsRepo.create( newCreatedAccount);
+    	    
+    		    accountsRepo.create( newCreatedAccount);
     	    	
     	    	if(newCreatedAccount.getAccountType().equals(AccountTypes.COORDINATOR)) 
       			{
       				// path gets created in the constructor
       				 	
     	    		// keep in mind, we are using the UserPathManager at this point 
-    	    	 	
+    	    	 	 
     	    		UserPathManager userSpecificPathManager = (UserPathManager)  noticeJSONFileHandler .getPathManager();
     	    		
-    	    		userSpecificPathManager.createUserSpecificPath(newCreatedAccount.getAccountId());
+    	    		userSpecificPathManager.createUserSpecificPath(newCreatedAccount.getAccountId()); 
       			}
+    	    	
+    	    	return newCreatedAccount;
 		  }
-		   
+		    
 		  catch(Exception databaseException) {
 			   
 			  if(databaseException instanceof DataIntegrityViolationException) {
@@ -261,15 +271,16 @@ public class UserAccountsManager {
 	
 		try {
 			
-			accountsRepo.delete(accountToDelete);
-	
 			if(accountToDelete.getAccountType().equals(AccountTypes.COORDINATOR)) 
-			{
+			{ 
 				noticeJSONFileHandler.getPathManager().deletePath();
 			}
+			
+			accountsRepo.delete(accountToDelete);
 		}
 		catch(Exception accoutDeletionFailed) {
 			
+			 accoutDeletionFailed.printStackTrace();
 			// we will not further Action ... just logging @FixMe
 		} 
 	

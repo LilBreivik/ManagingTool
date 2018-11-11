@@ -36,10 +36,7 @@ public class ComponentsManufactory {
 	 * */
 	
 	public static <T> T createComponent(String beanName, Class<T> clazz) {
-		
-		System.out.println();
-		System.out.println("bean name " + beanName);
-		System.out.println("class " + clazz);
+		 
 		try {
 			 
 			

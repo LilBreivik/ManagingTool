@@ -78,8 +78,7 @@ public class XMLLectureElement {
 				
 			}
 			catch(NullPointerException nullEx) {
-				nullEx.printStackTrace();
-				System.out.println();
+				nullEx.printStackTrace(); 
 			}
 			
 			

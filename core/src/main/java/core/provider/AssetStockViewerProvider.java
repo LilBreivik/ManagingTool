@@ -18,7 +18,7 @@ public class AssetStockViewerProvider
 	@Autowired 
 	@Qualifier("XMLFileHandler for CourseScheduleXMLFile")
 	private RawXMLFileHandler<PersistenceCourseSchedulePOJO>  xmlFileHandler;
-
+ 
 	 
 	@Bean 
 	@Qualifier("provide AssetStockViewer for Course Schedule")
@@ -28,9 +28,7 @@ public class AssetStockViewerProvider
 		AssetStockViewer<PersistenceCourseSchedulePOJO> courseScheduleAssetStockViewer =  new AssetStockViewer<PersistenceCourseSchedulePOJO> (xmlFileHandler , 
 																								NameResolverProvider.provideNameResolverForCourseScheduleFile(), 
 																									filesRepo);
-
-		courseScheduleAssetStockViewer.loadAssetStockView("CourseSchedule");
-		
+ 
 		
 		return courseScheduleAssetStockViewer;
 	}
@@ -43,10 +41,7 @@ public class AssetStockViewerProvider
 		AssetStockViewer<PersistenceCourseSchedulePOJO> lectureScheduleAssetStockViewer =  new AssetStockViewer<PersistenceCourseSchedulePOJO> (xmlFileHandler , 
 																			NameResolverProvider.provideNameResolverForLectureScheduleFile(), 
 																		filesRepo);
-
-		
-		lectureScheduleAssetStockViewer.loadAssetStockView("CourseSchedule");
-		
+ 
 		
 		return lectureScheduleAssetStockViewer;
 	

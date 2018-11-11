@@ -1,30 +1,27 @@
 package resources.components.filehandler.XML.general;
  
 
-import resources.components.filehandler.general.RawFileHandler;
-import resources.components.filereader.XML.XMLFileReader;
-import resources.components.filereader.XML.XMLFileReaderManager;
-import resources.fileconnection.XMLFileConnection;
+import resources.components.elements.POJO.Persistence.LectureScheduleOfCoursePOJO;
+import resources.components.filehandler.general.RawFileHandler; 
+import resources.components.filereader.XML.reader.XMLFileReader;
+import resources.components.filereader.XML.readermanager.XMLFileReaderManager;
 import resources.utils.pathmanager.PathManager;
-
+ 
 public class RawXMLFileHandler<POJOClass> 
-						extends RawFileHandler
-								implements IXMLFileHandler<POJOClass> {
+									extends RawFileHandler  {
 
-	private  XMLFileReaderManager<POJOClass> m_xmlFileReaderManager; 
 	 
 	public RawXMLFileHandler(PathManager pathManagerToJSONFiles,
-			XMLFileReaderManager<POJOClass> xmlFileReaderManager) { 
+			XMLFileReader<POJOClass> xmlFileReader) { 
 		
-		super(pathManagerToJSONFiles);
+		super(pathManagerToJSONFiles,  xmlFileReader );
 		
-		m_xmlFileReaderManager = xmlFileReaderManager;
 	}
-
+ 
+	
 	@Override
-	public POJOClass readXMLFile(String fileName) {
-		 
-		return  readFile( new XMLFileReader<POJOClass>(new XMLFileConnection(p_PathManager.getPathToOperateOn()), 
-				m_xmlFileReaderManager),  fileName);
+	public <ReadObjectType> ReadObjectType readFile(String fileName) {
+		
+		return super.readFile(fileName);
 	}
 }

@@ -10,9 +10,11 @@ import resources.components.filehandler.JSON.general.GeneralJSONFileHandler;
 import resources.components.filehandler.JSON.general.GeneralPersistentJSONFileHandler;
 import resources.components.filehandler.utils.adder.general.GeneralPOJOPersistenceAdder;
 import resources.components.filehandler.utils.subtractor.general.GeneralPOJOPersistenceSubtractor;
+import resources.components.filereader.JSON.GeneralJSONFileReader;
+import resources.components.filewriter.JSON.GeneralJSONFileWriter;
 import resources.utils.pathmanager.PathManager; 
 
-@Configuration
+@Configuration 
 public class PersistentJSONFileHandlerProvider {
   
 	@Bean
@@ -22,10 +24,15 @@ public class PersistentJSONFileHandlerProvider {
 											@Qualifier("POJOPersistenceAdder for AllLecturesScheduleJSON") GeneralPOJOPersistenceAdder<AllLecturesPOJO> persistenceAddition,
 												@Qualifier("POJOPersistenceSubstractor for AllLecturesScheduleJSON") GeneralPOJOPersistenceSubtractor<AllLecturesPOJO> persistenceSubstraction){
 					 
-		return new GeneralPersistentJSONFileHandler<AllLecturesPOJO>(AllLecturesPOJO.class, 
-																		 pathManagerToJSONFiles,
-																			 persistenceAddition,
-																				persistenceSubstraction );
+		
+		
+		
+		
+		return new GeneralPersistentJSONFileHandler<AllLecturesPOJO>(pathManagerToJSONFiles,
+																		 new GeneralJSONFileReader<AllLecturesPOJO> (AllLecturesPOJO.class),
+																			new GeneralJSONFileWriter<AllLecturesPOJO>(),
+																				persistenceAddition,
+																	 				persistenceSubstraction );
 	}
 	
 	@Bean
@@ -36,20 +43,22 @@ public class PersistentJSONFileHandlerProvider {
 											@Qualifier("POJOPersistenceSubstractor for LectureScheduleOfCoursePOJO") GeneralPOJOPersistenceSubtractor<LectureScheduleOfCoursePOJO> persistenceSubstraction		
 										){
 			
-		return new GeneralPersistentJSONFileHandler< LectureScheduleOfCoursePOJO>(LectureScheduleOfCoursePOJO.class, 
-																					pathManagerToJSONFiles,
-																					    persistenceAddition,
-																						 	persistenceSubstraction	);		
+		return new GeneralPersistentJSONFileHandler< LectureScheduleOfCoursePOJO>(pathManagerToJSONFiles,
+																					new GeneralJSONFileReader<LectureScheduleOfCoursePOJO> (LectureScheduleOfCoursePOJO.class),
+																						new GeneralJSONFileWriter<LectureScheduleOfCoursePOJO>(),
+																					    	persistenceAddition,
+																						 		persistenceSubstraction	);		
 	}
 	 
 	  
 	@Bean  
 	@Qualifier("JSONFileHandler for NoticesJSONFile")
-	public GeneralJSONFileHandler<NoticesPOJO> provideNoticesJSONFileHandler(
+	public GeneralJSONFileHandler<NoticesPOJO > provideNoticesJSONFileHandler(
 		 
 			@Qualifier("Path to User Notices") PathManager pathManagerToJSONFiles){
 		
-		return new GeneralJSONFileHandler<NoticesPOJO>(NoticesPOJO.class, 
-				pathManagerToJSONFiles );  
+		return new GeneralJSONFileHandler< NoticesPOJO>( pathManagerToJSONFiles,
+																		new GeneralJSONFileReader<NoticesPOJO> (NoticesPOJO.class),
+																			new GeneralJSONFileWriter<NoticesPOJO>() );  
 	}
 }

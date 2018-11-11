@@ -36,11 +36,21 @@ public class GeneralJSONFileReader< ReadObjectType >
 			
 			dummyObject =  (ReadObjectType) mapper.readValue(file, m_castingClass);
 			
-		} catch (IOException e) {
+		} catch (Exception readError) {
 		 
-			// @FIXME Standard errors 
+			if(readError instanceof FileNotFoundException) {
 			
-			throw new FileProcessingError(file);
+				throw new FileNotFoundException();
+			}
+			else if(readError instanceof IOException) {
+			
+				throw new FileProcessingError(file);
+			}
+			else if(readError instanceof ClassCastException) {
+			
+				throw new ClassCastException();
+			}
+			 
 		}
 		 
 		return dummyObject;

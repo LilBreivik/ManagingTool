@@ -6,7 +6,7 @@
                 <option *ngFor="let semester of scheduleData.semesterNr" > {{semester}} </option>      
         </select>
 </div>
-
+ 
  
 <div class="col-md-6 col-sm-6 col-xs-6">
         <label>&nbsp;Übungen einblenden: </label>
@@ -26,21 +26,22 @@
               </th> 
           </tr>
           <tr *ngFor="let time of scheduleData.times">
-            
+             
             <td>{{ time }}</td> 
             <td class="table_cell" *ngFor="let day of scheduleData.days">
                 <lecture-component [day]="day" 
                                         [time]="time" 
                                            [semester]="scheduleData.selectedSemesterValue"
-                                              [parallelSemester]="scheduleData.getParallelSemester()"
+                                              [parallelSemester]="scheduleData.getParallelSemester(scheduleData.selectedSemesterValue)"
                                                   [course]="scheduleData.selectedCourseNameValue"
                                                       [parallelCourse]="scheduleData.selectedParallelCourseNameValue"  
-                                                         [practiceChoice]="scheduleData.choisesDict.getValue(scheduleData.selectedPracticeChoice)" 
-                                                            [lectureProperties]="scheduleData.lecturesList" 
-                                                               [attr.id]="day + '' + time"  >
+                                                         [parallelCourseChoice]="scheduleData.choisesDict.getValue(scheduleData.selectedParallelCourseChoice)"
+                                                            [practiceChoice]="scheduleData.choisesDict.getValue(scheduleData.selectedPracticeChoice)"
+                                                                [lectureProperties]="scheduleData.lecturesList" 
+                                                                    [attr.id]="day + '' + time"  >
                 </lecture-component> 
             </td> 
-          </tr>
+          </tr> 
       </tbody>
     </table>
 </div> 

@@ -8,12 +8,12 @@ import core.backend.NonREST.model.IndexPageView;
 public abstract class GeneralIndexPageController<view extends IndexPageView> 
 
 											extends IndexPageController< view >{
-
+ 
 	public static final String  indexPageTemplate =  "index"; 
 	
 	public GeneralIndexPageController() {
 		
 		super(indexPageTemplate);
 	}
-	 
+	  
 }

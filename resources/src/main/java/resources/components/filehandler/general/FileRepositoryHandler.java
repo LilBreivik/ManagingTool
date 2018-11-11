@@ -1,17 +1,24 @@
 package resources.components.filehandler.general;
 
-import java.io.File;
+import static com.google.common.collect.MoreCollectors.onlyElement;
+
+import java.io.File; 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.Date; 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import resources.components.filereader.general.IFileReader;
 import resources.components.filereader.utils.FileNameTranslator;
 import resources.database.entities.File.Files;
 import resources.database.repository.FilesRepository;
+import resources.utils.general.GeneralPurpose;
 import resources.utils.pathmanager.PathManager;
+import resources.utils.user.AuthorizedUserAccount;
 
 /**
  *  FileHandler 
@@ -19,18 +26,22 @@ import resources.utils.pathmanager.PathManager;
  *  that must be tracked with the 
  *  expected database 
  * */
-
+ 
 public abstract class FileRepositoryHandler 
-										extends GeneralFileHandler {
+										extends GeneralFileHandlerImplOfAPI {
 
 	private FilesRepository m_FileRepository; 
+	 
 	
 	public  FileRepositoryHandler(PathManager pathManager, 
 										  FilesRepository fileRepository, 
-								  		  		FileNameTranslator fileNameTranslator) {
+								  		  		FileNameTranslator fileNameTranslator, 
+								  		  			IFileReader  fileReader) {
  
-		super( pathManager, fileNameTranslator);
+		super( pathManager, fileNameTranslator, fileReader);
+		
 	    m_FileRepository = fileRepository; 
+	   
 	}
 	
 	
@@ -60,16 +71,14 @@ public abstract class FileRepositoryHandler
 		fileStateToUpdate.setFiledeleted(false);
 		fileStateToUpdate.setFileUploadedAt(new Date(System.currentTimeMillis()));
 		  
-		
-		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
-		
-		final String uploaderName = authentication.getName();
+		 
+		AuthorizedUserAccount authorizedAccount = (AuthorizedUserAccount) authentication.getPrincipal();
+	
+		final String uploaderName = authorizedAccount.getAccount().getAccountOwners().getUserName();
         
 		fileStateToUpdate.setFileUploader(uploaderName);  
 		fileStateToUpdate.setFilePath( pathManagerToCurrentWorkDirectory.getPathToOperateOn().relativize(pathToExistingFile  ).toString()); // we have to store the physical location of this file 
-		
 		
  		m_FileRepository.addNewFile(fileStateToUpdate);
 		
@@ -104,25 +113,30 @@ public abstract class FileRepositoryHandler
 		fileStateToUpdate.setFileUploaded(false);
 		
 		fileStateToUpdate.setFiledeleted(true);
-			
+			  
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		
-		String currentPrincipalName = authentication.getName();
-			 
-		final String deleterName = authentication.getName();
 		 
+		AuthorizedUserAccount authorizedAccount = (AuthorizedUserAccount) authentication.getPrincipal();
+	 
 		
+		final String deleterName =  authorizedAccount.getAccount().getAccountOwners().getUserName();
+		 
 		fileStateToUpdate.setFileDeleter( deleterName);
 		
 		fileStateToUpdate.setFileDeletedAt(new Date(System.currentTimeMillis()));
-			
-			 
+				 
 		fileStateToUpdate.setFilePath(null); // we have to store the physical location of this file 
 		 
 		m_FileRepository.addNewFile(fileStateToUpdate);
 			 
 		
 	} 
-
+	
+	@Override
+	public <ReadFileType>  ReadFileType readFile(String fileName) {
+	 
+		return super.readFile(fileName);
+	}
+	 
 }

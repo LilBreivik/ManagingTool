@@ -33,7 +33,7 @@ public class AdviceMessageFactory {
 
 	public static AdviceMessage createMissingAssetFileAdviceMessage(String name, String cause) {
 		
-		return new AdviceMessage("Die Datei " + name + " kann nicht " + cause  + " werden, da sie nicht exisitiert" + "\r\n" 
-				+ "Tipp: Stellen Sie zunächst fest, ob diese Datei (oder die zugehörige) überhaupt hochgeladen wurde ");
+		return new AdviceMessage("Die Datei " + name + " kann nicht " + cause  + " werden, da sie nicht exisitiert." + "\r\n" + "\r\n" 
+				+ "Tipp: Stellen Sie zunächst fest, ob diese Datei (oder die zugehörige) überhaupt hochgeladen wurde. ");
 	}
 }

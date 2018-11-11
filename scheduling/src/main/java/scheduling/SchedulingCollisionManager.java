@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.springframework.stereotype.Component;
 
 import resources.components.elements.POJO.Lecture.LecturePOJO;
@@ -14,14 +16,17 @@ import resources.utils.general.Constants.Days;
 import scheduling.Correction.CorrectionMessage; 
 import scheduling.POJO.ScheduledLecturesPOJO; 
 import scheduling.Timing.ConflictsManager;
-import scheduling.Timing.SchedulingDay; 
+import scheduling.Timing.SchedulingDay;
+import scheduling.Timing.SchedulingWeek; 
 
 @Component
 public class SchedulingCollisionManager {
 
 	private ConflictsManager m_ConflictsManager; 
-		
-	private Map<Days, List<TimeBlock>> m_scheduledTimeBlocks;
+
+	private SchedulingWeek scheduleWeekForChooseCourseAndNextSemester;
+	
+	private SchedulingWeek scheduleWeekForChooseCourseAndSemester;
 	 
 	/*
 	 * 
@@ -30,85 +35,49 @@ public class SchedulingCollisionManager {
 	 * 
 	 * */ 
 	
-	public void checkConflicts(List<LecturePOJO> lecturesList) {
+	public void checkCollisons(List<LecturePOJO> lecturesList) {
 		 
-		// scheduledTimeBlocks, that will be returned to the client
-		m_scheduledTimeBlocks = new HashMap<Days, List<TimeBlock>>() {{
-											put(Days.Montag, null);
-											put(Days.Dienstag, null);
-			 								put(Days.Mittwoch, null);
-											put(Days.Donnerstag, null);
-											put(Days.Freitag, null);
-									}};
+		
 		
 		m_ConflictsManager = new ConflictsManager();
 		
+		// at first we initalize lists , that contains the lectures, and practices 
+		// of the certain courses and semesters 
+		
 		m_ConflictsManager.initializeCourses(lecturesList);
-		
-		m_ConflictsManager.findConflicts( );
-		
-		if(m_ConflictsManager.conflictsThere()) {
-			
-			m_ConflictsManager.permutateLectures();
-			// conflicts still there ? 
-			if(m_ConflictsManager.conflictsThere()) {
-				
-				m_ConflictsManager.overrideLectures();
-			}
-			else {
-				
-			} 
-		}
-		else {
-			
-			
-		} 
-	  
-		
-		for(Days day : Days.values()) {
-			
-			SchedulingDay scheduleDay = m_ConflictsManager.getScheduleDays().getSchedulingDay(day);
-	  
-			System.out.println(scheduleDay.getM_scheduleDay().toString());
-			System.out.println(scheduleDay.getFreeTimeBlocksOfTheDay());
-			System.out.println(scheduleDay.getOccupiedTimeBlocksOfTheDay());
-			System.out.println(scheduleDay.getOccupiedTimeBlocksOfTheDay().size());
-			// load the scheduled time blocks.. 
-			m_scheduledTimeBlocks.put(scheduleDay.getM_scheduleDay(), scheduleDay.getOccupiedTimeBlocksOfTheDay());
-		}
-		
 	 
 		
-		System.out.println(m_ConflictsManager.getScheduleDays());
-		System.out.println(""); 
+		// current choosen course and semester 
+		
+		 
+		m_ConflictsManager.checkConflicts(m_ConflictsManager.courseLecturesInFirstSemester, m_ConflictsManager.coursePracticesInFirstSemester);
+		 
+		scheduleWeekForChooseCourseAndSemester = m_ConflictsManager.getScheduleDays();
+		
+		
+		m_ConflictsManager.checkConflicts(m_ConflictsManager.courseLecturesInSecondSemester, m_ConflictsManager.coursePracticesInSecondSemester);
+		 
+		
+		scheduleWeekForChooseCourseAndNextSemester  = m_ConflictsManager.getScheduleDays();
 	}
 
- 
-	public List<ScheduledLecturePOJO> getScheduledTimeBlock(){
-		
-		List<ScheduledLecturePOJO> scheduledTimeBlocks = new ArrayList<>();
-		 
-		for(Days day : m_scheduledTimeBlocks.keySet()) {
-			
-			scheduledTimeBlocks.addAll(m_scheduledTimeBlocks.get(day)
-											.stream()
-								 			.map(block -> ScheduledLecturePOJO.createScheduleLecturePOJO(block, day))
-											.collect(Collectors.toList()));
-		}
-		
-		return scheduledTimeBlocks;
-	}
+  
 	
-	private  List<String> createSchedulingMessage(List<LecturePOJO> lecturesList, 
+	private  List<String> createCorrectionMessage(List<LecturePOJO> lecturesList, 
 															List<ScheduledLecturePOJO> scheduledTimeBlock){
 		 
 		List<CorrectionMessage> correctionMessageList = new ArrayList<CorrectionMessage>();
 		
 		for(LecturePOJO lecturePOJO: lecturesList) {
 			
-			if(scheduledTimeBlock.stream().filter(block -> block.getLectureId()
-							     .equals(lecturePOJO.getLectureId()))
-										  .collect(Collectors.toList()).size() == 1) 
+			if(scheduledTimeBlock.stream().filter(block -> 
+			
+						
+						{ 
+										return 	block.getLectureId()
+										     .equals(lecturePOJO.getLectureId());
+							
+						}).collect(Collectors.toList()).size() == 1) 
 			{
 				
 				ScheduledLecturePOJO scheduledLecturePOJO  = scheduledTimeBlock.stream(
@@ -123,15 +92,22 @@ public class SchedulingCollisionManager {
 				}		
 			}
 		}
-		
 	
-		return correctionMessageList.stream().map(correction -> correction.toString()).collect(Collectors.toList());
+	 	return correctionMessageList.stream().map(correction -> correction.toString()).collect(Collectors.toList());
 	}
 
 
-	public ScheduledLecturesPOJO buildCollisionCheckResponse(List<ScheduledLecturePOJO> scheduledTimeBlock,
-			List<LecturePOJO> lecturesList) {
+	public ScheduledLecturesPOJO buildCollisionCheckResponse(List<LecturePOJO> lecturesList) {
 		
-		return new ScheduledLecturesPOJO(scheduledTimeBlock, createSchedulingMessage(lecturesList, scheduledTimeBlock));
+		List<String> correctionMessagesForChooseCourseAndSemester = createCorrectionMessage(lecturesList, scheduleWeekForChooseCourseAndSemester.buildScheduledTimeBlocksOfTheWeek());
+		 
+		List<String> correctionMessagesForChooseCourseAndNextSemester = createCorrectionMessage(lecturesList, scheduleWeekForChooseCourseAndNextSemester.buildScheduledTimeBlocksOfTheWeek());
+		
+		 
+		return new ScheduledLecturesPOJO(Stream.concat(scheduleWeekForChooseCourseAndSemester.buildScheduledTimeBlocksOfTheWeek().stream(),
+				 scheduleWeekForChooseCourseAndNextSemester.buildScheduledTimeBlocksOfTheWeek().stream()).collect(Collectors.toList()), 
+				
+				Stream.concat(correctionMessagesForChooseCourseAndSemester.stream(),
+			    		correctionMessagesForChooseCourseAndNextSemester.stream()).collect(Collectors.toList()));
 	} 
 }

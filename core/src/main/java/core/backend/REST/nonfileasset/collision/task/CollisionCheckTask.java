@@ -1,51 +1,44 @@
 package core.backend.REST.nonfileasset.collision.task;
 
  
-import core.backend.REST.general.response.result.successfully.SuccessResponse;
-import core.backend.REST.general.task.general.GeneralAbstractTaskImpl;
-import core.backend.REST.nonfileasset.collision.parameter.CollisionCheckParameter; 
-import resources.components.filehandler.general.GeneralFileHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import core.backend.REST.general.response.result.successfully.SuccessResponse; 
+import core.backend.REST.general.task.response.AbstractResponseTaskImpl;
+import core.backend.REST.nonfileasset.collision.parameter.CollisionCheckParameter;  
 import scheduling.SchedulingCollisionManager;
 import scheduling.POJO.ScheduledLecturesPOJO; 
 
+@Component
 public class CollisionCheckTask 
-
-                      extends GeneralAbstractTaskImpl<  CollisionCheckParameter, ScheduledLecturesPOJO>{
-
+ 
+                      extends AbstractResponseTaskImpl<  CollisionCheckParameter, ScheduledLecturesPOJO>{
+	
 	private CollisionCheckParameter m_courseCollisionCheckRequest;
 	
-	protected ScheduledLecturesPOJO response; 
-	
-	protected SchedulingCollisionManager p_collisionManager;
+	@Autowired 
+	private SchedulingCollisionManager p_collisionManager;
  
 	
-	 
-	public CollisionCheckTask(SchedulingCollisionManager collisionManager ) {
-
-		p_collisionManager  =  collisionManager;
-	}
-	
-	  
 	@Override
-	public void workOnTask( ){
+	public void workOnTask(CollisionCheckParameter courseCollisionCheckRequest ){
 	
+		// safe request , for futher processing 
+		
+		m_courseCollisionCheckRequest = courseCollisionCheckRequest; 
+		
 		// check Collisions 
 		 
-		p_collisionManager.checkConflicts(m_courseCollisionCheckRequest.getLecturesList());
+		p_collisionManager.checkCollisons(  m_courseCollisionCheckRequest.getLecturesList());
 				  
 	}
 	
-	
+	 
 	@Override
 	public SuccessResponse<ScheduledLecturesPOJO> getResultsFromTask() {
 		 
-		return new SuccessResponse<ScheduledLecturesPOJO>(p_collisionManager.buildCollisionCheckResponse(p_collisionManager.getScheduledTimeBlock(), 
+		return new SuccessResponse<ScheduledLecturesPOJO>(p_collisionManager.buildCollisionCheckResponse( 
 				m_courseCollisionCheckRequest.getLecturesList()));
-	}
-
-
-	public void setCollisionCheckRequest(CollisionCheckParameter courseCollisionCheckRequest) {
-		
-		m_courseCollisionCheckRequest = courseCollisionCheckRequest; 
 	}
 }

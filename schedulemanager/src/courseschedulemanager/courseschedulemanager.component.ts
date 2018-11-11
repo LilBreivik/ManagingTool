@@ -63,7 +63,7 @@ constructor(private viewContainerRef: ViewContainerRef,
                  private collisioncourseschedule: CollisionCourseScheduleService,
                      private coursescheduleService : CoursesScheduleService, 
                          private addNoticeService : AddNoticeService,
-                             private deleteNoticeService :  DeleteNoticeService,
+                            private deleteNoticeService :  DeleteNoticeService,
                              private readSpecificNoticeService : ReadSpecificNoticeService,
                                private readGeneralNoticeService : ReadGeneralNoticeService,
                                  private courseservice: CourseService, 
@@ -129,13 +129,14 @@ private updateNotices( correctionMessages : LinkedList<CorrectionPOJO>){
 
  correctionMessages.forEach(message => {
 
-     this.scheduleNotices = this.scheduleNotices + "" + message.correctionMessage;
+     this.scheduleNotices += message.correctionMessage + "\r\n";
  })
 
- updateNoticeInformation("",  this.scheduleNotices.toString());
-}
+ updateNoticeInformation(document.getElementById("noticeHeadline").innerText,  this.scheduleNotices.toString());
+ 
+} 
 
-
+ 
 readNotice(){
 
  this.noticeWasRead = true; 
@@ -186,7 +187,7 @@ deleteNotice(){
 
  }); 
 }
-
+ 
 
 addNotice(){
 
@@ -228,7 +229,8 @@ buildSchedule(){
  coursesRequestParameter.course.courseTerm = this.selectedCourseTermValue;
  
  this.scheduleManager.lecturesList  = new LectureSchedulePOJOList();  
- 
+    
+
  this.courseservice.getCourses(coursesRequestParameter).subscribe(courses => {
      
      this.scheduleManager.course = this.selectedCourseNameValue
@@ -271,6 +273,7 @@ buildParallelSchedule(value: any){
      coursesRequestParameter.course.courseName = this.parallelCourseNameFilter.transform(   this.coursesSchedule, this.selectedCourseNameValue)[0];
      coursesRequestParameter.course.courseTerm = this.selectedCourseTermValue;
 
+ 
      if(this.lecturesToAppend.size() === 0){
 
          this.courseservice.getCourses(coursesRequestParameter).subscribe(courses => {

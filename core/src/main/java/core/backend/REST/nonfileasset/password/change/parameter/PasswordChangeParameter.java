@@ -1,12 +1,10 @@
 package core.backend.REST.nonfileasset.password.change.parameter;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-
+import org.springframework.security.core.context.SecurityContextHolder; 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import core.backend.REST.general.request.custom.nonschedule.RESTCustomNonScheduleRequest;
+import com.fasterxml.jackson.annotation.JsonProperty; 
+import core.backend.REST.general.request.RESTRequest;  
 import resources.components.elements.POJO.Password.change.PasswordChangePOJO;
 import resources.database.entities.Accounts.Accounts;
 import resources.error.parameter.ParameterViolationError;
@@ -14,7 +12,7 @@ import resources.utils.user.AuthorizedUserAccount;
 
 public class PasswordChangeParameter 
 
-						extends RESTCustomNonScheduleRequest<PasswordChangePOJO>{
+						extends RESTRequest<PasswordChangePOJO>{
  
 	private String m_changedPassword; 
 	
@@ -26,7 +24,7 @@ public class PasswordChangeParameter
 
 	@Override
 	public void verifyParameter() {
-	 
+	  
 		// password from the request, that shall be stored
 		
 		final String existingPassword = getRequest().getExistingPassword();

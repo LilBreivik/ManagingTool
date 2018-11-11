@@ -14,7 +14,14 @@ public abstract class NameResolver<T> {
 	@Override
 	public String toString() {
 	 
-		return resolvedFileName.toString();
+		if(resolvedFileName == null) 
+		{
+			return ""; 
+		}
+		else {
+		
+			return resolvedFileName.toString();
+		}
 	}
 	
 }

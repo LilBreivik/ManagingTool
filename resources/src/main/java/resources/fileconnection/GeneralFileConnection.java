@@ -1,7 +1,7 @@
 package resources.fileconnection;
  
 import java.io.File;
-import java.nio.file.Path;
+import java.nio.file.Path; 
 
 /**
  * This class describes the general 
@@ -14,32 +14,25 @@ import java.nio.file.Path;
  * 
  * */
 
+
 public abstract class GeneralFileConnection {
 
 	// The path, where a certain file shall be
 	
 	protected Path p_path; 
 	 
-	private File connectedFile;
-	 
-	public GeneralFileConnection(Path path ) {
-		
-		p_path =  path; 
-	}
+	protected File p_connectedFile;
 	
 	public Path getPath() {
 		
 		return p_path;
 	}
-	
-	public abstract void buildConnectionToAFile(File file);
+	 
+	protected abstract  void buildConnectionToAFile(File file);
 
 	public File getConnectedFile() {
-		return connectedFile;
+		
+		return p_connectedFile;
 	}
 
-	public void setConnectedFile(File connectedFile) {
-		this.connectedFile = connectedFile;
-	}
- 
 }

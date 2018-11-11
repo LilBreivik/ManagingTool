@@ -1,22 +1,17 @@
 package core.backend.NonREST.model.views.assets;
  
-
 import core.utils.names.FileNameResolver;
+import resources.components.elements.POJO.Course.CoursePOJO;
 import resources.utils.names.INameResolver;
-import scheduling.Utils.IScheduleParam;
 
-public class AssetStockView implements IScheduleParam{
+public class AssetStockView 
+								extends CoursePOJO{
 
 	// properties needed in the dashboard view 
 	 
 	
 	private boolean m_status; 
-	
-    private String m_courseName; 
-	
-	private String m_courseTerm; 
-	
-	private String m_courseDegree; 
+	 
 	
 	private FileNameResolver m_nameResolver;
 	
@@ -44,9 +39,9 @@ public class AssetStockView implements IScheduleParam{
 	
 	public String getStockName() {
 
-		return fileStockName.replace(courseNamePart, m_courseName)
-								.replace(courseDegreePart, m_courseDegree)
-									.replace(courseStartTermPart, m_courseTerm);
+		return fileStockName.replace(courseNamePart, getCourseName())
+								.replace(courseDegreePart, getCourseDegree())
+									.replace(courseStartTermPart, getCourseTerm());
 	}
 	
 	
@@ -55,49 +50,12 @@ public class AssetStockView implements IScheduleParam{
 		return m_nameResolver.getResolvedFileName();
 	}
 	
-	
-	@Override
-	public String getCourseName() {
-		
-		return m_courseName; 
-	}
-
-	@Override
-	public void setCourseName(String courseName) {
-		
-		m_courseName = courseName;
-	}
-
-	@Override
-	public String getCourseDegree() {
-		
-		return m_courseDegree;
-	}
-
-	
-	
-	@Override
-	public void setCourseDegree(String courseDegree) {
-		
-		m_courseDegree = courseDegree;
-	}
-
-	@Override
-	public String getCourseTerm() {
-		
-		return m_courseTerm;
-	}
-
-	@Override
-	public void setCourseTerm(String courseTerm) {
-		 
-		 m_courseTerm = courseTerm;
-	}
  
 	public boolean getStatus() {
 		return m_status;
 	}
  
+	
 	public void setStatus(boolean m_status) {
 		this.m_status = m_status;
 	}

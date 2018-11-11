@@ -1,12 +1,9 @@
 package resources.components.filehandler.general;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.File; 
 import java.io.IOException;
-import java.nio.file.Path; 
-import resources.components.filereader.general.IFileReader;
+import java.nio.file.Path;  
 import resources.components.filereader.utils.FileNameTranslator; 
-import resources.error.FileIsMissingError;
 import resources.error.InternalError;
 import resources.utils.files.OrdinaryFileHandler;
 import resources.utils.pathmanager.PathManager; 
@@ -108,67 +105,7 @@ public abstract class GeneralFileHandler {
 		}
     		 
 	}
-	 
-
-	/**
-	 * 
-	 * Method to read a File, by a certain plan, that describes the needed
-	 * "mechanism"
-	 * 
-	 * @param fileReader (IFileReader<ReadFileType>, the needed "mechanism" to describe how a certain file shall be read 
-	 * @param (String) fileName
-	 * @return (ReadFileType), an object that got the contents of a read file  
-	 * 
-	 * @throw FileIsMissingError (uncheked)
-	 * @throw InternalError  (uncheked)
-	 * */
-	 
-	protected  <ReadFileType> ReadFileType readFile(IFileReader<ReadFileType> fileReader, String fileName) {
-		
-		ReadFileType dummyObject = null;	
-		
-		try {
-			   
-			
-			dummyObject = fileReader.readFile(determinePhysicallyStoredFile(fileName));
-	    }
-		catch (FileNotFoundException fileNotThereError) {
-			  
-			   throw  new FileIsMissingError("");
-	    } 
-	    catch (ClassCastException |  IOException  internalError) {
-			  
-		    throw new InternalError("");
-			
-		}
-	    	   
-	    return dummyObject;	
-		
-	} 
-  
-	/**
-	 * 
-	 * Method to move a file , per fileName 
-	 * 
-	 * A moved File, will overwrite any existing file
-	 * 
-	 * @param (String) fileName
-	 * @param (Path) targetPath, path where the file shall be moved to 
-	 * 
-	 * @throw InternalError  (uncheked)
-	 * 
-	 * 
-	public void moveFile(String fileName, Path targetPath) { 
-		
-		try {
-			
-			OrdinaryFileHandler.moveFile(determinePhysicallyStoredFile(fileName), targetPath);
-		
-		} catch (IOException e) {
-			 
-			throw new InternalError("Cannot move File " +  fileName);
-		}
-	}*/
+	
 	
 	/**
 	 * 
@@ -218,8 +155,59 @@ public abstract class GeneralFileHandler {
 			return false; 
 		}
 	}
+	  
+	
+	/*
+		API Methods , that need to be
+		implemented individually 
+	 */
+	
+	
+	/**
+	 * 
+	 * Method to read a File, by a certain plan, that describes the needed
+	 * "mechanism"
+	 * 
+	 * @param fileReader (IFileReader<ReadFileType>, the needed "mechanism" to describe how a certain file shall be read 
+	 * @param (String) fileName
+	 * @return (ReadFileType), an object that got the contents of a read file  
+	 * 
+	 * @throw FileIsMissingError (uncheked)
+	 * @throw InternalError  (uncheked)
+	 * */
+	  
 	 
-
+	protected abstract <ReadFileType> ReadFileType readFile( String fileName); 
+	
+	
+	/**
+	 * 
+	 * Method to write to a File 
+	 * 
+	 * @param fileWriter (IFileWriter<WrittenObjectType>, the needed "mechanism" to describe how a certain file shall be written to  
+	 * @param fileName (String), fileName of the certain 
+	 * @param content (WrittenObjectType), the content, that shall be written to the persistent File 
+	 * 
+	 *  
+	 * @throw InternalError (unchecked)
+	 * 
+	 * */
+	
+	protected abstract < WrittenObjectType > void writeToFile( String fileName, 
+															   WrittenObjectType  content);
+	
+	/**
+	 * 
+	 * General Method to create a file 
+	 *  
+	 * @param (String) fileName
+	 * to build a file  
+	 * 
+	 * @throw InternalError (unchecked)
+	 * */
+	 
+	protected abstract void createFile( String fileName);
+	
 	public PathManager getPathManager() {
 		
 		return p_PathManager; 

@@ -15,15 +15,14 @@ public class UploadHandlerProvider {
 	@Qualifier("provide UploadHandler for LectureScheduleFile")
 	public UploadHandler<AllLecturesPOJO> provideUploadHandlerForLectureScheduleFile(
 						@Qualifier("XLSFileHandler for LectureScheduleXLSFiles")  GeneralXLSFileHandler xlsFileHandler
-			) {
-		 System.out.println();
+			) { 
 		
 		return new UploadHandler<AllLecturesPOJO>() {
 
 			@Override
 			public AllLecturesPOJO handleUploadedFile(String fileName) {
 				 
-				return xlsFileHandler.readXLSFile(fileName);
+				return xlsFileHandler.readFile(fileName);
 			}
 		}; 
 	}
@@ -33,14 +32,14 @@ public class UploadHandlerProvider {
 	@Qualifier("provide UploadHandler for LectureScheduleXMLFile")
 	public UploadHandler<LectureScheduleOfCoursePOJO> provideUploadHandlerForLectureScheduleXMLFile(
 			@Qualifier("XMLFileHandler for LectureScheduleXMLFiles")   GeneralXMLFileHandler<LectureScheduleOfCoursePOJO>  xmlFileHandler
-			) {
+			) { 
 		 
 		return new UploadHandler<LectureScheduleOfCoursePOJO>() {
 
 			@Override
 			public LectureScheduleOfCoursePOJO handleUploadedFile(String fileName) {
 				 
-				return xmlFileHandler.readXMLFile(fileName);
+				return xmlFileHandler.readFile(fileName);
 			}
 		};
 			 

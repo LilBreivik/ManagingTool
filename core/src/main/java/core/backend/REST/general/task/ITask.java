@@ -1,15 +1,28 @@
 package core.backend.REST.general.task;
 
-import core.backend.REST.general.request.MasterRESTRequest;
-import core.backend.REST.general.request.schedule.RESTScheduleRequest;
-import core.backend.REST.general.response.result.successfully.SuccessResponse; 
+import core.backend.REST.general.request.RESTRequest;
 
-public interface ITask<RequestParameter extends  MasterRESTRequest,
-							ResponseParameter extends SuccessResponse<?>> {
+/**
+ * 
+ * General Interface 
+ * that describes a certain task
+ * 
+ * */
 
+public interface ITask<Request extends RESTRequest > {
+
+	// common method , to describe a certain task 
+	
 	public abstract void workOnTask();
 	
-	public abstract void workOnTask( RequestParameter param);
+	/**
+	 * 
+	 * common method , to describe a certain task 
+	 * 
+	 * @param RESTRequest<Request>, param that is needed by the certain task
+	 * */
 	
-	public abstract ResponseParameter getResultsFromTask();
+	public abstract void workOnTask(Request param);
+
+	 
 }

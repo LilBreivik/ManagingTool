@@ -50,7 +50,7 @@ public class  DatabaseUserRepositoryTest {
 	  
 	  private static final String testUser1Email = "ramona1510@gmail.com"; 
 	   
-	  private static final String testUser2Name = "Herr Mueller"; 
+	  private static final String testUser2Name = "Mueller"; 
 	  
 	  private static final String testUser2Email = "mueller1510@gmail.com"; 
 	  
@@ -58,7 +58,7 @@ public class  DatabaseUserRepositoryTest {
 	  
 	  private static final String coordinatorAccountPw = "coordinatorAccountPw";
 	  
-	  private static final String testUser3Email = "mueller@polizeimittelfranken.de";  
+	  private static final String testUser3Email = "lilbreivik@gmail.com";  
 	  
 	  private static Users user1;
 	  
@@ -91,6 +91,7 @@ public class  DatabaseUserRepositoryTest {
 		  assertTrue(usersRepo != null);
 	  } 
 	  
+	 
 	  @Test
 	  public void TEST_B_checkIfWeCanAddNewUsers() {
 		  	  
@@ -144,6 +145,7 @@ public class  DatabaseUserRepositoryTest {
 		  }
 	  }
 	   
+ 
 	  @Test
 	  public void TEST_D_checkIfWeCanREADFromNewUsers() {
 		   
@@ -158,6 +160,7 @@ public class  DatabaseUserRepositoryTest {
 		 
 	  }
 	  
+ 
 	  @Test
 	  public void TEST_E_checkIfWeCanDeleteTestUser1() {
 			
@@ -180,15 +183,16 @@ public class  DatabaseUserRepositoryTest {
 		  } 		
 	}
 	   
+ 
 	  @Test
-	  public void TEST_F_checkIfWeCanGiveTestUser2_An_Admin_Account() {
+	  public void TEST_F_checkIfWeCanGiveTestUser2_An_Coordinator_Account() {
 		
 		  System.out.println();
 		  
 		  
 		  try {
 			   
-			  userAccountManager.createAccount(user2, new AdminAccount(user2, adminAccountPw));
+			  userAccountManager.createAccount(user2, new CoordinatorAccount(user2, adminAccountPw));
 			 
 			  Accounts acc = accountsRepo.read(user2).get(0);
 			  
@@ -210,6 +214,7 @@ public class  DatabaseUserRepositoryTest {
 		  } 		
 	}
  
+	 
 	  @Test
 	  public void TEST_G_checkIfWeCanVerifyAnAccount() {
 			
@@ -219,7 +224,7 @@ public class  DatabaseUserRepositoryTest {
 			  Users user = userAccountManager.createUser(testUser2Email, testUser2Name);
 			   
 			  assertThat("the password cannot be verified", 
-					  		userAccountManager.verifyAccount(user, AccountTypes.ADMIN , adminAccountPw), 
+					  		userAccountManager.verifyAccount(user, AccountTypes.COORDINATOR , adminAccountPw), 
 					  			is(true));
 			  
 			 
@@ -238,7 +243,8 @@ public class  DatabaseUserRepositoryTest {
 		  } 		
 	}
 	  
-	@Test
+	 
+	  @Test
 	 public void TEST_H_checkIfWeCanChnageTheUSEREMAIL() {
 			
 		  try {
@@ -426,8 +432,10 @@ public class  DatabaseUserRepositoryTest {
 		
 			  
 			  Users user = userAccountManager.createUser("rudi1488@gmx.de", "rudi");
-			  
+			   
 			  usersRepo.create(user);
+			  
+			    
 			  
 			  userAccountManager.createAccount(user, new CoordinatorAccount(user, "root"));
 			  
@@ -450,31 +458,32 @@ public class  DatabaseUserRepositoryTest {
 	  
 	  
 	  @Test 
-		  public void TEST_N_checkIfWeCanAddAnotherCoordinatorAccount() {
+	   public void TEST_N_checkIfWeCanAddAnotherCoordinatorAccount() {
 			  	  
-			  try {
-			
+
+		  try {
+				
+			  
+			  Users user = userAccountManager.createUser("katrin.bittner@uni.de", "kathrin");
+			  
+			  usersRepo.create(user);
+			  
+			  userAccountManager.createAccount(user, new CoordinatorAccount(user, "root"));
+			  
+		  }
+		  
+		  catch(Exception databaseException) {
+			   
+			  if(databaseException instanceof DataIntegrityViolationException) {
 				  
-				  Users user = userAccountManager.createUser("katrin.bittner@uni.de", "kathrin");
-				  
-				  usersRepo.create(user);
-				  
-				  userAccountManager.createAccount(user, new CoordinatorAccount(user, "root"));
-				  
+				  assertTrue(true);
 			  }
 			  
-			  catch(Exception databaseException) {
-				   
-				  if(databaseException instanceof DataIntegrityViolationException) {
-					  
-					  assertTrue(true);
-				  }
+			  else { 
 				  
-				  else { 
-					  
-					  assertTrue(false);
-				  }
+				  assertTrue(false);
 			  }
-			 		  
 		  }
+		 		  
+	  }
 }

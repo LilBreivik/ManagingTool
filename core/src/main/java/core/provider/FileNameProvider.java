@@ -1,20 +1,20 @@
 package core.provider;
  
 import core.utils.names.FileNameResolver;
-import scheduling.Utils.IScheduleParam;
+import resources.components.elements.POJO.Course.CoursePOJO; 
 
 public class FileNameProvider 
 								extends MasterProvider<FileNameResolver>{
 	
-	public static FileNameResolver provideFileNameResolverForCourseScheduleFile( IScheduleParam requestParam) {
+	public static FileNameResolver provideFileNameResolverForCourseScheduleFile( CoursePOJO pojo) {
 		
-		return new FileNameResolver(  requestParam, 
+		return new FileNameResolver( pojo, 
 				NameResolverProvider.provideNameResolverForCourseScheduleFile()); 
 	}
 
-	public static FileNameResolver provideFileNameResolverForLectureScheduleFile(  IScheduleParam requestParam) {
+	public static FileNameResolver provideFileNameResolverForLectureScheduleFile( CoursePOJO pojo) {
 		 
-		return new FileNameResolver(  requestParam, 
+		return new FileNameResolver( pojo, 
 				NameResolverProvider.provideNameResolverForLectureScheduleFile()); 
 	} 
 }

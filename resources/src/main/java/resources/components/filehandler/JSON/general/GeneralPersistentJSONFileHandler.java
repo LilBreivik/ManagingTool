@@ -1,7 +1,9 @@
 package resources.components.filehandler.JSON.general;
-     
+      
 import resources.components.filehandler.utils.adder.general.GeneralPOJOPersistenceAdder;
 import resources.components.filehandler.utils.subtractor.general.GeneralPOJOPersistenceSubtractor;
+import resources.components.filereader.JSON.GeneralJSONFileReader;
+import resources.components.filewriter.JSON.GeneralJSONFileWriter;
 import resources.utils.pathmanager.PathManager; 
 
 
@@ -36,12 +38,13 @@ public  class GeneralPersistentJSONFileHandler<PersistentPOJO >
 	 * */
 	
 	
-    public GeneralPersistentJSONFileHandler( Class<?> castingClass,
-    											PathManager pathManager,   
-    												GeneralPOJOPersistenceAdder<PersistentPOJO> persistenceAddition,
-    													GeneralPOJOPersistenceSubtractor<PersistentPOJO > persistenceSubstraction) {
+    public GeneralPersistentJSONFileHandler(PathManager pathManager, 
+    										    GeneralJSONFileReader<PersistentPOJO> fileReader,  
+    										    	GeneralJSONFileWriter<PersistentPOJO> fileWriter, 
+    											    GeneralPOJOPersistenceAdder<PersistentPOJO> persistenceAddition,
+    												   GeneralPOJOPersistenceSubtractor<PersistentPOJO > persistenceSubstraction) {
 				
-    	super( castingClass, pathManager);
+    	super( pathManager, fileReader, fileWriter);
 	
 		p_persistenceAddition = persistenceAddition;
 		
@@ -49,7 +52,8 @@ public  class GeneralPersistentJSONFileHandler<PersistentPOJO >
 	}
  
 	 
-  
+
+
 
 
 	/**
@@ -61,18 +65,12 @@ public  class GeneralPersistentJSONFileHandler<PersistentPOJO >
      * */
  
 	public void appendToPersistence(String fileName, PersistentPOJO contentToAppend) {
-	  	
-		System.out.println(fileName);
-		
-		PersistentPOJO pojo = readJSONFile(fileName);
-		
-		
+	  	 
 		// we add the new contents to the current POJO
 		
-		PersistentPOJO upadtedPOJO =  p_persistenceAddition.addToPersistence(readJSONFile(fileName),
-																					contentToAppend);
+		PersistentPOJO upadtedPOJO =  p_persistenceAddition.addToPersistence(readFile(fileName), contentToAppend);
 		
-		writeToJSONFile(fileName, upadtedPOJO);
+		writeToFile(fileName, upadtedPOJO);
 	}
 	
 
@@ -89,11 +87,10 @@ public  class GeneralPersistentJSONFileHandler<PersistentPOJO >
 		
 		// we add the new contents to the current POJO
 		
-    	PersistentPOJO upadtedPOJO =   p_persistenceSubsraction.subtractFromPersistence( readJSONFile(fileName),
+    	PersistentPOJO upadtedPOJO =   p_persistenceSubsraction.subtractFromPersistence( readFile(fileName),
     																						contentToSubstract);
 	
-     	writeToJSONFile(fileName, upadtedPOJO);
-	
+    	writeToFile(fileName, upadtedPOJO);
 	}
 
  

@@ -3,8 +3,7 @@ package resources.fileconnection;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Path;
+import java.io.IOException; 
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,6 +12,8 @@ import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -20,23 +21,17 @@ import org.xml.sax.SAXException;
 import resources.error.ConnectionError;
 import resources.error.parameter.fileasset.FileAssetNotCommitedError; 
  
+@Component
 public class XMLFileConnection 
 					extends GeneralFileConnection{
  
 
     private XMLInputFactory m_factory;
+    
     private XMLEventReader m_xmlEventReader; 
-
   
-    // @FIXME add ConnnectionError Handler
-    // 	it shall not be necessary to check the type of a file, additionally 
-    // its  better to handle the files by name.... 
-    public XMLFileConnection(Path path) throws ConnectionError , FileAssetNotCommitedError  {
-     		
-    	super(path); 
-    }
- 
-
+        
+    
 	/**  we need to keep track of the 
 	 *   first event, to create a possibility to read several times 
 	 *   via the same connection instance .. 
@@ -68,7 +63,7 @@ public class XMLFileConnection
 	
 			m_factory = XMLInputFactory.newInstance(); 	
 			 
-			setConnectedFile(file);
+			p_connectedFile = file; 
 			
 		}   
 		catch (NullPointerException noFileCommitted) {

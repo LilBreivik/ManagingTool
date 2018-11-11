@@ -2,13 +2,13 @@ package core.backend.REST.nonfileasset.notice.parameter;
  
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty; 
-import core.backend.REST.general.request.custom.nonschedule.RESTCustomNonScheduleRequest;
+import core.backend.REST.general.request.RESTRequest; 
 import resources.components.elements.POJO.Notices.NoticesPOJO;
 import resources.error.parameter.ParameterViolationError; 
 
 
 public class NoticeParameter 
-							extends RESTCustomNonScheduleRequest<NoticesPOJO>{
+							extends RESTRequest <NoticesPOJO>{
  
 	protected final String NO_INPUT = ""; 
 	
@@ -23,6 +23,9 @@ public class NoticeParameter
 	 
 	@Override 
 	public void verifyParameter() { 
+		
+ 
+		NoticesPOJO pojo = getRequest(); 
 		
 		if((getRequest().getNoticeHeadline().equals(NO_INPUT)) )  {
 			

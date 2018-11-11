@@ -1,8 +1,8 @@
 package core.backend.REST.fileasset.download.task;
  
-import core.backend.REST.fileasset.download.parameter.DownloadFileParameter;
+import core.backend.REST.fileasset.download.parameter.DownloadFileParameter; 
 import core.backend.REST.general.response.result.successfully.SuccessResponse;
-import core.backend.REST.general.task.response.AbstractFileHandlerTaskImpl;
+import core.backend.REST.general.task.response.AbstractFileHandlerResponseTaskImpl;
 import core.backend.utils.download.handler.DownloadHandler; 
 import javax.servlet.http.HttpServletResponse; 
 import resources.components.filehandler.general.GeneralFileHandler;
@@ -10,27 +10,37 @@ import resources.error.FileIsMissingError;
 import resources.error.InternalError;
 
 public class DownloadFileTask 
-								extends AbstractFileHandlerTaskImpl<GeneralFileHandler, DownloadFileParameter, HttpServletResponse>{
+				extends AbstractFileHandlerResponseTaskImpl< DownloadFileParameter, 
+																HttpServletResponse,
+																	GeneralFileHandler>{
 	
-	 
-
-	protected  DownloadHandler p_downloadHandler; 
+	  
+	protected   DownloadHandler p_downloadHandler; 
 
 	protected  HttpServletResponse p_httpServletResponse; 
 	
 	public DownloadFileTask(GeneralFileHandler downloadGeneralFileHandler, 
 									DownloadHandler downloadHandler) {
-		
-		super(downloadGeneralFileHandler);
-		
+	
 		p_downloadHandler =  downloadHandler; 
+
+		setFileHandler(downloadGeneralFileHandler);
 	}
+	
+
+	@Override
+	public void setFileHandler(GeneralFileHandler fileHandler) {
+	
+		p_fileHandler = fileHandler; 
+	}
+	
+	
 	
 	@Override
 	public void workOnTask() {
 		   		 
 		if(this.p_httpServletResponse != null) {
-						
+						 
 			 p_downloadHandler.processDownload(p_httpServletResponse);
 		}
 		else {			
@@ -45,17 +55,19 @@ public class DownloadFileTask
 		  
 		p_httpServletResponse = parameter.getDownloadResponse();
 		 
+		final String resolvedFileName = parameter.getFileNameResolver().getResolvedFileName(); 
+		
+		
 		// first check , if the file does exist at all 
 		
-		// we have to translate the requested name to the real existing Source on the machine ...
-		 
+		// we  have to translate the requested name to the real existing Source on the machine ...
+		  
 		
-		if( p_fileHandler .checkIfFileDoesExist(parameter.getFileNameResolver()
-				.getResolvedFileName()))  {
+		if( p_fileHandler .checkIfFileDoesExist(resolvedFileName))  {
 			
 			  if(this.p_httpServletResponse != null) {
 					
-				  p_downloadHandler.processDownload( p_fileHandler.determinePhysicallyStoredFile(parameter.getFileNameResolver().getResolvedFileName()),
+				  p_downloadHandler.processDownload( p_fileHandler.determinePhysicallyStoredFile(resolvedFileName),
 										p_httpServletResponse);
 			  }
 		  	  else {			
@@ -63,14 +75,14 @@ public class DownloadFileTask
 					InternalError internalError = new InternalError("Download Response was not defined");
 					
 					throw internalError;
-				}		
+				}		 
 		}
 			
 		else {
 				
-			FileIsMissingError missingFileError = new FileIsMissingError("Die Datei " + parameter.getFileNameResolver().getResolvedFileName().toString() + " ist nicht vorhanden");
+			FileIsMissingError missingFileError = new FileIsMissingError("Die Datei " + resolvedFileName+ " ist nicht vorhanden");
 				
-			missingFileError.missingFileName =  parameter.getFileNameResolver().getResolvedFileName().toString(); 
+			missingFileError.missingFileName = resolvedFileName; 
 				
 	    	missingFileError.missingFileCause = "heruntergeladen"; 
 				
@@ -93,6 +105,8 @@ public class DownloadFileTask
     	 
     }
  
+ 
+
 }
 
 

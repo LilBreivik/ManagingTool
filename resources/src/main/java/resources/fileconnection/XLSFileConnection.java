@@ -1,25 +1,24 @@
 package resources.fileconnection;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-
+import java.io.IOException; 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook; 
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.springframework.stereotype.Component;
+
 import resources.error.ConnectionError;
 import resources.error.parameter.fileasset.FileAssetNotCommitedError;
  
+@Component
 public class XLSFileConnection 
 									extends GeneralFileConnection{
 
 	private Workbook m_wb;
-    private Sheet m_sheet;
-	
-	public XLSFileConnection(Path path) {
-		super(path);
-	}
+   
+	private Sheet m_sheet;
+ 
  
 	@Override
 	public void buildConnectionToAFile(File file) {
@@ -30,7 +29,7 @@ public class XLSFileConnection
 			 
 			m_sheet = m_wb.getSheetAt(0);
 			
-			setConnectedFile(file);
+			p_connectedFile = file; 
 		 
 		}
 		catch (NullPointerException noFileCommitted) {

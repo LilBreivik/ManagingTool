@@ -26,8 +26,7 @@ public class VZeitConstraintStrategy extends ConstraintStrategy<String> {
 	 * the shortcuts of the week days, mapped with its fully 
 	 * qualified names....
 	 */
-	
-	
+	  
 	
 	private Map<String, String> expectedValues = new HashMap<String, String>();
 	
@@ -192,8 +191,5 @@ public class VZeitConstraintStrategy extends ConstraintStrategy<String> {
 		reloadValues();
 		return  m_constrainedValue; 
 	}
-	
 	 
-	
- 
 }

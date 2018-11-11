@@ -35,23 +35,27 @@
             <select id="selectedCourseTerm" class="form-control" (change)="readAssetsInformation()" [(ngModel)]="selectedCourseTermValue">
                     <option *ngFor="let course of coursesSchedule | courseterms" > {{ course  }} </option>      
             </select>
+            <br>
             <div *ngIf="assetsThere">
                 <div id="buttonWrapper">
                     <div id="eraseButton"><button type="button" class="btn btn-danger" (click)="deleteAsset()"> {{selectedCourseNameValue + ' ' + selectedCourseDegreeValue + ' ' + selectedCourseTermValue}} löschen </button></div>
+                    <br>
                     <div id="downloadButton">
                           <button type="button" class="btn btn-info" (click)="downloadAsset()"> {{selectedCourseNameValue + ' ' + selectedCourseDegreeValue + ' ' + selectedCourseTermValue}} herunterladen </button>
                           <p style="display: inline-block; float: right">&nbsp;Zuletzt hochgeladen von: {{uploaderName}}&nbsp;</p>
-                        </div>
+                    </div>
                 </div>
             </div> 
+            <br> 
             <div *ngIf="!assetsThere">
   
                 <div *ngIf="m_filending === '.xls'">
                     <input type="file" (change)="uploadAsset($event)" placeholder="Upload file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                 </div>
+                <br>
                 <div *ngIf="m_filending === '.xml'">
                     <div class="col-md-6 col-sm-6 col-xs-6">
-                        <input type="file" (change)="uploadAsset($event)" placeholder="Upload file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/xml">
+                        <input type="file" (change)="uploadAsset($event)" placeholder="Upload file" accept="application/xml">
                      </div>
                     
                     <div class="col-md-6 col-sm-6 col-xs-6">
@@ -59,7 +63,7 @@
                             <button type="button" class="btn btn-info" (click)="downloadTemplateFileAsset()"> Template Datei herunterladen </button>
                         </div>        
                      </div>
-                    </div>
+               </div>
              </div>     
         </div>
   </div>

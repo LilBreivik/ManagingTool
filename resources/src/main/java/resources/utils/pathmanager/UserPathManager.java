@@ -1,10 +1,7 @@
 package resources.utils.pathmanager;
  
 import java.nio.file.Path;
-import java.nio.file.Paths; 
-import java.util.List;
-import java.util.stream.Collectors;
-
+import java.nio.file.Paths;  
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -13,18 +10,16 @@ import resources.utils.general.GeneralPurpose;
 import resources.utils.user.AuthorizedUserAccount;
 
 /**
- * 
  * Class that wraps User 
  * Specific data , at the end of the given paths 
  * */
-
+ 
 public class UserPathManager 
 								extends PathManager{
-
-	
+ 
 	public UserPathManager(Directory... subdirectories) {
 		
-		super(subdirectories);
+		super(subdirectories); 
 		
 	}
 	
@@ -36,11 +31,11 @@ public class UserPathManager
 	
 	@Override
 	public Path getPathToOperateOn() {
-		 
+	 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
 		AuthorizedUserAccount authorizedAccount = (AuthorizedUserAccount) authentication.getPrincipal();
-		  	 
+		  	  
 		return  buildUserSpecificPath(authorizedAccount.getLoggedInAccountId());  
 	}
 	
@@ -57,13 +52,14 @@ public class UserPathManager
 	
 	private Path buildUserSpecificPath(int userAccountId) {
 		
+		// user asset 
+		
 		final String UserAccountDelimeter = "ACC_" + userAccountId;
-		
-		List<String> subPaths = GeneralPurpose.ArrayToList(super.getPathToOperateOn().toString().split("/"));
-		
-		// adding user account specific information .. 
-		subPaths.add( UserAccountDelimeter);
-		
-		return Paths.get(subPaths.stream().collect(Collectors.joining("/")));
+		  
+		 
+		return Paths.get(p_pathToOperateOn.toFile().toString(), 
+				
+				 UserAccountDelimeter);
+		 
 	}
 }

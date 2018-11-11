@@ -1,27 +1,25 @@
 package core.backend.REST.nonfileasset.synthesize.task;
  
-import resources.components.elements.POJO.Persistence.Course.PersistenceCourseSchedulePOJO;
-import resources.components.filehandler.JSON.general.GeneralJSONFileHandler;
-import resources.components.filehandler.XML.general.GeneralXMLFileHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+import resources.components.elements.POJO.Persistence.Course.PersistenceCourseSchedulePOJO;
+import resources.components.filehandler.JSON.general.GeneralJSONFileHandler; 
+
+@Component
 public class GeneralSynthesizedCourseScheduleTask 
 													extends SynthesizedTask<PersistenceCourseSchedulePOJO> {
 
-	private GeneralJSONFileHandler<PersistenceCourseSchedulePOJO> m_fileHandler;
-	
-	
-	public GeneralSynthesizedCourseScheduleTask(GeneralJSONFileHandler<PersistenceCourseSchedulePOJO> fileHandler) {
-		
-		m_fileHandler = fileHandler; 
-	}
-
+	@Autowired
+	@Qualifier("JSONFileHandler for PersistenceCourseScheduleJSONFile")  
+	private GeneralJSONFileHandler<PersistenceCourseSchedulePOJO>  m_jsonFileHandler;
 	 
-
 
 	@Override
 	public void workOnTask() {
 
-		this.response =  m_fileHandler.readJSONFile("CourseSchedule");
+		this.response =  m_jsonFileHandler.readFile("CourseSchedule");
 	} 
   
 }

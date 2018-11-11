@@ -12,7 +12,11 @@ public class LectureSchedulePOJO
 									extends PersistentLectureInformation{
 
 	private String vName;
+	
 	private String vDTyp;
+	
+	private String vTerm;
+	
 	
 	private List<LectureDayTimingsPOJO> vTimings; 
 	
@@ -48,13 +52,34 @@ public class LectureSchedulePOJO
 	public boolean isPratice() {
 		return pratice;
 	}
+	
 	public void setPratice(boolean pratice) {
 		this.pratice = pratice;
 	}
 	
+	
+	public void setvTerm(String courseTerm) {
+		
+		this.vTerm = courseTerm;
+	}
+	
+	public String getvTerm() {
+		
+		return this.vTerm;
+	}
+	
 	private boolean isEquivalent(LectureSchedulePOJO pojo) {
 		
-		return this.getvName().equals(pojo.getvName());
+		if(pojo.getvTerm() == null) {
+			
+			return this.getvName().equals(pojo.getvName());
+		}
+		
+		else {
+			
+			return this.getvName().equals(pojo.getvName()) && this.getvTerm().equals(pojo.getvTerm());
+		}
+		
 	}
 	
 	@Override
@@ -73,5 +98,6 @@ public class LectureSchedulePOJO
 		
 		return new LectureNameIdentifier(vName);
 	}
+	
 	
 }

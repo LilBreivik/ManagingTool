@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+ 
 
 /**
  * Methods that shall be used , to 
@@ -175,19 +176,5 @@ public class GeneralPurpose {
 		return  from.stream().map(func).collect(Collectors.toList());
 	}
 	
-	
-	/**
-	 * This Method clears the console ... 
-	 * 
-	 * It simulates simply 50 \r\n
-	 * */
-
-	public static void clearScreen() {
-		
-		// clears the screen
-		
-	    System.out.println(new String(new char[50]).replace("\0", "\r\n"));
-				
-	}
-	
+	  
 }

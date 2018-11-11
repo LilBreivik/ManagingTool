@@ -17,15 +17,21 @@ import resources.utils.general.GeneralPurpose;
 @Component
 public class VDTypConstraintStrategy extends ConstraintStrategy<String> {
 
+	public final static String incorrectLabel = "Vorlesung/Übung"; 
+	
+	public final static String lectureLabel = "Vorlesung"; 
+	
+	public final static String practiceLabel = "Übung"; 
+	
 	// here we define the keys that we are expecting, at the column "VDTyp"
 	
-	private final String[]  VDTypLegalValues = {"Vorlesung", "Übung", "Vorlesung/Übung"};
+	private final String[]  VDTypLegalValues = {lectureLabel ,  practiceLabel,  incorrectLabel };
 		
 	
 	public VDTypConstraintStrategy( ) {
 		super(GeneralPurpose.CollectionToArray(Arrays.asList("VDTyp")));
 	}
-
+ 
 	@Override
 	public void applyConstraint(String constraintValue) throws ConstraintViolationError {
 		 

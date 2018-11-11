@@ -11,7 +11,7 @@ public class PersistenceNoticesPOJO {
 		
 		this. noticesStatus =  noticesStatus; 
 	}
-	
+	 
 	public List<NoticeStatusPOJO> getNoticesStatus() {
 		return noticesStatus;
 	}
