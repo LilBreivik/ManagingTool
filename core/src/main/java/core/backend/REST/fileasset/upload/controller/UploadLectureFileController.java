@@ -11,6 +11,13 @@ import core.backend.REST.fileasset.upload.parameter.UploadLectureFileParameter;
 import core.backend.REST.fileasset.upload.task.UploadLectureScheduleFileTask;
 import core.backend.REST.general.controller.REST.NonResponseController; 
 
+/**
+ * Controller that is need to 
+ * upload the lecture schedule files 
+ * 
+ * */
+
+
 @Controller 
 public class UploadLectureFileController 
 

@@ -117,11 +117,9 @@ public class ConflictsManager {
 	
 
 	public void initializeCourses(List<LecturePOJO> lecturesList) {
-		 
-		 
+	 	 
 		List<String> courses = new ArrayList<String>(new HashSet<String>(lecturesList.stream().map(lecture -> lecture.currentCourse()).collect(Collectors.toList())));
-		
-		
+	 	
 		List<String> semesters = new ArrayList<String>(new HashSet<String>(lecturesList.stream().map(lecture -> lecture.currentSemester()).collect(Collectors.toList())));
 		
 		 
@@ -162,8 +160,11 @@ public class ConflictsManager {
 		
 		
 		
-		this.courseLecturesInSecondSemester =  lecturesList.stream().filter(lecture ->  
-														 lecture.currentCourse().equals(courses.get(0)) && lecture.currentSemester().equals(semesters.get(1)) )
+		this.courseLecturesInSecondSemester =  lecturesList.stream().filter(lecture -> lecture.currentCourse().equals(courses.get(0)) && lecture.currentSemester().equals(semesters.get(2))
+	
+			
+															
+														)
 															    .collect(Collectors.toList())
 															    	.stream()
 															    	.filter(lecture -> lecture.getisPractice() == false)
@@ -180,7 +181,7 @@ public class ConflictsManager {
 
 
 		this.coursePracticesInSecondSemester =  lecturesList.stream().filter(lecture ->  
-														 lecture.currentCourse().equals(courses.get(0)) && lecture.currentSemester().equals(semesters.get(1)) )
+														 lecture.currentCourse().equals(courses.get(0)) && lecture.currentSemester().equals(semesters.get(2)) )
 															    .collect(Collectors.toList())
 															    	.stream()
 															    	.filter(lecture -> lecture.getisPractice() == true)
@@ -237,7 +238,7 @@ public class ConflictsManager {
 			
 			
              this.paralledCourseLecturesInSecondSemester =  lecturesList.stream().filter(lecture ->  
-																	 lecture.currentCourse().equals(courses.get(1)) && lecture.currentSemester().equals(semesters.get(1)) )
+																	 lecture.currentCourse().equals(courses.get(1)) && lecture.currentSemester().equals(semesters.get(2)) )
 																		    .collect(Collectors.toList())
 																		    	.stream()
 																		    	.filter(lecture -> lecture.getisPractice() == false)
@@ -251,7 +252,7 @@ public class ConflictsManager {
 
              this.paralledCoursePracticesInSecondSemester =  lecturesList.stream().filter(lecture ->  
 				
-																							lecture.currentCourse().equals(courses.get(1)) && lecture.currentSemester().equals(semesters.get(1)) )
+																							lecture.currentCourse().equals(courses.get(1)) && lecture.currentSemester().equals(semesters.get(2)) )
 																							    .collect(Collectors.toList())
 																							    	.stream()
 																							    	.filter(lecture -> lecture.getisPractice() == true)
@@ -284,8 +285,7 @@ public class ConflictsManager {
 			  
 			  this.paralledCoursePracticesInSecondSemester  =  new ArrayList<>();
 		}
-		
-		  
+		 
 	}  
 	 
 	

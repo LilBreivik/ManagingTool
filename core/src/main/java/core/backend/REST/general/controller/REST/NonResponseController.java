@@ -26,8 +26,7 @@ import core.utils.redirect.RedirectionHandler;
 @Component 
 public abstract class NonResponseController <Task extends AbstractTaskImpl, 
 														Request extends  RESTRequest> {
-
-
+ 
 	@Autowired 
 	private RedirectionHandler m_redirectHandler; 
 	
@@ -35,11 +34,19 @@ public abstract class NonResponseController <Task extends AbstractTaskImpl,
 
 	protected  String p_landingUrl;
 	
-	
-	public void handleRequest(HttpServletRequest request, 
-								HttpServletResponse response,
-								 Map<String, String> restRequest) {}
 
+	/*
+	 * Method that is need 
+	 * to handle a certain Request , with
+	 * a Request Object . 
+	 * 
+	 * This Method shall be used, if redirection is needed 
+	 * 
+	 * @param HttpServletRequest request, 
+	 * @param HttpServletResponse response,
+	 * @param Request restRequest
+	 * 
+	 * */
 	 
 	public void handleRequest(HttpServletRequest request, 
 								HttpServletResponse response,
@@ -55,14 +62,43 @@ public abstract class NonResponseController <Task extends AbstractTaskImpl,
 		
 		m_redirectHandler.handleRedirection(request, response, p_landingUrl);
 	}
+	
+	
+	/*
+	 * Method that is need 
+	 * to handle a certain Request , with
+	 * a Request Object . 
+	 * 
+	 * This Method shall be used, if redirection is needed 
+	 * 
+	 * @param HttpServletRequest request, 
+	 * @param HttpServletResponse response,
+	 * @param String resetURLValue
+	 * 
+	 * */
+	 
 
 	public void handleRequest(HttpServletRequest request,
-            HttpServletResponse response, 
-               String resetURLValue) {
+								HttpServletResponse response, 
+									String resetURLValue) {
 
 
 		m_redirectHandler.handleRedirection(request, response, resetURLValue);
     }
+	
+	
+	/*
+	 * Method that is need 
+	 * to handle a certain Request , with
+	 * a Request Object . 
+	 * 
+	 * This Method shall be used, if redirection is needed 
+	 *  
+	 * @param HttpServletResponse response,
+	 * @param Request restRequest
+	 * 
+	 * */
+	
 	 
 	public void handleRequest( HttpServletResponse response,
 				Request restRequest) {	 
@@ -76,6 +112,19 @@ public abstract class NonResponseController <Task extends AbstractTaskImpl,
 		 
 	}
 	
+	
+	
+
+
+	/*
+	 * Method that is need 
+	 * to handle a certain Request , with
+	 * a Request Object . 
+	 *
+	 * @param Request restRequest
+	 * 
+	 * */
+	 
 	public void handleRequest( Request restRequest) {
 		 
 		

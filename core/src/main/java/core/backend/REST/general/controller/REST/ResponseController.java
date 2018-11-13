@@ -8,9 +8,9 @@ import core.backend.REST.general.task.response.AbstractResponseTaskImpl;
 
 /**
  * General Implementation 
- * for the IRESTResponseForRequestController<Request, Response>
+ * for  a certain contoller, that 
+ * handles a response for a certain request
  * 
- * IRESTResponseForRequestControllerImpl<Task, Request, Response> 
  * 
  * Task = Tasktype extends GeneralAbstractTaskImpl
  * Request = Requesttype
@@ -33,6 +33,13 @@ public abstract class ResponseController < Request extends RESTRequest,
 	protected Task p_task; 
 	 
 	
+	/*
+	 * Method that is need 
+	 * to handle a certain Request , without 
+	 * a Request Object 
+	 * */
+	
+	
 	public SuccessResponse<Response> handleRequest() {
 	  	
 		
@@ -44,6 +51,13 @@ public abstract class ResponseController < Request extends RESTRequest,
 		return   p_task.getResultsFromTask(); 
 	}
 	 
+	/*
+	 * Method that is need 
+	 * to handle a certain Request , with
+	 * a Request Object 
+	 * 
+	 * @param Request restRequest
+	 * */
 	 
  
 	public SuccessResponse<Response> handleRequest(Request restRequest) {

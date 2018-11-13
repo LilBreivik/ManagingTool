@@ -26,8 +26,7 @@ public class PasswordForgottenController
 	
 	public final static String PasswordForgottenRecoveryRequestSucceededURL = "/passwordForgottenRecoverySuccessfull"; 
 
-	
-	@Override
+	 
 	@ResponseStatus( HttpStatus.OK )
 	@RequestMapping(value = PasswordForgottenControllerURL, method = RequestMethod.POST)
 	public void handleRequest(HttpServletRequest request, 

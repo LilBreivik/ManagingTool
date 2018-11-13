@@ -1,14 +1,19 @@
 package core.backend.REST.assets.task;
  
-import org.springframework.dao.DataIntegrityViolationException;
-
-import core.backend.REST.assets.parameter.AssetsStockCourseScheduleParameter;
+import org.springframework.dao.DataIntegrityViolationException; 
 import core.backend.REST.assets.parameter.AssetsStockParameter; 
 import core.backend.REST.general.response.result.successfully.SuccessResponse; 
 import core.backend.REST.general.task.response.AbstractResponseTaskImpl;
 import resources.components.elements.POJO.Assets.AssetsStockPOJO; 
 import resources.database.entities.File.Files;
 import resources.database.repository.FilesRepository; 
+
+
+/**
+ * Task that 
+ * is used to determine the ammount 
+ * of te specifc kind of schedule file 
+ * */
 
 
 public class AssetsStockTask < Parameter extends AssetsStockParameter> 

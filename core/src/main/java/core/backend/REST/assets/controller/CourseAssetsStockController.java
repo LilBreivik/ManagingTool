@@ -2,10 +2,8 @@ package core.backend.REST.assets.controller;
   
  
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-import core.backend.REST.assets.parameter.AssetsStockCourseScheduleParameter;
-import core.backend.REST.assets.parameter.AssetsStockParameter; 
+import org.springframework.web.bind.annotation.ResponseStatus; 
+import core.backend.REST.assets.parameter.AssetsStockCourseScheduleParameter; 
 import core.backend.REST.assets.task.AssetsStockTask; 
 import core.backend.REST.general.controller.REST.ResponseController; 
 import core.backend.REST.general.response.result.successfully.SuccessResponse; 
@@ -16,6 +14,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod; 
+
+/**
+ * Controller that is need to 
+ * describe the amount of Course Asset Data 
+ * 
+ * */
+
 
 @Controller
 public class CourseAssetsStockController 

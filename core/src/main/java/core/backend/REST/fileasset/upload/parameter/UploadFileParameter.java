@@ -14,8 +14,9 @@ import resources.fileconnection.GeneralFileConnection;
 
 
 /**
- * Class that describes a general Parameter 
- * for 
+ * Class that describes the general Parameter 
+ * for an upload request
+ * 
  * */
   
   
@@ -32,8 +33,7 @@ public  class UploadFileParameter <Connection extends GeneralFileConnection>
 	 
 	protected final String uploadFileRequestParameter = "courseScheduleFile"; 
 	
-	 
-	
+	  
 	public  UploadFileParameter(CourseScheduleFilePOJO pojo) {
 		super( pojo);
 		 
